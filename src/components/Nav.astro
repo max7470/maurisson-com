@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Lang, AIRBNB_URL, MUSIC_HUB_URL, languages } from '../i18n/ui';
+import { useTranslations, type Lang, AIRBNB_URL, MUSIC_HUB_URL, GREEN_HUB_URL, languages } from '../i18n/ui';
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 
@@ -48,14 +48,25 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
       </div>
       <div class="cta-stack">
         <a href={AIRBNB_URL} target="_blank" rel="noopener" class="btn btn--primary btn--sm">{t('nav.book')}</a>
-        <a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-music" aria-label={t('nav.music')}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 18V5l12-2v13"/>
-            <circle cx="6" cy="18" r="3"/>
-            <circle cx="18" cy="16" r="3"/>
-          </svg>
-          <span>{t('nav.music')}</span>
-        </a>
+        <div class="cta-row">
+          <a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-music" aria-label={t('nav.music')}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+            <span>{t('nav.music')}</span>
+          </a>
+          <a href={GREEN_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-green" aria-label={t('nav.green')}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22c-4-4-7-9-7-13a7 7 0 0 1 14 0c0 4-3 9-7 13z"/>
+              <path d="M12 16V9"/>
+              <path d="M12 12c-1-1-3-1-4 0"/>
+              <path d="M12 12c1-1 3-1 4 0"/>
+            </svg>
+            <span>{t('nav.green')}</span>
+          </a>
+        </div>
       </div>
       <button class="burger" data-burger aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -81,6 +92,15 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
           <circle cx="18" cy="16" r="3"/>
         </svg>
         {t('nav.music')}
+      </a></li>
+      <li><a href={GREEN_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22c-4-4-7-9-7-13a7 7 0 0 1 14 0c0 4-3 9-7 13z"/>
+          <path d="M12 16V9"/>
+          <path d="M12 12c-1-1-3-1-4 0"/>
+          <path d="M12 12c1-1 3-1 4 0"/>
+        </svg>
+        {t('nav.green')}
       </a></li>
     </ul>
   </div>
@@ -209,21 +229,33 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
 
   .btn--sm { padding: 0.6rem 1.1rem; font-size: 0.85rem; }
 
-  /* Stack vertical Réserver + Music Hub, top-right de la nav */
+  /* Stack vertical : Réserver en haut, ligne Music Hub + Green Hub en dessous */
   .cta-stack {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 0.5rem;
   }
-  .cta-stack .btn {
+  .cta-stack > .btn--primary {
     min-width: 130px;
     justify-content: center;
   }
-  .cta-music {
-    /* Variante discrète, taille identique au "Réserver" */
+  .cta-row {
+    display: flex;
+    gap: 0.4rem;
+  }
+  .cta-row .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding-inline: 0.7rem;
+  }
+  .cta-music,
+  .cta-green {
     background: rgba(11, 9, 7, 0.45);
     backdrop-filter: blur(10px);
+  }
+  .cta-music {
     border-color: rgba(237, 170, 106, 0.28);
     color: var(--ember-200);
   }
@@ -232,7 +264,18 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
     border-color: rgba(237, 170, 106, 0.55);
     background: rgba(58, 26, 10, 0.55);
   }
-  .cta-music svg { flex-shrink: 0; opacity: 0.9; }
+  .cta-green {
+    /* Teinte verte cohérente avec l'identité Green Hub */
+    border-color: rgba(154, 200, 138, 0.32);
+    color: #c7e3ba;
+  }
+  .cta-green:hover:not(:disabled) {
+    color: #e0f0d8;
+    border-color: rgba(154, 200, 138, 0.6);
+    background: rgba(38, 60, 30, 0.55);
+  }
+  .cta-music svg,
+  .cta-green svg { flex-shrink: 0; opacity: 0.9; }
 
   .burger {
     display: none;

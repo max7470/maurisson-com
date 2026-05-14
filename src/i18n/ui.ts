@@ -13,6 +13,7 @@ export const AIRBNB_URL = 'https://airbnb.be/h/maurisson';
 export const WHATSAPP = '+32 498 34 53 06';
 export const WHATSAPP_URL = 'https://wa.me/32498345306';
 export const MUSIC_HUB_URL = 'https://musichub.maurisson.com';
+export const GREEN_HUB_URL = 'https://greenhub.maurisson.com';
 
 export const ui = {
   fr: {
@@ -23,6 +24,7 @@ export const ui = {
     'nav.reviews': 'Avis',
     'nav.book': 'Réserver',
     'nav.music': 'Music Hub',
+    'nav.green': 'Green Hub',
 
     'hero.eyebrow': 'Herve · Belgique',
     'hero.title.l1': 'Une chambre',
@@ -103,6 +105,7 @@ export const ui = {
     'nav.reviews': 'Reviews',
     'nav.book': 'Boeken',
     'nav.music': 'Music Hub',
+    'nav.green': 'Green Hub',
 
     'hero.eyebrow': 'Herve · België',
     'hero.title.l1': 'Eén kamer',
@@ -183,6 +186,7 @@ export const ui = {
     'nav.reviews': 'Reviews',
     'nav.book': 'Book',
     'nav.music': 'Music Hub',
+    'nav.green': 'Green Hub',
 
     'hero.eyebrow': 'Herve · Belgium',
     'hero.title.l1': 'One room',
@@ -263,6 +267,7 @@ export const ui = {
     'nav.reviews': 'Bewertungen',
     'nav.book': 'Buchen',
     'nav.music': 'Music Hub',
+    'nav.green': 'Green Hub',
 
     'hero.eyebrow': 'Herve · Belgien',
     'hero.title.l1': 'Ein Zimmer',
