@@ -66,6 +66,16 @@
   --border: rgba(244, 237, 227, 0.08);
   --border-strong: rgba(244, 237, 227, 0.16);
 
+  /* polish & glow (depth without changing palette) */
+  --ember-glow:       rgba(224, 138, 68, 0.45);
+  --ember-glow-soft:  rgba(224, 138, 68, 0.22);
+  --ember-glow-dim:   rgba(224, 138, 68, 0.08);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.35);
+  --shadow-md: 0 6px 18px rgba(0,0,0,.4), 0 1px 2px rgba(0,0,0,.25);
+  /* catchlight + base interne : effet "verre chaud poli" */
+  --inset-polish: inset 0 1px 0 rgba(253, 228, 192, 0.28), inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+  --inset-polish-ghost: inset 0 1px 0 rgba(244, 237, 227, 0.06), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+
   /* ── typography ──────────────────────────────────────────── */
   --font-display: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -205,6 +215,7 @@ section {
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
   padding: 1rem 1.6rem;
   font-family: var(--font-body);
@@ -214,34 +225,116 @@ section {
   border: 1px solid transparent;
   border-radius: 999px;
   cursor: pointer;
-  transition: all var(--dur) var(--ease);
+  transition:
+    transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    filter var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   white-space: nowrap;
+  text-decoration: none;
 }
+
+/* ── PRIMARY : terracotta "verre chaud poli" ──────────────── */
 .btn--primary {
-  background: var(--ember-500);
+  background: linear-gradient(
+    180deg,
+    var(--ember-300) 0%,
+    var(--ember-400) 38%,
+    var(--ember-500) 70%,
+    #a8551d 100%
+  );
   color: var(--ink-950);
+  border-color: rgba(253, 228, 192, 0.5);
+  box-shadow:
+    var(--inset-polish),
+    0 1px 0 rgba(253, 228, 192, 0.45) inset,
+    0 -10px 14px -10px rgba(0, 0, 0, 0.5) inset,
+    var(--shadow-sm);
+  text-shadow: 0 1px 0 rgba(253, 228, 192, 0.35);
 }
-.btn--primary:hover {
-  background: var(--ember-400);
+.btn--primary::before {
+  content: '';
+  position: absolute;
+  inset: 1px 1px auto 1px;
+  height: 45%;
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0));
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
+  transition: opacity var(--dur) var(--ease);
+}
+.btn--primary > * { position: relative; z-index: 1; }
+.btn--primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px -10px rgba(224, 138, 68, 0.5);
+  filter: brightness(1.06) saturate(1.06);
+  box-shadow:
+    var(--inset-polish),
+    0 1px 0 rgba(253, 228, 192, 0.55) inset,
+    0 -10px 14px -10px rgba(0, 0, 0, 0.5) inset,
+    0 14px 32px -10px var(--ember-glow),
+    0 0 0 4px var(--ember-glow-soft);
 }
+.btn--primary:hover:not(:disabled)::before { opacity: 1; }
+.btn--primary:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
+  filter: brightness(0.96);
+  box-shadow:
+    0 1px 0 rgba(253, 228, 192, 0.3) inset,
+    0 6px 12px -6px rgba(0, 0, 0, 0.55) inset,
+    var(--shadow-sm);
+}
+.btn--primary:focus-visible {
+  outline: none;
+  box-shadow:
+    var(--inset-polish),
+    0 1px 0 rgba(253, 228, 192, 0.5) inset,
+    0 -10px 14px -10px rgba(0, 0, 0, 0.5) inset,
+    0 0 0 3px var(--ember-glow);
+}
+
+/* ── GHOST : anthracite mat, bord qui s'allume au hover ──── */
 .btn--ghost {
-  background: transparent;
+  background: linear-gradient(180deg, var(--ink-700) 0%, var(--ink-800) 100%);
   border-color: var(--border-strong);
   color: var(--fg);
+  box-shadow: var(--inset-polish-ghost), var(--shadow-sm);
 }
-.btn--ghost:hover {
-  background: rgba(244, 237, 227, 0.05);
+.btn--ghost:hover:not(:disabled) {
+  background: linear-gradient(180deg, var(--ink-600) 0%, var(--ink-700) 100%);
   border-color: var(--ember-400);
   color: var(--ember-200);
+  transform: translateY(-1px);
+  box-shadow:
+    var(--inset-polish-ghost),
+    0 10px 24px -10px rgba(0, 0, 0, 0.6),
+    0 0 0 3px var(--ember-glow-soft);
 }
+.btn--ghost:active:not(:disabled) {
+  transform: translateY(0);
+  filter: brightness(0.96);
+}
+.btn--ghost:focus-visible {
+  outline: none;
+  border-color: var(--ember-400);
+  box-shadow: var(--inset-polish-ghost), 0 0 0 3px var(--ember-glow);
+}
+
 .btn--lg {
   padding: 1.2rem 2rem;
   font-size: 1rem;
 }
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  filter: grayscale(0.3);
+}
+.btn--primary:disabled::before { opacity: 0.3; }
 .btn .arrow {
   transition: transform var(--dur) var(--ease);
 }

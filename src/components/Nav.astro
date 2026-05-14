@@ -138,22 +138,27 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
 
   .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 2.4rem;
     list-style: none;
   }
   .nav-links a {
-    font-size: 0.9rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.08rem;
+    letter-spacing: -0.005em;
     color: var(--fg-muted);
     position: relative;
-    transition: color var(--dur-fast) var(--ease);
+    transition: color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
   }
-  .nav-links a:hover { color: var(--ember-300); }
+  .nav-links a:hover {
+    color: var(--ember-200);
+  }
   .nav-links a::after {
     content: '';
     position: absolute;
-    left: 0; right: 0; bottom: -6px;
+    left: 0; right: 0; bottom: -8px;
     height: 1px;
-    background: var(--ember-400);
+    background: linear-gradient(90deg, transparent, var(--ember-400) 25%, var(--ember-300) 50%, var(--ember-400) 75%, transparent);
     transform: scaleX(0);
     transform-origin: center;
     transition: transform var(--dur) var(--ease);
