@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Lang, AIRBNB_URL, languages } from '../i18n/ui';
+import { useTranslations, type Lang, AIRBNB_URL, MUSIC_HUB_URL, languages } from '../i18n/ui';
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 
@@ -46,7 +46,17 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
           >{label}</a>
         ))}
       </div>
-      <a href={AIRBNB_URL} target="_blank" rel="noopener" class="btn btn--primary btn--sm">{t('nav.book')}</a>
+      <div class="cta-stack">
+        <a href={AIRBNB_URL} target="_blank" rel="noopener" class="btn btn--primary btn--sm">{t('nav.book')}</a>
+        <a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-music" aria-label={t('nav.music')}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+          </svg>
+          <span>{t('nav.music')}</span>
+        </a>
+      </div>
       <button class="burger" data-burger aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -64,6 +74,14 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
         ))}
       </li>
       <li><a href={AIRBNB_URL} target="_blank" rel="noopener" class="btn btn--primary" style="margin-top:1rem;display:inline-flex">{t('nav.book')}</a></li>
+      <li><a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 18V5l12-2v13"/>
+          <circle cx="6" cy="18" r="3"/>
+          <circle cx="18" cy="16" r="3"/>
+        </svg>
+        {t('nav.music')}
+      </a></li>
     </ul>
   </div>
 </nav>
@@ -191,6 +209,31 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
 
   .btn--sm { padding: 0.6rem 1.1rem; font-size: 0.85rem; }
 
+  /* Stack vertical Réserver + Music Hub, top-right de la nav */
+  .cta-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .cta-stack .btn {
+    min-width: 130px;
+    justify-content: center;
+  }
+  .cta-music {
+    /* Variante discrète, taille identique au "Réserver" */
+    background: rgba(11, 9, 7, 0.45);
+    backdrop-filter: blur(10px);
+    border-color: rgba(237, 170, 106, 0.28);
+    color: var(--ember-200);
+  }
+  .cta-music:hover:not(:disabled) {
+    color: var(--ember-100);
+    border-color: rgba(237, 170, 106, 0.55);
+    background: rgba(58, 26, 10, 0.55);
+  }
+  .cta-music svg { flex-shrink: 0; opacity: 0.9; }
+
   .burger {
     display: none;
     width: 40px; height: 40px;
@@ -263,6 +306,6 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
     .nav-links { display: none; }
     .lang-switch { display: none; }
     .burger { display: inline-flex; }
-    .nav-actions .btn--primary { display: none; }
+    .cta-stack { display: none; }
   }
 </style>
