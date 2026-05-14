@@ -24,13 +24,15 @@ const t = useTranslations(lang);
       <span class="hero-line reveal delay-2">{t('hero.title.l3')}</span>
     </h1>
 
-    <p class="hero-sub reveal delay-3">{t('hero.sub')}</p>
-
-    <div class="hero-cta reveal delay-3">
-      <a href={AIRBNB_URL} target="_blank" rel="noopener" class="btn btn--primary btn--lg">
+    <div class="hero-sub-row reveal delay-3">
+      <p class="hero-sub">{t('hero.sub')}</p>
+      <a href={AIRBNB_URL} target="_blank" rel="noopener" class="btn btn--primary btn--lg hero-sub-cta">
         {t('hero.cta.primary')}
         <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
+    </div>
+
+    <div class="hero-cta reveal delay-3">
       <a href="#room" class="btn btn--ghost btn--lg">{t('hero.cta.secondary')}</a>
     </div>
   </div>
@@ -135,6 +137,13 @@ const t = useTranslations(lang);
     color: transparent;
   }
 
+  .hero-sub-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
   .hero-sub {
     font-family: var(--font-display);
     font-weight: 300;
@@ -142,8 +151,11 @@ const t = useTranslations(lang);
     line-height: 1.45;
     max-width: 48ch;
     color: var(--ink-100);
-    margin-bottom: 2.5rem;
     letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .hero-sub-cta {
+    flex-shrink: 0;
   }
 
   .hero-cta {
@@ -204,6 +216,11 @@ const t = useTranslations(lang);
   }
 
   @media (max-width: 780px) {
+    .hero-sub-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
     .hero-badge {
       bottom: 5rem;
       right: var(--gutter);
