@@ -1,0 +1,215 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { reviews, stats } from '../data/reviews';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+
+const catLabels: Record<Lang, Record<keyof typeof stats.categories, string>> = {
+  fr: { arrivee: 'Arrivée', communication: 'Communication', precision: 'Précision', qualitePrix: 'Qualité-prix', proprete: 'Propreté', emplacement: 'Emplacement' },
+  nl: { arrivee: 'Check-in', communication: 'Communicatie', precision: 'Precisie', qualitePrix: 'Prijs/kwaliteit', proprete: 'Netheid', emplacement: 'Locatie' },
+  en: { arrivee: 'Check-in', communication: 'Communication', precision: 'Accuracy', qualitePrix: 'Value', proprete: 'Cleanliness', emplacement: 'Location' },
+  de: { arrivee: 'Check-in', communication: 'Kommunikation', precision: 'Genauigkeit', qualitePrix: 'Preis-Leistung', proprete: 'Sauberkeit', emplacement: 'Lage' },
+};
+const cats = catLabels[lang];
+
+const langFlag: Record<string, string> = { fr: '🇫🇷', nl: '🇳🇱', en: '🇬🇧', de: '🇩🇪', da: '🇩🇰' };
+---
+<section id="reviews" class="reviews">
+  <div class="container">
+    <div class="reviews-head">
+      <p class="eyebrow reveal">{t('reviews.eyebrow')}</p>
+      <h2 class="reviews-title display reveal delay-1">
+        <span class="big">{stats.rating}</span>
+        <span class="on">/5</span>
+      </h2>
+      <p class="reviews-sub reveal delay-2">{t('reviews.title')}</p>
+    </div>
+
+    <div class="cat-bar reveal delay-2">
+      {Object.entries(stats.categories).map(([k, v]) => (
+        <div class="cat">
+          <div class="cat-top">
+            <span class="cat-label">{cats[k as keyof typeof cats]}</span>
+            <span class="cat-val">{v.toFixed(1)}</span>
+          </div>
+          <div class="cat-track">
+            <div class="cat-fill" style={'--v:' + (v / 5 * 100) + '%'}></div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="reviews-grid">
+      {reviews.map((r, i) => (
+        <article class={'review reveal delay-' + ((i % 3) + 1)}>
+          <div class="r-head">
+            <div class="r-avatar">{r.author.slice(0,1)}</div>
+            <div class="r-meta">
+              <strong>{r.author}</strong>
+              <small>{r.date}</small>
+            </div>
+            <span class="r-flag" aria-label={r.lang}>{langFlag[r.lang] ?? '🌍'}</span>
+          </div>
+          <div class="r-stars" aria-label={r.rating + '/5'}>
+            {[1,2,3,4,5].map(() => (
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9 7.4.6-5.6 4.9 1.7 7.3L12 17.8 5.6 21.7l1.7-7.3-5.6-4.9 7.4-.6z"/></svg>
+            ))}
+          </div>
+          <blockquote>{r.text}</blockquote>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    background: linear-gradient(180deg, rgba(18, 15, 12, 0.5) 0%, transparent 100%);
+  }
+  .reviews-head {
+    text-align: center;
+    max-width: 60ch;
+    margin: 0 auto clamp(3rem, 6vw, 5rem);
+  }
+  .reviews-title {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    margin-block: 1rem 1.5rem;
+    font-weight: 300;
+    color: var(--ember-300);
+  }
+  .reviews-title .big {
+    font-size: clamp(4.5rem, 3rem + 8vw, 9rem);
+    letter-spacing: -0.04em;
+    background: linear-gradient(180deg, var(--ember-200), var(--ember-500));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .reviews-title .on {
+    font-size: clamp(1.6rem, 1rem + 2vw, 2.5rem);
+    color: var(--fg-dim);
+    font-style: italic;
+  }
+  .reviews-sub {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: var(--step-2);
+    color: var(--ink-100);
+    letter-spacing: -0.01em;
+  }
+
+  .cat-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem 2.5rem;
+    padding: 2rem 0;
+    margin-bottom: clamp(4rem, 8vw, 6rem);
+    border-block: 1px solid var(--border);
+  }
+  .cat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+  }
+  .cat-label {
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .cat-val {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.05rem;
+    color: var(--ember-300);
+  }
+  .cat-track {
+    height: 2px;
+    background: var(--border);
+    overflow: hidden;
+  }
+  .cat-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ember-500), var(--ember-300));
+    width: var(--v);
+    transform-origin: left;
+    animation: fill-in 1.2s var(--ease) forwards;
+  }
+  @keyframes fill-in { from { transform: scaleX(0); } }
+
+  .reviews-grid {
+    columns: 3 320px;
+    column-gap: 1.5rem;
+  }
+  .review {
+    break-inside: avoid;
+    background: rgba(18, 15, 12, 0.5);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.6rem;
+    margin-bottom: 1.5rem;
+    transition: all var(--dur) var(--ease);
+  }
+  .review:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-3px);
+    background: rgba(18, 15, 12, 0.8);
+  }
+  .r-head {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .r-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ember-500), var(--ember-700));
+    color: var(--ink-950);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .r-meta { flex: 1; line-height: 1.25; }
+  .r-meta strong {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--ink-50);
+  }
+  .r-meta small {
+    font-size: 0.75rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.05em;
+  }
+  .r-flag {
+    font-size: 1.1rem;
+    opacity: 0.8;
+  }
+  .r-stars {
+    display: flex;
+    gap: 2px;
+    color: var(--ember-400);
+    margin-bottom: 0.8rem;
+  }
+  .r-stars svg { width: 14px; height: 14px; }
+  blockquote {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--ink-100);
+    font-style: italic;
+    letter-spacing: -0.005em;
+  }
+
+  @media (max-width: 680px) {
+    .cat-bar { grid-template-columns: 1fr 1fr; }
+  }
+</style>

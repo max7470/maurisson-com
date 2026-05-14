@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+}
+
+const { lang, title, description } = Astro.props;
+const t = useTranslations(lang);
+const pageTitle = title ?? 'Chez Maurisson — ' + t('footer.tagline');
+const pageDescription = description ?? t('hero.sub');
+
+const alt = [
+  { lang: 'fr', href: '/' },
+  { lang: 'nl', href: '/nl/' },
+  { lang: 'en', href: '/en/' },
+  { lang: 'de', href: '/de/' },
+];
+---
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:image" content="/photos/01-hero-salon.avif" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  {alt.map(a => (
+    <link rel="alternate" hreflang={a.lang} href={a.href} />
+  ))}
+  <link rel="alternate" hreflang="x-default" href="/" />
+</head>
+<body>
+  <Nav lang={lang} />
+  <main>
+    <slot />
+  </main>
+  <Footer lang={lang} />
+
+  <script>
+    // ── Reveal on scroll ─────────────────────────────────────
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ── Nav state on scroll ─────────────────────────────────
+    const nav = document.querySelector('[data-nav]');
+    let last = 0;
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (nav) {
+        nav.classList.toggle('scrolled', y > 40);
+      }
+      last = y;
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ── Mobile menu ─────────────────────────────────────────
+    const burger = document.querySelector('[data-burger]');
+    const menu = document.querySelector('[data-menu]');
+    burger?.addEventListener('click', () => {
+      const open = menu?.classList.toggle('open');
+      burger.setAttribute('aria-expanded', String(!!open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+      burger?.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
+</body>
+</html>

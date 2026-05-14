@@ -1,0 +1,120 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+
+const amenitiesByLang: Record<Lang, { group: string; items: string[] }[]> = {
+  fr: [
+    { group: 'Chambre & linge', items: ['Lit double', 'Linge de lit en coton', 'Serrure sur la porte', 'Armoire'] },
+    { group: 'Salle de bain', items: ['Baignoire', 'Gel douche', 'Savon', 'Eau chaude'] },
+    { group: 'Cuisine', items: ['Machine à expresso', 'Micro-ondes', 'Équipement complet', 'Espace dédié frigo'] },
+    { group: 'Espaces', items: ['Piano', 'Salon & cheminée', 'Terrasse & BBQ', 'Jardin & hamac'] },
+    { group: 'Confort', items: ['Wifi', 'Climatisation', 'Chauffage central', 'Lave-linge'] },
+    { group: 'Accès', items: ['Parking gratuit', 'Garage couvert vélos', 'Autoroute 2 min', 'Rue sans issue'] },
+  ],
+  nl: [
+    { group: 'Kamer & linnen', items: ['Tweepersoonsbed', 'Katoenen beddengoed', 'Slot op deur', 'Kleerkast'] },
+    { group: 'Badkamer', items: ['Bad', 'Douchegel', 'Zeep', 'Warm water'] },
+    { group: 'Keuken', items: ['Espressoapparaat', 'Magnetron', 'Volledig uitgerust', 'Eigen koelkastplek'] },
+    { group: 'Ruimtes', items: ['Piano', 'Salon & haard', 'Terras & BBQ', 'Tuin & hangmat'] },
+    { group: 'Comfort', items: ['Wifi', 'Airco', 'Centrale verwarming', 'Wasmachine'] },
+    { group: 'Toegang', items: ['Gratis parking', 'Overdekte fietsgarage', 'Snelweg 2 min', 'Doodlopende straat'] },
+  ],
+  en: [
+    { group: 'Bedroom & linens', items: ['Double bed', 'Cotton bedding', 'Door lock', 'Wardrobe'] },
+    { group: 'Bathroom', items: ['Bathtub', 'Body wash', 'Soap', 'Hot water'] },
+    { group: 'Kitchen', items: ['Espresso machine', 'Microwave', 'Fully equipped', 'Dedicated fridge shelf'] },
+    { group: 'Spaces', items: ['Piano', 'Living room & fireplace', 'Terrace & BBQ', 'Garden & hammock'] },
+    { group: 'Comfort', items: ['Wifi', 'Air conditioning', 'Central heating', 'Washer'] },
+    { group: 'Access', items: ['Free parking', 'Covered bike garage', 'Highway 2 min', 'Dead-end street'] },
+  ],
+  de: [
+    { group: 'Zimmer & Wäsche', items: ['Doppelbett', 'Baumwollwäsche', 'Türschloss', 'Kleiderschrank'] },
+    { group: 'Badezimmer', items: ['Badewanne', 'Duschgel', 'Seife', 'Warmes Wasser'] },
+    { group: 'Küche', items: ['Espressomaschine', 'Mikrowelle', 'Voll ausgestattet', 'Eigenes Kühlfach'] },
+    { group: 'Räume', items: ['Klavier', 'Wohnzimmer & Kamin', 'Terrasse & Grill', 'Garten & Hängematte'] },
+    { group: 'Komfort', items: ['WLAN', 'Klimaanlage', 'Zentralheizung', 'Waschmaschine'] },
+    { group: 'Zugang', items: ['Kostenlos parken', 'Überdachte Fahrradgarage', 'Autobahn 2 Min', 'Sackgasse'] },
+  ],
+};
+const groups = amenitiesByLang[lang];
+---
+<section class="amenities">
+  <div class="container">
+    <div class="am-head">
+      <p class="eyebrow reveal">{t('amenities.eyebrow')}</p>
+      <h2 class="am-title display reveal delay-1">{t('amenities.title')}</h2>
+    </div>
+
+    <div class="am-grid">
+      {groups.map((g, i) => (
+        <div class={'am-col reveal delay-' + ((i % 3) + 1)}>
+          <h3 class="am-group">{g.group}</h3>
+          <ul>
+            {g.items.map((item) => (
+              <li>
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l3.5 3.5L13 4"/></svg>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .amenities { padding-block: clamp(5rem, 10vw, 10rem); }
+  .am-head { margin-bottom: clamp(3rem, 6vw, 5rem); max-width: 50ch; }
+  .am-title {
+    font-size: clamp(2.2rem, 1.6rem + 3vw, 4rem);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-top: 1.2rem;
+  }
+  .am-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+  .am-col {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+  .am-group {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ember-300);
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.01em;
+  }
+  .am-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .am-col li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.95rem;
+    color: var(--ink-100);
+  }
+  .am-col svg {
+    width: 14px; height: 14px;
+    color: var(--ember-400);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 780px) {
+    .am-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .am-grid { grid-template-columns: 1fr; }
+  }
+</style>

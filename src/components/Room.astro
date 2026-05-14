@@ -1,0 +1,145 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+
+const features = [
+  { k: 'room.feature.1.title', b: 'room.feature.1.body', icon: 'lock' },
+  { k: 'room.feature.2.title', b: 'room.feature.2.body', icon: 'bed' },
+  { k: 'room.feature.3.title', b: 'room.feature.3.body', icon: 'leaf' },
+] as const;
+---
+<section id="room" class="room">
+  <div class="container">
+    <div class="room-grid">
+      <div class="room-media reveal">
+        <img src="/photos/02-chambre.avif" alt="" loading="lazy" />
+        <div class="room-media-tag">
+          <span>{t('nav.room')}</span>
+        </div>
+      </div>
+
+      <div class="room-text">
+        <p class="eyebrow reveal">{t('room.eyebrow')}</p>
+        <h2 class="room-title display reveal delay-1">{t('room.title')}</h2>
+        <p class="room-body body-lg reveal delay-2">{t('room.body')}</p>
+
+        <ul class="room-features">
+          {features.map((f, i) => (
+            <li class={'room-feature reveal delay-' + (i+1)}>
+              <span class="feat-icon">
+                {f.icon === 'lock' && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+                )}
+                {f.icon === 'bed' && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 18V7"/><path d="M21 18v-5a3 3 0 00-3-3H3"/><circle cx="7" cy="13" r="2"/><path d="M3 18h18"/></svg>
+                )}
+                {f.icon === 'leaf' && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 20A7 7 0 014 13V4h9a7 7 0 017 7v0a7 7 0 01-7 7h-2z"/><path d="M4 4l16 16"/></svg>
+                )}
+              </span>
+              <div>
+                <h3>{t(f.k as any)}</h3>
+                <p>{t(f.b as any)}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .room {
+    position: relative;
+  }
+  .room-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .room-media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.2),
+      0 40px 80px -30px rgba(0,0,0,0.6);
+  }
+  .room-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 1.2s var(--ease);
+  }
+  .room:hover .room-media img { transform: scale(1.06); }
+  .room-media-tag {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(11,9,7,0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-50);
+  }
+  .room-title {
+    font-size: clamp(2.2rem, 1.6rem + 3vw, 4rem);
+    font-weight: 300;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+    margin-block: 1.2rem 1.8rem;
+  }
+  .room-body {
+    margin-bottom: 3rem;
+  }
+  .room-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+  .room-feature {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+  .feat-icon {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ember-400);
+    background: rgba(224, 138, 68, 0.08);
+    border: 1px solid rgba(224, 138, 68, 0.2);
+    border-radius: 10px;
+  }
+  .feat-icon svg { width: 18px; height: 18px; }
+  .room-feature h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.1rem;
+    color: var(--ink-50);
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
+  }
+  .room-feature p {
+    font-size: 0.92rem;
+    color: var(--fg-dim);
+    line-height: 1.55;
+    max-width: 50ch;
+  }
+
+  @media (max-width: 840px) {
+    .room-grid { grid-template-columns: 1fr; }
+    .room-media { aspect-ratio: 4 / 3; }
+  }
+</style>

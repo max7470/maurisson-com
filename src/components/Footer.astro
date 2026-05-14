@@ -1,0 +1,148 @@
+---
+import { useTranslations, type Lang, AIRBNB_URL, WHATSAPP, WHATSAPP_URL, languages } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
+---
+<footer class="footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand">
+          <span class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+          </span>
+          <span class="brand-text">
+            <span class="brand-chez">Chez</span>
+            <span class="brand-name">Maurisson</span>
+          </span>
+        </div>
+        <p class="foot-tag">{t('footer.tagline')}</p>
+      </div>
+
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener">WhatsApp · {WHATSAPP}</a>
+        <a href={AIRBNB_URL} target="_blank" rel="noopener">Airbnb · airbnb.be/h/maurisson</a>
+      </div>
+
+      <div class="foot-col">
+        <h4>{t('lang.switch')}</h4>
+        <div class="foot-langs">
+          {Object.entries(languages).map(([code, label]) => (
+            <a href={langHref(code)} class={lang === code ? 'active' : ''}>{label}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-bot">
+      <span>© {year} · {t('footer.made')}</span>
+      <span class="made">Herve · Belgique · BE</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: clamp(4rem, 8vw, 6rem) 2.5rem;
+    border-top: 1px solid var(--border);
+    background: var(--ink-900);
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    margin-bottom: clamp(3rem, 5vw, 4rem);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--fg);
+  }
+  .brand-mark {
+    width: 36px; height: 36px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ember-400);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+  }
+  .brand-mark svg { width: 18px; height: 18px; }
+  .brand-text { display: flex; flex-direction: column; line-height: 1; }
+  .brand-chez {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.7rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+  .foot-tag {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--fg-muted);
+    margin-top: 1rem;
+    max-width: 32ch;
+    line-height: 1.5;
+  }
+
+  .foot-col h4 {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ember-400);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .foot-col a {
+    display: block;
+    font-size: 0.92rem;
+    color: var(--fg-muted);
+    margin-bottom: 0.5rem;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .foot-col a:hover { color: var(--ember-300); }
+
+  .foot-langs {
+    display: flex;
+    gap: 0.4rem;
+  }
+  .foot-langs a {
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    margin: 0;
+  }
+  .foot-langs a.active {
+    border-color: var(--ember-500);
+    color: var(--ember-300);
+  }
+
+  .foot-bot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 760px) {
+    .foot-grid { grid-template-columns: 1fr; }
+    .foot-bot { flex-direction: column; text-align: center; }
+  }
+</style>

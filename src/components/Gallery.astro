@@ -1,0 +1,94 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+
+const photos = [
+  '/photos/08-salle-manger.avif',
+  '/photos/06-cuisine.avif',
+  '/photos/12-entree.avif',
+  '/photos/10-terrasse-jardin.avif',
+  '/photos/09-terrasse.avif',
+  '/photos/11-jardin-hamac.avif',
+  '/photos/13-quartier.avif',
+  '/photos/07-cuisine-detail.avif',
+];
+---
+<section class="gallery">
+  <div class="container">
+    <div class="gallery-head">
+      <p class="eyebrow reveal">{t('gallery.eyebrow')}</p>
+      <h2 class="gallery-title display reveal delay-1">{t('gallery.title')}</h2>
+    </div>
+  </div>
+
+  <div class="marquee" data-marquee>
+    <div class="track">
+      {[...photos, ...photos].map((p, i) => (
+        <figure class="m-item" style={'--i:' + i}>
+          <img src={p} alt="" loading="lazy" />
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery { padding-block: clamp(6rem, 10vw, 10rem) 0; }
+  .gallery-head {
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .gallery-title {
+    font-size: clamp(2.2rem, 1.6rem + 3vw, 4rem);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-top: 1.2rem;
+    max-width: 18ch;
+  }
+
+  .marquee {
+    overflow: hidden;
+    padding-block: 1rem clamp(6rem, 10vw, 10rem);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .track {
+    display: flex;
+    gap: 1.2rem;
+    width: max-content;
+    animation: scroll 80s linear infinite;
+  }
+  .track:hover { animation-play-state: paused; }
+  .m-item {
+    flex: 0 0 auto;
+    width: clamp(260px, 28vw, 460px);
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+  }
+  .m-item:nth-child(even) {
+    aspect-ratio: 16/10;
+    width: clamp(340px, 36vw, 580px);
+    align-self: flex-start;
+    margin-top: clamp(1rem, 4vw, 3rem);
+  }
+  .m-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s var(--ease);
+    filter: saturate(0.95);
+  }
+  .m-item:hover img {
+    transform: scale(1.06);
+    filter: saturate(1.1);
+  }
+  @keyframes scroll {
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; }
+  }
+</style>

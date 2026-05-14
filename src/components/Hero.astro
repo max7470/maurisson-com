@@ -1,0 +1,215 @@
+---
+import { useTranslations, type Lang, AIRBNB_URL } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+<section class="hero">
+  <div class="hero-media">
+    <img src="/photos/01-hero-salon.avif" alt="" fetchpriority="high" />
+    <div class="hero-overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="hero-content container">
+    <div class="hero-eyebrow reveal">
+      <span class="dot"></span>
+      <span>{t('hero.eyebrow')}</span>
+    </div>
+
+    <h1 class="hero-title display">
+      <span class="hero-line reveal">{t('hero.title.l1')}</span>
+      <span class="hero-line hero-line--em reveal delay-1">
+        <em>{t('hero.title.l2')}</em>
+      </span>
+      <span class="hero-line reveal delay-2">{t('hero.title.l3')}</span>
+    </h1>
+
+    <p class="hero-sub reveal delay-3">{t('hero.sub')}</p>
+
+    <div class="hero-cta reveal delay-3">
+      <a href={AIRBNB_URL} target="_blank" rel="noopener" class="btn btn--primary btn--lg">
+        {t('hero.cta.primary')}
+        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#room" class="btn btn--ghost btn--lg">{t('hero.cta.secondary')}</a>
+    </div>
+  </div>
+
+  <div class="hero-badge reveal delay-3">
+    <div class="badge-star">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.9 7.4.6-5.6 4.9 1.7 7.3L12 17.8 5.6 21.7l1.7-7.3-5.6-4.9 7.4-.6z"/></svg>
+    </div>
+    <div class="badge-text">
+      <strong>{t('hero.rating')}</strong>
+      <small>{t('hero.badge')}</small>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span class="line"></span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding-block: 8rem 6rem;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 55%;
+    filter: brightness(0.75) contrast(1.05) saturate(1.05);
+    animation: slow-zoom 18s ease-in-out infinite alternate;
+  }
+  @keyframes slow-zoom {
+    from { transform: scale(1.02); }
+    to   { transform: scale(1.12); }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(80% 60% at 30% 40%, transparent, rgba(11,9,7,0.5) 70%, rgba(11,9,7,0.9) 100%),
+      linear-gradient(180deg, rgba(11,9,7,0.55) 0%, rgba(11,9,7,0.2) 30%, rgba(11,9,7,0.85) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: var(--container);
+    width: 100%;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ember-300);
+    margin-bottom: 2.5rem;
+  }
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ember-400);
+    box-shadow: 0 0 0 6px rgba(224, 138, 68, 0.15);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(224, 138, 68, 0.12); }
+    50%     { box-shadow: 0 0 0 10px rgba(224, 138, 68, 0.04); }
+  }
+
+  .hero-title {
+    font-size: clamp(3.8rem, 3rem + 6vw, 9rem);
+    line-height: 0.92;
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    color: var(--ink-50);
+    margin-bottom: 2.5rem;
+  }
+  .hero-line {
+    display: block;
+  }
+  .hero-line--em em {
+    font-style: italic;
+    font-weight: 300;
+    background: linear-gradient(95deg, var(--ember-300) 0%, var(--ember-200) 50%, var(--ember-400) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.1rem, 0.9rem + 0.6vw, 1.4rem);
+    line-height: 1.45;
+    max-width: 48ch;
+    color: var(--ink-100);
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-badge {
+    position: absolute;
+    right: var(--gutter);
+    bottom: 7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.9rem 1.3rem 0.9rem 0.9rem;
+    background: rgba(18, 15, 12, 0.7);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    max-width: 280px;
+  }
+  .badge-star {
+    width: 38px; height: 38px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ember-400);
+    background: rgba(224, 138, 68, 0.15);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .badge-star svg { width: 20px; height: 20px; }
+  .badge-text { display: flex; flex-direction: column; line-height: 1.2; }
+  .badge-text strong { font-size: 0.95rem; font-weight: 500; }
+  .badge-text small {
+    font-size: 0.72rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.05em;
+    margin-top: 3px;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .scroll-cue .line {
+    display: block;
+    width: 1px;
+    height: 64px;
+    background: linear-gradient(to bottom, transparent, var(--ember-300), transparent);
+    animation: cue 2.4s ease-in-out infinite;
+  }
+  @keyframes cue {
+    0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.3; }
+    50%      { transform: scaleY(1);   opacity: 1; }
+  }
+
+  @media (max-width: 780px) {
+    .hero-badge {
+      bottom: 5rem;
+      right: var(--gutter);
+      left: var(--gutter);
+      max-width: none;
+    }
+    .scroll-cue { display: none; }
+  }
+</style>

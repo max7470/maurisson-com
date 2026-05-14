@@ -1,0 +1,144 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+<section id="host" class="host">
+  <div class="container">
+    <div class="host-grid">
+      <div class="host-text">
+        <p class="eyebrow reveal">{t('host.eyebrow')}</p>
+        <h2 class="host-title display reveal delay-1">
+          <span>{t('host.title')}</span>
+        </h2>
+        <p class="host-body body-lg reveal delay-2">{t('host.body')}</p>
+        <p class="host-sign reveal delay-3">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2l2.9 6.9 7.4.6-5.6 4.9 1.7 7.3L12 17.8 5.6 21.7l1.7-7.3-5.6-4.9 7.4-.6z"/></svg>
+          {t('host.signature')}
+        </p>
+      </div>
+
+      <div class="host-media">
+        <figure class="host-fig main reveal">
+          <img src="/photos/05-piano.avif" alt="" loading="lazy" />
+        </figure>
+        <figure class="host-fig small reveal delay-2">
+          <img src="/photos/01-hero-salon.avif" alt="" loading="lazy" />
+        </figure>
+        <div class="host-card reveal delay-3">
+          <div class="host-card-label">Sushi</div>
+          <div class="host-card-body">
+            <span>🐱</span>
+            <small>{t('host.sushi')}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .host {
+    padding-block: clamp(6rem, 10vw, 12rem);
+  }
+  .host-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .host-title {
+    font-size: clamp(2.4rem, 1.6rem + 4vw, 5rem);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-block: 1.2rem 2rem;
+  }
+  .host-title span {
+    font-style: italic;
+    font-weight: 300;
+    background: linear-gradient(95deg, var(--ink-50) 0%, var(--ember-300) 60%, var(--ember-400) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .host-body {
+    margin-bottom: 2.5rem;
+  }
+  .host-sign {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ember-300);
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background: rgba(224, 138, 68, 0.05);
+  }
+
+  .host-media {
+    position: relative;
+    aspect-ratio: 1 / 1.1;
+  }
+  .host-fig {
+    position: absolute;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.7);
+  }
+  .host-fig img { width: 100%; height: 100%; object-fit: cover; }
+  .host-fig.main {
+    top: 0; right: 0;
+    width: 72%;
+    aspect-ratio: 4/5;
+  }
+  .host-fig.small {
+    bottom: 0; left: 0;
+    width: 55%;
+    aspect-ratio: 4/3;
+    z-index: 2;
+  }
+  .host-card {
+    position: absolute;
+    bottom: 28%;
+    right: -3%;
+    z-index: 3;
+    padding: 0.8rem 1.2rem;
+    background: rgba(18, 15, 12, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    max-width: 240px;
+  }
+  .host-card-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ember-400);
+    margin-bottom: 0.3rem;
+  }
+  .host-card-body {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .host-card-body span {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  .host-card-body small {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--fg-muted);
+    line-height: 1.35;
+  }
+
+  @media (max-width: 900px) {
+    .host-grid { grid-template-columns: 1fr; }
+    .host-media { max-width: 520px; margin-left: auto; margin-right: auto; }
+  }
+</style>
