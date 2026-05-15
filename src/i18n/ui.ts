@@ -27,7 +27,7 @@ export const ui = {
     'nav.book': 'Réserver',
     'nav.music': 'Music Hub',
     'nav.green': 'Green Hub',
-    'nav.sites': 'Mes sites',
+    'nav.sites': 'Productions',
     'nav.manuels': 'Manuels',
 
     'hero.eyebrow': 'Herve · Belgique',
@@ -110,7 +110,7 @@ export const ui = {
     'nav.book': 'Boeken',
     'nav.music': 'Music Hub',
     'nav.green': 'Green Hub',
-    'nav.sites': 'Mijn sites',
+    'nav.sites': 'Producties',
     'nav.manuels': 'Handleidingen',
 
     'hero.eyebrow': 'Herve · België',
@@ -193,7 +193,7 @@ export const ui = {
     'nav.book': 'Book',
     'nav.music': 'Music Hub',
     'nav.green': 'Green Hub',
-    'nav.sites': 'My sites',
+    'nav.sites': 'Productions',
     'nav.manuels': 'Manuals',
 
     'hero.eyebrow': 'Herve · Belgium',
@@ -276,7 +276,7 @@ export const ui = {
     'nav.book': 'Buchen',
     'nav.music': 'Music Hub',
     'nav.green': 'Green Hub',
-    'nav.sites': 'Meine Seiten',
+    'nav.sites': 'Produktionen',
     'nav.manuels': 'Anleitungen',
 
     'hero.eyebrow': 'Herve · Belgien',
