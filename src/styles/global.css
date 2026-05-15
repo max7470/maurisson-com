@@ -238,59 +238,52 @@ section {
   text-decoration: none;
 }
 
-/* ── PRIMARY : bronze de nuit, fil de cuivre ──────────────── */
+/* ── PRIMARY : verre teinté ember (semi-transparent, blur) ─ */
 .btn--primary {
   background: linear-gradient(
     180deg,
-    #5a3120 0%,        /* deep copper, sombre */
-    #3d2014 45%,       /* bronze de nuit */
-    #2a1610 100%       /* base presque noire, sous-ton chaud */
+    rgba(237, 170, 106, 0.45) 0%,   /* ember-300 alpha */
+    rgba(224, 138, 68, 0.55) 50%,   /* ember-400 — couleur logo */
+    rgba(197, 106, 42, 0.62) 100%   /* ember-500 alpha */
   );
-  color: var(--ember-100);
-  border-color: rgba(237, 170, 106, 0.32);
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(14px) saturate(115%);
+  -webkit-backdrop-filter: blur(14px) saturate(115%);
+  color: var(--ink-50);
+  border-color: rgba(253, 228, 192, 0.30);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   box-shadow:
-    inset 0 1px 0 rgba(253, 228, 192, 0.18),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-    inset 0 -10px 16px -12px rgba(0, 0, 0, 0.55),
-    0 1px 0 rgba(0, 0, 0, 0.3),
-    var(--shadow-sm);
+    inset 0 1px 0 rgba(253, 228, 192, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    inset 0 -10px 16px -12px rgba(0, 0, 0, 0.35),
+    0 1px 2px rgba(0, 0, 0, 0.25);
 }
 .btn--primary::before {
-  /* fil de cuivre sur l'arête haute */
+  /* catchlight subtil sur l'arête haute */
   content: '';
   position: absolute;
-  inset: 0 0 auto 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(237, 170, 106, 0.4) 25%,
-    rgba(253, 228, 192, 0.6) 50%,
-    rgba(237, 170, 106, 0.4) 75%,
-    transparent 100%
-  );
+  inset: 1px 1px auto 1px;
+  height: 45%;
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
   pointer-events: none;
   z-index: 0;
-  opacity: 0.9;
+  opacity: 0.85;
   transition: opacity var(--dur) var(--ease);
 }
 .btn--primary > * { position: relative; z-index: 1; }
 .btn--primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  color: var(--ink-50);
-  border-color: rgba(237, 170, 106, 0.55);
   background: linear-gradient(
     180deg,
-    #6f3d27 0%,
-    #482718 45%,
-    #2e1812 100%
+    rgba(237, 170, 106, 0.55) 0%,
+    rgba(224, 138, 68, 0.65) 50%,
+    rgba(197, 106, 42, 0.7) 100%
   );
+  border-color: rgba(253, 228, 192, 0.45);
   box-shadow:
-    inset 0 1px 0 rgba(253, 228, 192, 0.28),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-    inset 0 -10px 16px -12px rgba(0, 0, 0, 0.55),
-    0 14px 32px -10px rgba(224, 138, 68, 0.4),
+    inset 0 1px 0 rgba(253, 228, 192, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 14px 32px -10px var(--ember-glow-soft),
     0 0 0 4px var(--ember-glow-dim);
 }
 .btn--primary:hover:not(:disabled)::before { opacity: 1; }
@@ -298,16 +291,15 @@ section {
   transform: translateY(0) scale(0.985);
   filter: brightness(0.92);
   box-shadow:
-    inset 0 1px 0 rgba(253, 228, 192, 0.1),
-    inset 0 6px 12px -6px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(253, 228, 192, 0.2),
+    inset 0 6px 12px -6px rgba(0, 0, 0, 0.4),
     var(--shadow-sm);
 }
 .btn--primary:focus-visible {
   outline: none;
-  border-color: rgba(237, 170, 106, 0.55);
   box-shadow:
-    inset 0 1px 0 rgba(253, 228, 192, 0.18),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(253, 228, 192, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
     0 0 0 3px var(--ember-glow-soft);
 }
 
