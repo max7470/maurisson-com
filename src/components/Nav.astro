@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Lang, AIRBNB_URL, MUSIC_HUB_URL, GREEN_HUB_URL, languages } from '../i18n/ui';
+import { useTranslations, type Lang, AIRBNB_URL, MUSIC_HUB_URL, GREEN_HUB_URL, SITES_URL, MANUELS_URL, languages } from '../i18n/ui';
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 
@@ -67,6 +67,24 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
             <span>{t('nav.green')}</span>
           </a>
         </div>
+        <div class="cta-row">
+          <a href={SITES_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-sites" aria-label={t('nav.sites')}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="14" rx="2"/>
+              <path d="M3 9h18"/>
+              <path d="M7 6.5h.01M10 6.5h.01"/>
+            </svg>
+            <span>{t('nav.sites')}</span>
+          </a>
+          <a href={MANUELS_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-manuels" aria-label={t('nav.manuels')}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4.5C4 3.7 4.7 3 5.5 3H19v15H5.5C4.7 18 4 17.3 4 16.5z"/>
+              <path d="M4 16.5V20h14"/>
+              <path d="M8 7h7M8 11h7"/>
+            </svg>
+            <span>{t('nav.manuels')}</span>
+          </a>
+        </div>
       </div>
       <button class="burger" data-burger aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -101,6 +119,22 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
           <path d="M12 12c1-1 3-1 4 0"/>
         </svg>
         {t('nav.green')}
+      </a></li>
+      <li><a href={SITES_URL} target="_blank" rel="noopener" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="14" rx="2"/>
+          <path d="M3 9h18"/>
+          <path d="M7 6.5h.01M10 6.5h.01"/>
+        </svg>
+        {t('nav.sites')}
+      </a></li>
+      <li><a href={MANUELS_URL} target="_blank" rel="noopener" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 4.5C4 3.7 4.7 3 5.5 3H19v15H5.5C4.7 18 4 17.3 4 16.5z"/>
+          <path d="M4 16.5V20h14"/>
+          <path d="M8 7h7M8 11h7"/>
+        </svg>
+        {t('nav.manuels')}
       </a></li>
     </ul>
   </div>
@@ -251,7 +285,9 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
     padding-inline: 0.7rem;
   }
   .cta-music,
-  .cta-green {
+  .cta-green,
+  .cta-sites,
+  .cta-manuels {
     background: rgba(11, 9, 7, 0.45);
     backdrop-filter: blur(10px);
   }
@@ -274,8 +310,30 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
     border-color: rgba(154, 200, 138, 0.6);
     background: rgba(38, 60, 30, 0.55);
   }
+  .cta-sites {
+    /* Bleu-gris froid pour les sites freelance */
+    border-color: rgba(170, 180, 200, 0.3);
+    color: #c8d1de;
+  }
+  .cta-sites:hover:not(:disabled) {
+    color: #e4eaf3;
+    border-color: rgba(170, 180, 200, 0.6);
+    background: rgba(35, 45, 60, 0.55);
+  }
+  .cta-manuels {
+    /* Beige/papier pour les manuels imprimables */
+    border-color: rgba(212, 188, 142, 0.3);
+    color: #d8c6a4;
+  }
+  .cta-manuels:hover:not(:disabled) {
+    color: #ece0c5;
+    border-color: rgba(212, 188, 142, 0.6);
+    background: rgba(58, 48, 32, 0.55);
+  }
   .cta-music svg,
-  .cta-green svg { flex-shrink: 0; opacity: 0.9; }
+  .cta-green svg,
+  .cta-sites svg,
+  .cta-manuels svg { flex-shrink: 0; opacity: 0.9; }
 
   .burger {
     display: none;

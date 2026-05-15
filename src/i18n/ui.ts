@@ -14,6 +14,8 @@ export const WHATSAPP = '+32 498 34 53 06';
 export const WHATSAPP_URL = 'https://wa.me/32498345306';
 export const MUSIC_HUB_URL = 'https://musichub.maurisson.com';
 export const GREEN_HUB_URL = 'https://greenhub.maurisson.com';
+export const SITES_URL = 'https://sites.maurisson.com';
+export const MANUELS_URL = 'https://manuels.maurisson.com';
 
 export const ui = {
   fr: {
@@ -25,6 +27,8 @@ export const ui = {
     'nav.book': 'Réserver',
     'nav.music': 'Music Hub',
     'nav.green': 'Green Hub',
+    'nav.sites': 'Mes sites',
+    'nav.manuels': 'Manuels',
 
     'hero.eyebrow': 'Herve · Belgique',
     'hero.title.l1': 'Une chambre',
@@ -106,6 +110,8 @@ export const ui = {
     'nav.book': 'Boeken',
     'nav.music': 'Music Hub',
     'nav.green': 'Green Hub',
+    'nav.sites': 'Mijn sites',
+    'nav.manuels': 'Handleidingen',
 
     'hero.eyebrow': 'Herve · België',
     'hero.title.l1': 'Eén kamer',
@@ -187,6 +193,8 @@ export const ui = {
     'nav.book': 'Book',
     'nav.music': 'Music Hub',
     'nav.green': 'Green Hub',
+    'nav.sites': 'My sites',
+    'nav.manuels': 'Manuals',
 
     'hero.eyebrow': 'Herve · Belgium',
     'hero.title.l1': 'One room',
@@ -268,6 +276,8 @@ export const ui = {
     'nav.book': 'Buchen',
     'nav.music': 'Music Hub',
     'nav.green': 'Green Hub',
+    'nav.sites': 'Meine Seiten',
+    'nav.manuels': 'Anleitungen',
 
     'hero.eyebrow': 'Herve · Belgien',
     'hero.title.l1': 'Ein Zimmer',
