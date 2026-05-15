@@ -405,6 +405,37 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
     .nav-links { display: none; }
     .lang-switch { display: none; }
     .burger { display: inline-flex; }
-    .cta-stack { display: none; }
+
+    /* Brand resserré pour libérer l'espace */
+    .brand { gap: 0.6rem; }
+    .brand-mark { width: 48px; height: 48px; }
+    .brand-mark svg { width: 24px; height: 24px; }
+    .brand-name { font-size: 1.5rem; }
+    .brand-chez { font-size: 0.85rem; margin-bottom: 2px; }
+
+    /* Projets : grille 2×2 icon-only à côté du burger */
+    .nav-actions { gap: 0.5rem; }
+    .cta-stack { gap: 0.3rem; }
+    .cta-row { gap: 0.3rem; }
+    .cta-stack .btn {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      padding: 0;
+      flex: 0 0 auto;
+    }
+    .cta-stack .btn span { display: none; }
+    .cta-stack .btn svg { width: 16px; height: 16px; opacity: 1; }
+  }
+
+  @media (max-width: 480px) {
+    /* Très petits écrans : "Chez" disparaît, icônes encore plus petites */
+    .brand-chez { display: none; }
+    .brand-name { font-size: 1.25rem; }
+    .brand-mark { width: 42px; height: 42px; }
+    .brand-mark svg { width: 20px; height: 20px; }
+    .cta-stack .btn { width: 30px; height: 30px; min-width: 30px; }
+    .cta-stack .btn svg { width: 14px; height: 14px; }
+    .burger { width: 36px; height: 36px; padding: 8px; }
   }
 </style>
