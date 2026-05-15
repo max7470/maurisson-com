@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Lang, AIRBNB_URL, MUSIC_HUB_URL, GREEN_HUB_URL, SITES_URL, MANUELS_URL, languages } from '../i18n/ui';
+import { useTranslations, type Lang, MUSIC_HUB_URL, GREEN_HUB_URL, SITES_URL, MANUELS_URL, languages } from '../i18n/ui';
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 
@@ -47,7 +47,6 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
         ))}
       </div>
       <div class="cta-stack">
-        <a href={AIRBNB_URL} target="_blank" rel="noopener" class="btn btn--primary btn--sm">{t('nav.book')}</a>
         <div class="cta-row">
           <a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-music" aria-label={t('nav.music')}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -102,7 +101,6 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
           <a href={langHref(code)} class={lang === code ? 'active' : ''}>{label}</a>
         ))}
       </li>
-      <li><a href={AIRBNB_URL} target="_blank" rel="noopener" class="btn btn--primary" style="margin-top:1rem;display:inline-flex">{t('nav.book')}</a></li>
       <li><a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M9 18V5l12-2v13"/>
