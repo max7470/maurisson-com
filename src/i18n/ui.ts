@@ -16,6 +16,10 @@ export const MUSIC_HUB_URL = 'https://musichub.maurisson.com';
 export const GREEN_HUB_URL = 'https://greenhub.maurisson.com';
 export const SITES_URL = 'https://sites.maurisson.com';
 export const MANUELS_URL = 'https://manuels.maurisson.com';
+export const GITHUB_URL = 'https://github.com/max7470';
+
+export const MUSIC_COUNT = 2334;
+export const GREEN_COUNT = 38;
 
 export const ui = {
   fr: {
@@ -29,6 +33,34 @@ export const ui = {
     'nav.green': 'Green Hub',
     'nav.sites': 'Productions',
     'nav.manuels': 'Manuels',
+
+    'hub.title.l1': 'Le',
+    'hub.title.em': 'monde',
+    'hub.title.l3': 'de Maurisson',
+    'hub.cat.1': 'Hébergement',
+    'hub.cat.2': 'Music Hub',
+    'hub.cat.3': 'Productions',
+    'hub.motto': 'Bienvenue dans le désordre choisi.',
+    'hub.airbnb.coords': '50°38′N · 5°48′E · EST. 2022',
+    'hub.airbnb.eyebrow': 'Herve · Belgique',
+    'hub.airbnb.title': 'La chambre d\'hôtes',
+    'hub.airbnb.body': 'Une chambre privée, mais toute la maison. Le piano, la cuisine, le jardin, le hamac. Et un chat roux pour vous inspecter.',
+    'hub.airbnb.cta': 'Découvrir',
+    'hub.airbnb.rating': '4,91 · Coup de cœur',
+    'hub.music.title': 'Music Hub',
+    'hub.music.stat': 'morceaux',
+    'hub.music.body': 'Plus de {count} chansons avec accords, paroles synchronisées et sections. Mais surtout les outils pour explorer : piano popover qui visualise chaque accord et chaque gamme, progressions en deux clics, transposition instantanée, HarmonicaHub, MIDI Studio. Mon carnet de jeu vivant.',
+    'hub.green.title': 'Green Hub',
+    'hub.green.stat': 'plantes',
+    'hub.green.body': 'Le jardin numérique de la maison. {count} plantes inventoriées, fiches de soin détaillées, identification PlantNet à la volée, conseils IA en cas de doute. Pour ne plus tuer ses plantes.',
+    'hub.sites.title': 'Productions',
+    'hub.sites.stat': 'productions',
+    'hub.sites.body': 'Vitrines créées pour des amis musiciens et artisans : David Natan (sculpteur), Delavega (folk), The GUTS (rock/metal Verviers). De vrais sites, de vrais clics.',
+    'hub.manuels.title': 'Manuels',
+    'hub.manuels.stat': 'guides',
+    'hub.manuels.body': 'Guides imprimables que j\'écris quand un outil mérite mieux que son manuel d\'origine. Pour l\'instant : le Yamaha CP5 (piano de scène, 40 pages illustrées) et le mini-clavier Yamaha PSS-A50 (12 pages, l\'essentiel).',
+    'hub.visit': 'Visiter',
+    'hub.footer.bio': 'Maxime — hôte, dev, musicien, jardinier.',
 
     'hero.eyebrow': 'Herve · Belgique',
     'hero.title.l1': 'Une chambre',
@@ -113,6 +145,34 @@ export const ui = {
     'nav.sites': 'Producties',
     'nav.manuels': 'Handleidingen',
 
+    'hub.title.l1': 'De',
+    'hub.title.em': 'wereld',
+    'hub.title.l3': 'van Maurisson',
+    'hub.cat.1': 'Verblijf',
+    'hub.cat.2': 'Music Hub',
+    'hub.cat.3': 'Producties',
+    'hub.motto': 'Welkom in de gekozen chaos.',
+    'hub.airbnb.coords': '50°38′N · 5°48′E · EST. 2022',
+    'hub.airbnb.eyebrow': 'Herve · België',
+    'hub.airbnb.title': 'De gastenkamer',
+    'hub.airbnb.body': 'Eén privékamer, maar het hele huis. Piano, keuken, tuin, hangmat. En een rode kat die je komt inspecteren.',
+    'hub.airbnb.cta': 'Ontdekken',
+    'hub.airbnb.rating': '4,91 · Favoriet',
+    'hub.music.title': 'Music Hub',
+    'hub.music.stat': 'nummers',
+    'hub.music.body': 'Meer dan {count} nummers met akkoorden, gesynchroniseerde teksten en secties. Maar vooral de tools om te verkennen: piano popover die elk akkoord en elke toonladder visualiseert, akkoordprogressies in twee klikken, directe transponering, HarmonicaHub, MIDI Studio. Mijn levende speelboek.',
+    'hub.green.title': 'Green Hub',
+    'hub.green.stat': 'planten',
+    'hub.green.body': 'De digitale tuin van het huis. {count} planten geïnventariseerd, gedetailleerde verzorgingsfiches, PlantNet-identificatie ter plekke, AI-advies bij twijfel. Om geen planten meer te verliezen.',
+    'hub.sites.title': 'Producties',
+    'hub.sites.stat': 'producties',
+    'hub.sites.body': 'Visitekaartjes gemaakt voor bevriende muzikanten en ambachtslui: David Natan (beeldhouwer), Delavega (folk), The GUTS (rock/metal Verviers). Echte sites, echte klikken.',
+    'hub.manuels.title': 'Handleidingen',
+    'hub.manuels.stat': 'gidsen',
+    'hub.manuels.body': 'Afdrukbare gidsen die ik schrijf wanneer een apparaat beter verdient dan zijn originele handleiding. Voor nu: de Yamaha CP5 (stagepiano, 40 geïllustreerde pagina\'s) en de mini-keyboard Yamaha PSS-A50 (12 pagina\'s, het essentiële).',
+    'hub.visit': 'Bezoeken',
+    'hub.footer.bio': 'Maxime — gastheer, dev, muzikant, tuinier.',
+
     'hero.eyebrow': 'Herve · België',
     'hero.title.l1': 'Eén kamer',
     'hero.title.l2': 'één huis',
@@ -196,6 +256,34 @@ export const ui = {
     'nav.sites': 'Productions',
     'nav.manuels': 'Manuals',
 
+    'hub.title.l1': 'The',
+    'hub.title.em': 'world',
+    'hub.title.l3': 'of Maurisson',
+    'hub.cat.1': 'Lodging',
+    'hub.cat.2': 'Music Hub',
+    'hub.cat.3': 'Productions',
+    'hub.motto': 'Welcome to the chosen chaos.',
+    'hub.airbnb.coords': '50°38′N · 5°48′E · EST. 2022',
+    'hub.airbnb.eyebrow': 'Herve · Belgium',
+    'hub.airbnb.title': 'The guest room',
+    'hub.airbnb.body': 'A private room, but the whole house. Piano, kitchen, garden, hammock. And a ginger cat to inspect you.',
+    'hub.airbnb.cta': 'Explore',
+    'hub.airbnb.rating': '4.91 · Guest favourite',
+    'hub.music.title': 'Music Hub',
+    'hub.music.stat': 'tracks',
+    'hub.music.body': 'Over {count} songs with chords, synced lyrics and sections. But mostly the tools to explore them: a piano popover that visualises every chord and every scale, progressions in two clicks, instant transposition, HarmonicaHub, MIDI Studio. My living song book.',
+    'hub.green.title': 'Green Hub',
+    'hub.green.stat': 'plants',
+    'hub.green.body': 'The house\'s digital garden. {count} plants logged, detailed care sheets, PlantNet identification on the fly, AI tips when in doubt. So plants stop dying.',
+    'hub.sites.title': 'Productions',
+    'hub.sites.stat': 'sites',
+    'hub.sites.body': 'Showcase sites built for musician and craftsman friends: David Natan (sculptor), Delavega (folk), The GUTS (rock/metal, Verviers). Real sites, real clicks.',
+    'hub.manuels.title': 'Manuals',
+    'hub.manuels.stat': 'guides',
+    'hub.manuels.body': 'Printable guides I write when a tool deserves better than its original manual. So far: the Yamaha CP5 (stage piano, 40 illustrated pages) and the Yamaha PSS-A50 mini-keyboard (12 pages, the essentials).',
+    'hub.visit': 'Visit',
+    'hub.footer.bio': 'Maxime — host, dev, musician, gardener.',
+
     'hero.eyebrow': 'Herve · Belgium',
     'hero.title.l1': 'One room',
     'hero.title.l2': 'one house',
@@ -278,6 +366,34 @@ export const ui = {
     'nav.green': 'Green Hub',
     'nav.sites': 'Produktionen',
     'nav.manuels': 'Anleitungen',
+
+    'hub.title.l1': 'Die',
+    'hub.title.em': 'Welt',
+    'hub.title.l3': 'von Maurisson',
+    'hub.cat.1': 'Unterkunft',
+    'hub.cat.2': 'Music Hub',
+    'hub.cat.3': 'Produktionen',
+    'hub.motto': 'Willkommen im gewählten Chaos.',
+    'hub.airbnb.coords': '50°38′N · 5°48′E · EST. 2022',
+    'hub.airbnb.eyebrow': 'Herve · Belgien',
+    'hub.airbnb.title': 'Das Gästezimmer',
+    'hub.airbnb.body': 'Ein privates Zimmer, aber das ganze Haus. Klavier, Küche, Garten, Hängematte. Und eine rote Katze, die Sie inspiziert.',
+    'hub.airbnb.cta': 'Entdecken',
+    'hub.airbnb.rating': '4,91 · Gästeliebling',
+    'hub.music.title': 'Music Hub',
+    'hub.music.stat': 'Titel',
+    'hub.music.body': 'Über {count} Lieder mit Akkorden, synchronisierten Texten und Abschnitten. Vor allem aber die Werkzeuge zur Erkundung: Klavier-Popover, das jeden Akkord und jede Tonleiter visualisiert, Akkordfolgen in zwei Klicks, sofortige Transposition, HarmonicaHub, MIDI-Studio. Mein lebendiges Spielbuch.',
+    'hub.green.title': 'Green Hub',
+    'hub.green.stat': 'Pflanzen',
+    'hub.green.body': 'Der digitale Garten des Hauses. {count} erfasste Pflanzen, ausführliche Pflegeblätter, PlantNet-Erkennung im Vorbeigehen, KI-Tipps im Zweifelsfall. Damit keine Pflanze mehr eingeht.',
+    'hub.sites.title': 'Produktionen',
+    'hub.sites.stat': 'Seiten',
+    'hub.sites.body': 'Vitrinen für Musiker- und Handwerkerfreunde: David Natan (Bildhauer), Delavega (Folk), The GUTS (Rock/Metal, Verviers). Echte Seiten, echte Klicks.',
+    'hub.manuels.title': 'Anleitungen',
+    'hub.manuels.stat': 'Anleitungen',
+    'hub.manuels.body': 'Druckbare Anleitungen, die ich schreibe, wenn ein Gerät besser verdient als sein Originalhandbuch. Bisher: das Yamaha CP5 (Stagepiano, 40 illustrierte Seiten) und das Mini-Keyboard Yamaha PSS-A50 (12 Seiten, das Wesentliche).',
+    'hub.visit': 'Besuchen',
+    'hub.footer.bio': 'Maxime — Gastgeber, Entwickler, Musiker, Gärtner.',
 
     'hero.eyebrow': 'Herve · Belgien',
     'hero.title.l1': 'Ein Zimmer',
@@ -370,4 +486,12 @@ export function localizedPath(lang: Lang, path: string = ''): string {
   const clean = path.replace(/^\/+/, '');
   if (lang === defaultLang) return '/' + clean;
   return '/' + lang + '/' + clean;
+}
+
+export function roomUrl(lang: Lang): string {
+  return lang === defaultLang ? '/room' : '/' + lang + '/room';
+}
+
+export function hubUrl(lang: Lang): string {
+  return lang === defaultLang ? '/' : '/' + lang + '/';
 }

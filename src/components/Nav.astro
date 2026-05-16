@@ -5,11 +5,11 @@ const t = useTranslations(lang);
 
 const prefix = lang === 'fr' ? '' : '/' + lang;
 const links = [
-  { href: prefix + '/#room', label: t('nav.room') },
-  { href: prefix + '/#house', label: t('nav.house') },
-  { href: prefix + '/#region', label: t('nav.region') },
-  { href: prefix + '/#host', label: t('nav.host') },
-  { href: prefix + '/#reviews', label: t('nav.reviews') },
+  { href: prefix + '/room#room', label: t('nav.room') },
+  { href: prefix + '/room#house', label: t('nav.house') },
+  { href: prefix + '/room#region', label: t('nav.region') },
+  { href: prefix + '/room#host', label: t('nav.host') },
+  { href: prefix + '/room#reviews', label: t('nav.reviews') },
 ];
 
 const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';

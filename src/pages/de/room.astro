@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Intro from '../../components/Intro.astro';
+import Room from '../../components/Room.astro';
+import House from '../../components/House.astro';
+import Region from '../../components/Region.astro';
+import Host from '../../components/Host.astro';
+import Gallery from '../../components/Gallery.astro';
+import Reviews from '../../components/Reviews.astro';
+import Amenities from '../../components/Amenities.astro';
+import CTA from '../../components/CTA.astro';
+
+const lang = 'de';
+---
+<BaseLayout lang={lang} pathSuffix="room">
+  <Hero lang={lang} />
+  <Intro lang={lang} />
+  <Room lang={lang} />
+  <House lang={lang} />
+  <Region lang={lang} />
+  <Host lang={lang} />
+  <Gallery lang={lang} />
+  <Reviews lang={lang} />
+  <Amenities lang={lang} />
+  <CTA lang={lang} />
+</BaseLayout>

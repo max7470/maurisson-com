@@ -1,0 +1,885 @@
+---
+import {
+  useTranslations,
+  type Lang,
+  languages,
+  MUSIC_HUB_URL,
+  GREEN_HUB_URL,
+  SITES_URL,
+  MANUELS_URL,
+  MUSIC_COUNT,
+  GREEN_COUNT,
+  roomUrl,
+  hubUrl,
+} from '../i18n/ui';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+
+const room = roomUrl(lang);
+const langHref = (l: string) => hubUrl(l as Lang);
+
+const musicBody = t('hub.music.body').replace('{count}', MUSIC_COUNT.toLocaleString(lang === 'en' ? 'en-US' : 'fr-FR'));
+const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
+---
+
+<section class="hub">
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="hub-top container">
+    <a href={hubUrl(lang)} class="hub-brand" aria-label="Mauriss">
+      <span class="hub-brand-logo" role="img" aria-label="Mauriss"></span>
+    </a>
+
+    <div class="hub-top-langs" aria-label="Language">
+      {Object.entries(languages).map(([code, label]) => (
+        <a
+          href={langHref(code)}
+          class={'top-lang' + (lang === code ? ' active' : '')}
+          aria-current={lang === code ? 'page' : undefined}
+        >{label}</a>
+      ))}
+    </div>
+  </header>
+
+  <div class="hub-header container reveal">
+    <div class="hub-header-row">
+      <h1 class="hub-title display">
+        <span class="t-line">{t('hub.title.l1')}</span>
+        <span class="t-line t-line--em"><em>{t('hub.title.em')}</em></span>
+        <span class="t-line">{t('hub.title.l3')}</span>
+      </h1>
+      <ul class="hub-categories" aria-label="Catégories">
+        <li>{t('hub.cat.1')}</li>
+        <li>{t('hub.cat.2')}</li>
+        <li>{t('hub.cat.3')}</li>
+      </ul>
+    </div>
+    <p class="hub-motto"><em>{t('hub.motto')}</em></p>
+  </div>
+
+  <div class="hub-bento container">
+    <!-- AIRBNB BLOCK -->
+    <a href={room} class="bento-airbnb reveal delay-1">
+      <div class="airbnb-text">
+        <div class="airbnb-text-head">
+          <div class="airbnb-place">
+            <span class="bento-eyebrow">{t('hub.airbnb.eyebrow')}</span>
+            <span class="airbnb-coords">{t('hub.airbnb.coords')}</span>
+          </div>
+          <span class="bento-airbnb-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.9 7.4.6-5.6 4.9 1.7 7.3L12 17.8 5.6 21.7l1.7-7.3-5.6-4.9 7.4-.6z"/></svg>
+            <span>{t('hub.airbnb.rating')}</span>
+          </span>
+        </div>
+        <h2 class="bento-airbnb-title display">{t('hub.airbnb.title')}</h2>
+        <p>{t('hub.airbnb.body')}</p>
+        <span class="bento-airbnb-cta">
+          {t('hub.airbnb.cta')}
+          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+      <div class="airbnb-media">
+        <img src="/photos/01-hero-salon.avif" alt="" loading="eager" fetchpriority="high" />
+      </div>
+    </a>
+
+    <!-- 4 FEATURES GRID -->
+    <div class="bento-features">
+      <a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="bento-card music reveal delay-2">
+        <div class="card-head">
+          <span class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+          </span>
+          <h3 class="card-title">{t('hub.music.title')}</h3>
+          <span class="card-stat">{MUSIC_COUNT.toLocaleString(lang === 'en' ? 'en-US' : 'fr-FR')} {t('hub.music.stat')}</span>
+        </div>
+        <p>{musicBody}</p>
+        <span class="card-foot">
+          {t('hub.visit')} <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href={GREEN_HUB_URL} target="_blank" rel="noopener" class="bento-card green reveal delay-2">
+        <div class="card-head">
+          <span class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22c-4-4-7-9-7-13a7 7 0 0 1 14 0c0 4-3 9-7 13z"/>
+              <path d="M12 16V9"/>
+              <path d="M12 12c-1-1-3-1-4 0"/>
+              <path d="M12 12c1-1 3-1 4 0"/>
+            </svg>
+          </span>
+          <h3 class="card-title">{t('hub.green.title')}</h3>
+          <span class="card-stat">{GREEN_COUNT} {t('hub.green.stat')}</span>
+        </div>
+        <p>{greenBody}</p>
+        <span class="card-foot">
+          {t('hub.visit')} <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href={SITES_URL} target="_blank" rel="noopener" class="bento-card sites reveal delay-3">
+        <div class="card-head">
+          <span class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="14" rx="2"/>
+              <path d="M3 9h18"/>
+              <path d="M7 6.5h.01M10 6.5h.01"/>
+            </svg>
+          </span>
+          <h3 class="card-title">{t('hub.sites.title')}</h3>
+          <span class="card-stat">3 {t('hub.sites.stat')}</span>
+        </div>
+        <p>{t('hub.sites.body')}</p>
+        <span class="card-foot">
+          {t('hub.visit')} <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href={MANUELS_URL} target="_blank" rel="noopener" class="bento-card manuels reveal delay-3">
+        <div class="card-head">
+          <span class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4.5C4 3.7 4.7 3 5.5 3H19v15H5.5C4.7 18 4 17.3 4 16.5z"/>
+              <path d="M4 16.5V20h14"/>
+              <path d="M8 7h7M8 11h7"/>
+            </svg>
+          </span>
+          <h3 class="card-title">{t('hub.manuels.title')}</h3>
+          <span class="card-stat">2 {t('hub.manuels.stat')}</span>
+        </div>
+        <p>{t('hub.manuels.body')}</p>
+        <span class="card-foot">
+          {t('hub.visit')} <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hub-foot container reveal">
+    <p class="foot-bio"><em>{t('hub.footer.bio')}</em></p>
+    <p class="foot-contact">
+      <a href="mailto:max7470@gmail.com">max7470@gmail.com</a>
+    </p>
+    <div class="foot-langs" aria-label="Language">
+      {Object.entries(languages).map(([code, label]) => (
+        <a
+          href={langHref(code)}
+          class={'foot-lang' + (lang === code ? ' active' : '')}
+          aria-current={lang === code ? 'page' : undefined}
+        >{label}</a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hub {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-block: 0 clamp(2.5rem, 5vh, 4rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .hub .noise {
+    z-index: -2;
+  }
+
+  /* TOP STRIP (logo + lang chips)
+     Logo is absolutely positioned so a bigger logo doesn't push the strip taller. */
+  .hub-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    padding-block: clamp(1.2rem, 2vh, 1.8rem);
+    position: relative;
+  }
+  .hub-top::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: clamp(60px, 8vw, 110px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ember-400) 50%, transparent);
+    opacity: 0.6;
+  }
+  .hub-brand {
+    position: absolute;
+    top: clamp(0.4rem, 1vh, 1rem);
+    left: var(--gutter);
+    display: inline-flex;
+    align-items: flex-start;
+    color: var(--fg);
+    line-height: 1;
+    z-index: 2;
+  }
+  .hub-brand-logo {
+    display: inline-block;
+    height: clamp(46px, 7vw, 108px);
+    aspect-ratio: 808.31 / 500.15;
+    background-color: var(--ember-400);
+    -webkit-mask-image: url(/mauriss-logo.svg);
+    mask-image: url(/mauriss-logo.svg);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    transition:
+      background-color var(--dur-fast) var(--ease),
+      transform var(--dur) var(--ease),
+      filter var(--dur) var(--ease);
+    filter: drop-shadow(0 1px 12px rgba(224, 138, 68, 0.18));
+  }
+  .hub-brand:hover .hub-brand-logo {
+    background-color: var(--ember-300);
+    transform: rotate(-3deg) scale(1.04);
+    filter: drop-shadow(0 2px 18px rgba(224, 138, 68, 0.35));
+  }
+  .hub-top-langs {
+    display: inline-flex;
+    gap: 0.2rem;
+    padding: 0.3rem;
+    background: rgba(244, 237, 227, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+  .top-lang {
+    padding: 0.35rem 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--fg-dim);
+    border-radius: 999px;
+    transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  }
+  .top-lang:hover {
+    color: var(--ember-200);
+    background: rgba(244, 237, 227, 0.05);
+  }
+  .top-lang.active {
+    color: var(--ink-950);
+    background: var(--ember-400);
+  }
+
+  /* HEADER — title left + categories right + location centered below */
+  .hub-header {
+    text-align: center;
+  }
+  .hub-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2.5rem, 7vw, 6rem);
+    margin-bottom: clamp(1.2rem, 2.5vw, 2rem);
+  }
+  .hub-title {
+    font-size: clamp(2rem, 1.4rem + 3.6vw, 4.8rem);
+    line-height: 0.95;
+    margin: 0;
+    color: var(--ink-50);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    text-align: right;
+  }
+  .hub-title .t-line {
+    display: block;
+  }
+  .hub-title .t-line--em em {
+    font-style: italic;
+    font-weight: 300;
+    background: linear-gradient(95deg, var(--ember-300) 0%, var(--ember-200) 50%, var(--ember-400) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hub-categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.2rem, 0.4vw, 0.4rem);
+    border-left: 1px solid var(--border-strong);
+    padding-left: clamp(1.4rem, 3vw, 2.2rem);
+  }
+  .hub-categories li {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1rem, 0.75rem + 1.4vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    color: var(--ink-100);
+  }
+  .hub-categories li:nth-child(2) {
+    color: var(--ember-200);
+  }
+
+  .hub-motto {
+    display: inline-block;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 0.85rem + 0.55vw, 1.4rem);
+    line-height: 1.35;
+    color: var(--ink-100);
+    letter-spacing: -0.005em;
+    text-align: center;
+    position: relative;
+    padding-inline: clamp(0.5rem, 2vw, 1.5rem);
+    max-width: min(540px, calc(100% - 3rem));
+  }
+  .hub-motto em {
+    font-style: italic;
+    font-weight: 300;
+  }
+  .hub-motto::before,
+  .hub-motto::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: clamp(28px, 5vw, 56px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ember-300));
+    opacity: 0.6;
+  }
+  .hub-motto::before {
+    right: calc(100% + 0.4rem);
+    background: linear-gradient(90deg, transparent, var(--ember-300));
+  }
+  .hub-motto::after {
+    left: calc(100% + 0.4rem);
+    background: linear-gradient(90deg, var(--ember-300), transparent);
+  }
+  .pulse {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ember-400);
+    box-shadow: 0 0 0 5px rgba(224, 138, 68, 0.12);
+    animation: pulse 2.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(224, 138, 68, 0.12); }
+    50%      { box-shadow: 0 0 0 10px rgba(224, 138, 68, 0.04); }
+  }
+
+  /* BENTO — vertical stack: Airbnb on top, features in 4-col grid below */
+  .hub-bento {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 1.6vw, 1.4rem);
+  }
+
+  /* AIRBNB BLOCK — text on top, landscape image below */
+  .bento-airbnb {
+    display: flex;
+    flex-direction: column;
+    border-radius: 22px;
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
+    border: 1px solid var(--border-strong);
+    box-shadow: var(--shadow-md);
+    color: var(--fg);
+    text-decoration: none;
+    position: relative;
+    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .bento-airbnb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(70% 50% at 0% 0%, var(--ember-glow-dim), transparent 60%);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity var(--dur) var(--ease);
+  }
+  .bento-airbnb:hover {
+    transform: translateY(-3px);
+    border-color: rgba(237, 170, 106, 0.45);
+    box-shadow:
+      0 24px 50px -16px rgba(0,0,0,0.55),
+      0 0 0 3px var(--ember-glow-soft);
+  }
+  .bento-airbnb:hover::before { opacity: 1; }
+
+  .airbnb-text {
+    position: relative;
+    z-index: 1;
+    padding: clamp(1.6rem, 2.5vw, 2.4rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .airbnb-text-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .airbnb-place {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .bento-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ember-300);
+    margin: 0;
+  }
+  .bento-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 1.6rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .airbnb-coords {
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    padding-left: 2.2rem;
+  }
+  .bento-airbnb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.85rem 0.4rem 0.65rem;
+    background: rgba(11, 9, 7, 0.55);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-50);
+    flex-shrink: 0;
+  }
+  .bento-airbnb-badge svg {
+    width: 14px; height: 14px;
+    color: var(--ember-400);
+    flex-shrink: 0;
+  }
+  .bento-airbnb-title {
+    font-size: clamp(1.8rem, 1.3rem + 2vw, 2.8rem);
+    line-height: 1;
+    margin: 0;
+    color: var(--ink-50);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+  .airbnb-text p {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(0.98rem, 0.9rem + 0.3vw, 1.15rem);
+    line-height: 1.5;
+    color: var(--ink-100);
+    margin: 0;
+    max-width: 68ch;
+    letter-spacing: -0.005em;
+  }
+  .bento-airbnb-cta {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+    padding: 0.9rem 1.5rem;
+    background: linear-gradient(180deg,
+      rgba(237, 170, 106, 0.5) 0%,
+      rgba(224, 138, 68, 0.6) 50%,
+      rgba(197, 106, 42, 0.65) 100%);
+    backdrop-filter: blur(14px) saturate(115%);
+    border: 1px solid rgba(253, 228, 192, 0.30);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--ink-50);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    box-shadow:
+      inset 0 1px 0 rgba(253, 228, 192, 0.35),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .bento-airbnb:hover .bento-airbnb-cta {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgba(253, 228, 192, 0.45),
+      0 14px 30px -10px var(--ember-glow-soft);
+  }
+  .bento-airbnb-cta .arrow {
+    transition: transform var(--dur) var(--ease);
+  }
+  .bento-airbnb:hover .bento-airbnb-cta .arrow {
+    transform: translateX(4px);
+  }
+
+  .airbnb-media {
+    position: relative;
+    z-index: 1;
+    aspect-ratio: 21 / 9;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+  }
+  .airbnb-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    filter: brightness(0.92) contrast(1.04) saturate(1.06);
+    transform: scale(1.0);
+    transition: transform 1.4s var(--ease), filter var(--dur) var(--ease);
+  }
+  .bento-airbnb:hover .airbnb-media img {
+    transform: scale(1.025);
+    filter: brightness(1.0) contrast(1.04) saturate(1.08);
+  }
+
+  /* FEATURES — 2 cols, landscape cards */
+  .bento-features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 1.6vw, 1.4rem);
+  }
+  .bento-card {
+    position: relative;
+    padding: clamp(1.3rem, 1.8vw, 1.7rem);
+    background: linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
+    border: 1px solid var(--border-strong);
+    border-radius: 18px;
+    color: var(--fg);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition:
+      transform var(--dur) var(--ease),
+      border-color var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .bento-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(110% 70% at 0% 0%, var(--card-accent, var(--ember-glow-dim)), transparent 55%);
+    opacity: 0.55;
+    pointer-events: none;
+    transition: opacity var(--dur) var(--ease);
+    z-index: -1;
+  }
+  .bento-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--card-border-hover, var(--ember-400));
+    box-shadow:
+      0 14px 32px -10px rgba(0,0,0,0.5),
+      0 0 0 3px var(--card-glow, var(--ember-glow-soft));
+  }
+  .bento-card:hover::before {
+    opacity: 1;
+  }
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .card-icon {
+    width: 38px; height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--card-fg, var(--ember-300));
+    background: var(--card-bg, rgba(224, 138, 68, 0.12));
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .card-icon svg { width: 19px; height: 19px; }
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.2rem, 1rem + 0.5vw, 1.5rem);
+    letter-spacing: -0.01em;
+    color: var(--card-fg, var(--ember-200));
+    line-height: 1;
+    margin: 0;
+  }
+  .card-stat {
+    margin-left: auto;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    text-align: right;
+    line-height: 1.1;
+  }
+  .bento-card p {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(0.95rem, 0.88rem + 0.25vw, 1.05rem);
+    line-height: 1.55;
+    letter-spacing: -0.005em;
+    color: var(--ink-100);
+    flex: 1;
+    margin: 0;
+  }
+  .card-foot {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--fg-dim);
+    margin-top: auto;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .card-foot .arrow {
+    transition: transform var(--dur) var(--ease);
+  }
+  .bento-card:hover .card-foot {
+    color: var(--card-fg, var(--ember-200));
+  }
+  .bento-card:hover .card-foot .arrow {
+    transform: translateX(3px);
+  }
+
+  /* per-card color identity */
+  .bento-card.music {
+    --card-accent: rgba(237, 170, 106, 0.18);
+    --card-border-hover: rgba(237, 170, 106, 0.55);
+    --card-glow: var(--ember-glow-soft);
+    --card-fg: var(--ember-200);
+    --card-bg: rgba(224, 138, 68, 0.14);
+  }
+  .bento-card.green {
+    --card-accent: rgba(154, 200, 138, 0.18);
+    --card-border-hover: rgba(154, 200, 138, 0.55);
+    --card-glow: rgba(154, 200, 138, 0.22);
+    --card-fg: #c7e3ba;
+    --card-bg: rgba(90, 115, 96, 0.20);
+  }
+  .bento-card.sites {
+    --card-accent: rgba(170, 180, 200, 0.16);
+    --card-border-hover: rgba(170, 180, 200, 0.55);
+    --card-glow: rgba(170, 180, 200, 0.22);
+    --card-fg: #c8d1de;
+    --card-bg: rgba(78, 88, 110, 0.22);
+  }
+  .bento-card.manuels {
+    --card-accent: rgba(212, 188, 142, 0.18);
+    --card-border-hover: rgba(212, 188, 142, 0.55);
+    --card-glow: rgba(212, 188, 142, 0.22);
+    --card-fg: #d8c6a4;
+    --card-bg: rgba(98, 80, 50, 0.24);
+  }
+
+  /* FOOTER (intégré au hub) */
+  .hub-foot {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .foot-bio em {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink-100);
+    font-size: clamp(1rem, 0.9rem + 0.3vw, 1.15rem);
+  }
+  .foot-bio {
+    margin: 0;
+  }
+  .foot-contact {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--fg-dim);
+  }
+  .foot-contact a {
+    color: var(--ember-300);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  }
+  .foot-contact a:hover {
+    color: var(--ember-200);
+    border-bottom-color: var(--ember-300);
+  }
+  .foot-langs {
+    display: inline-flex;
+    gap: 0.3rem;
+    margin-top: 1rem;
+    padding: 0.35rem;
+    background: rgba(244, 237, 227, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+  .foot-lang {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--fg-dim);
+    border-radius: 999px;
+    transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  }
+  .foot-lang:hover {
+    color: var(--ember-200);
+    background: rgba(244, 237, 227, 0.05);
+  }
+  .foot-lang.active {
+    color: var(--ink-950);
+    background: var(--ember-400);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 920px) {
+    .airbnb-media {
+      aspect-ratio: 16 / 9;
+    }
+    .hub-header-row {
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+    .hub-title {
+      text-align: center;
+    }
+    .hub-categories {
+      border-left: none;
+      border-top: 1px solid var(--border-strong);
+      padding-left: 0;
+      padding-top: 1.2rem;
+      text-align: center;
+      align-items: center;
+    }
+  }
+  @media (max-width: 560px) {
+    .hub {
+      padding-block: 0 clamp(2rem, 5vh, 3rem);
+      gap: clamp(1.6rem, 3.5vw, 2.5rem);
+    }
+    .hub-top {
+      gap: 0.6rem;
+      padding-block: 0.9rem;
+    }
+    .hub-brand {
+      top: 0.6rem;
+    }
+    .hub-top-langs {
+      padding: 0.25rem;
+      gap: 0.15rem;
+    }
+    .top-lang {
+      padding: 0.3rem 0.55rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+    }
+    .hub-header-row {
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+    .hub-categories {
+      padding-top: 0.9rem;
+      gap: 0.15rem;
+    }
+    .hub-motto {
+      max-width: calc(100% - 1rem);
+    }
+    .hub-motto::before,
+    .hub-motto::after {
+      width: clamp(16px, 4vw, 28px);
+    }
+    .bento-features {
+      grid-template-columns: 1fr;
+    }
+    .bento-airbnb {
+      border-radius: 18px;
+    }
+    .airbnb-text {
+      padding: 1.4rem;
+      gap: 0.6rem;
+    }
+    .airbnb-text-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    .airbnb-coords {
+      padding-left: 2rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+    }
+    .bento-airbnb-badge {
+      font-size: 0.74rem;
+      padding: 0.35rem 0.75rem 0.35rem 0.55rem;
+    }
+    .bento-airbnb-cta {
+      padding: 0.85rem 1.3rem;
+      font-size: 0.88rem;
+    }
+    .airbnb-media {
+      aspect-ratio: 4 / 3;
+    }
+    .card-stat {
+      font-size: 0.68rem;
+    }
+    .bento-card {
+      padding: 1.2rem;
+    }
+    .bento-card p {
+      font-size: 0.95rem;
+    }
+    .foot-lang {
+      padding: 0.35rem 0.7rem;
+      font-size: 0.7rem;
+    }
+    .hub-foot {
+      gap: 0.6rem;
+    }
+  }
+  @media (max-width: 360px) {
+    .top-lang {
+      padding: 0.25rem 0.4rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+    }
+    .hub-brand-logo {
+      height: 40px;
+    }
+  }
+</style>
