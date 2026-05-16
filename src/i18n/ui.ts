@@ -39,7 +39,7 @@ export const ui = {
     'hub.cat.2': 'Music Hub',
     'hub.cat.3': 'Productions',
     'hub.motto': 'Bienvenue dans le désordre choisi.',
-    'hub.airbnb.coords': '50°38′N · 5°48′E · EST. 2022',
+    'hub.airbnb.coords': '50°38′N · 5°48′E',
     'hub.airbnb.eyebrow': 'Herve · Belgique',
     'hub.airbnb.title': 'La chambre d\'hôtes',
     'hub.airbnb.body': 'Une chambre privée, mais toute la maison. Le piano, la cuisine, le jardin, le hamac. Et un chat roux pour vous inspecter.',
@@ -79,7 +79,7 @@ export const ui = {
     'hub.manuels.body': 'Guides imprimables que j\'écris quand un sujet mérite mieux qu\'un mode d\'emploi standard. Tout ce que je pratique assez pour vouloir le transmettre proprement.',
     'hub.visit': 'Explorer',
     'hub.footer.bio': 'Maxime — hôte, dev, musicien, jardinier.',
-    'hub.footer.copy': '© 2026 Maurisson · Herve, Belgique · Hôte Airbnb depuis 2022',
+    'hub.footer.copy': '© 2026 Maurisson · Herve, Belgique · Hôte Airbnb',
 
     'hero.eyebrow': 'Herve · Belgique',
     'hero.title.l1': 'Une chambre',
@@ -130,7 +130,6 @@ export const ui = {
     'host.eyebrow': 'L\'hôte',
     'host.title': 'Maxime. Et Sushi.',
     'host.body': 'Je vis sur place. Disponible si vous avez besoin de quelque chose, discret si vous préférez votre tranquillité. Je connais bien la région et je peux vous orienter vers les bons endroits pour manger, randonner ou visiter. Pas de programme imposé, pas de protocole — juste une maison ouverte. Sushi, le chat roux, viendra probablement vous inspecter. C\'est son boulot.',
-    'host.signature': 'Maxime · Superhost depuis 2022',
     'host.sushi': 'Chat roux, social',
 
     'gallery.eyebrow': 'La visite',
@@ -177,7 +176,7 @@ export const ui = {
     'hub.cat.2': 'Music Hub',
     'hub.cat.3': 'Producties',
     'hub.motto': 'Welkom in de gekozen chaos.',
-    'hub.airbnb.coords': '50°38′N · 5°48′E · EST. 2022',
+    'hub.airbnb.coords': '50°38′N · 5°48′E',
     'hub.airbnb.eyebrow': 'Herve · België',
     'hub.airbnb.title': 'De gastenkamer',
     'hub.airbnb.body': 'Eén privékamer, maar het hele huis. Piano, keuken, tuin, hangmat. En een rode kat die je komt inspecteren.',
@@ -217,7 +216,7 @@ export const ui = {
     'hub.manuels.body': 'Afdrukbare gidsen die ik schrijf wanneer een onderwerp beter verdient dan een standaard handleiding. Alles waarmee ik genoeg bezig ben om het netjes door te willen geven.',
     'hub.visit': 'Verkennen',
     'hub.footer.bio': 'Maxime — gastheer, dev, muzikant, tuinier.',
-    'hub.footer.copy': '© 2026 Maurisson · Herve, België · Airbnb-gastheer sinds 2022',
+    'hub.footer.copy': '© 2026 Maurisson · Herve, België · Airbnb-gastheer',
 
     'hero.eyebrow': 'Herve · België',
     'hero.title.l1': 'Eén kamer',
@@ -268,7 +267,6 @@ export const ui = {
     'host.eyebrow': 'De gastheer',
     'host.title': 'Maxime. En Sushi.',
     'host.body': 'Ik woon hier. Beschikbaar als je iets nodig hebt, discreet als je liever je rust hebt. Ik ken de streek goed en kan je naar de juiste plekken sturen om te eten, te wandelen of te bezoeken. Geen opgelegd programma, geen protocol — gewoon een open huis. Sushi, de rode kat, komt je waarschijnlijk inspecteren. Dat is zijn job.',
-    'host.signature': 'Maxime · Superhost sinds 2022',
     'host.sushi': 'Rode kat, sociaal',
 
     'gallery.eyebrow': 'De rondleiding',
@@ -315,7 +313,7 @@ export const ui = {
     'hub.cat.2': 'Music Hub',
     'hub.cat.3': 'Productions',
     'hub.motto': 'Welcome to the chosen chaos.',
-    'hub.airbnb.coords': '50°38′N · 5°48′E · EST. 2022',
+    'hub.airbnb.coords': '50°38′N · 5°48′E',
     'hub.airbnb.eyebrow': 'Herve · Belgium',
     'hub.airbnb.title': 'The guest room',
     'hub.airbnb.body': 'A private room, but the whole house. Piano, kitchen, garden, hammock. And a ginger cat to inspect you.',
@@ -355,7 +353,7 @@ export const ui = {
     'hub.manuels.body': 'Printable guides I write when a subject deserves better than a stock manual. Everything I practice enough to want to pass it on properly.',
     'hub.visit': 'Explore',
     'hub.footer.bio': 'Maxime — host, dev, musician, gardener.',
-    'hub.footer.copy': '© 2026 Maurisson · Herve, Belgium · Airbnb host since 2022',
+    'hub.footer.copy': '© 2026 Maurisson · Herve, Belgium · Airbnb host',
 
     'hero.eyebrow': 'Herve · Belgium',
     'hero.title.l1': 'One room',
@@ -406,7 +404,6 @@ export const ui = {
     'host.eyebrow': 'The host',
     'host.title': 'Maxime. And Sushi.',
     'host.body': 'I live here. Available if you need something, discreet if you\'d rather be on your own. I know the region well and can point you to the right places to eat, hike or visit. No schedule imposed, no protocol — just an open house. Sushi, the ginger cat, will probably come and inspect you. That\'s his job.',
-    'host.signature': 'Maxime · Superhost since 2022',
     'host.sushi': 'Ginger cat, social',
 
     'gallery.eyebrow': 'The tour',
@@ -453,7 +450,7 @@ export const ui = {
     'hub.cat.2': 'Music Hub',
     'hub.cat.3': 'Produktionen',
     'hub.motto': 'Willkommen im gewählten Chaos.',
-    'hub.airbnb.coords': '50°38′N · 5°48′E · EST. 2022',
+    'hub.airbnb.coords': '50°38′N · 5°48′E',
     'hub.airbnb.eyebrow': 'Herve · Belgien',
     'hub.airbnb.title': 'Das Gästezimmer',
     'hub.airbnb.body': 'Ein privates Zimmer, aber das ganze Haus. Klavier, Küche, Garten, Hängematte. Und eine rote Katze, die Sie inspiziert.',
@@ -493,7 +490,7 @@ export const ui = {
     'hub.manuels.body': 'Druckbare Anleitungen, die ich schreibe, wenn ein Thema mehr verdient als eine Standardanleitung. Alles, womit ich mich genug beschäftige, um es ordentlich weitergeben zu wollen.',
     'hub.visit': 'Erkunden',
     'hub.footer.bio': 'Maxime — Gastgeber, Entwickler, Musiker, Gärtner.',
-    'hub.footer.copy': '© 2026 Maurisson · Herve, Belgien · Airbnb-Gastgeber seit 2022',
+    'hub.footer.copy': '© 2026 Maurisson · Herve, Belgien · Airbnb-Gastgeber',
 
     'hero.eyebrow': 'Herve · Belgien',
     'hero.title.l1': 'Ein Zimmer',
@@ -544,7 +541,6 @@ export const ui = {
     'host.eyebrow': 'Der Gastgeber',
     'host.title': 'Maxime. Und Sushi.',
     'host.body': 'Ich wohne hier. Verfügbar, wenn Sie etwas brauchen, diskret, wenn Sie Ihre Ruhe bevorzugen. Ich kenne die Region gut und kann Sie zu den richtigen Orten zum Essen, Wandern oder Besuchen lenken. Kein aufgezwungenes Programm, kein Protokoll — nur ein offenes Haus. Sushi, die rote Katze, wird Sie wahrscheinlich inspizieren. Das ist ihr Job.',
-    'host.signature': 'Maxime · Superhost seit 2022',
     'host.sushi': 'Rote Katze, sozial',
 
     'gallery.eyebrow': 'Der Rundgang',
