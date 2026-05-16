@@ -45,8 +45,7 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
   <div class="hub-header container reveal">
     <div class="hub-header-row">
       <h1 class="hub-title display">
-        <span class="t-line">{t('hub.title.l1')}</span>
-        <span class="t-line t-line--em"><em>{t('hub.title.em')}</em></span>
+        <span class="t-line">{t('hub.title.l1')} <em class="t-em">{t('hub.title.em')}</em></span>
         <span class="t-line">{t('hub.title.l3')}</span>
       </h1>
       <ul class="hub-categories" aria-label="Catégories">
@@ -288,8 +287,8 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
     margin-bottom: clamp(1.2rem, 2.5vw, 2rem);
   }
   .hub-title {
-    font-size: clamp(2rem, 1.4rem + 3.6vw, 4.8rem);
-    line-height: 0.95;
+    font-size: clamp(2.2rem, 1.5rem + 4.2vw, 5.4rem);
+    line-height: 0.98;
     margin: 0;
     color: var(--ink-50);
     font-weight: 300;
@@ -298,8 +297,9 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
   }
   .hub-title .t-line {
     display: block;
+    white-space: nowrap;
   }
-  .hub-title .t-line--em em {
+  .hub-title .t-em {
     font-style: italic;
     font-weight: 300;
     background: linear-gradient(95deg, var(--ember-300) 0%, var(--ember-200) 50%, var(--ember-400) 100%);
