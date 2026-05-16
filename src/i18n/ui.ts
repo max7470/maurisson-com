@@ -77,7 +77,7 @@ export const ui = {
     'hub.manuels.title': 'Manuels',
     'hub.manuels.stat': 'guides',
     'hub.manuels.body': 'Guides imprimables que j\'écris quand un sujet mérite mieux qu\'un mode d\'emploi standard. Tout ce que je pratique assez pour vouloir le transmettre proprement.',
-    'hub.visit': 'Visiter',
+    'hub.visit': 'Explorer',
     'hub.footer.bio': 'Maxime — hôte, dev, musicien, jardinier.',
 
     'hero.eyebrow': 'Herve · Belgique',
@@ -214,7 +214,7 @@ export const ui = {
     'hub.manuels.title': 'Handleidingen',
     'hub.manuels.stat': 'gidsen',
     'hub.manuels.body': 'Afdrukbare gidsen die ik schrijf wanneer een onderwerp beter verdient dan een standaard handleiding. Alles waarmee ik genoeg bezig ben om het netjes door te willen geven.',
-    'hub.visit': 'Bezoeken',
+    'hub.visit': 'Verkennen',
     'hub.footer.bio': 'Maxime — gastheer, dev, muzikant, tuinier.',
 
     'hero.eyebrow': 'Herve · België',
@@ -317,7 +317,7 @@ export const ui = {
     'hub.airbnb.eyebrow': 'Herve · Belgium',
     'hub.airbnb.title': 'The guest room',
     'hub.airbnb.body': 'A private room, but the whole house. Piano, kitchen, garden, hammock. And a ginger cat to inspect you.',
-    'hub.airbnb.cta': 'Explore',
+    'hub.airbnb.cta': 'Discover',
     'hub.airbnb.rating': '4.91 · Guest favourite',
     'hub.music.title': 'Music Hub',
     'hub.music.stat': 'tracks',
@@ -351,7 +351,7 @@ export const ui = {
     'hub.manuels.title': 'Manuals',
     'hub.manuels.stat': 'guides',
     'hub.manuels.body': 'Printable guides I write when a subject deserves better than a stock manual. Everything I practice enough to want to pass it on properly.',
-    'hub.visit': 'Visit',
+    'hub.visit': 'Explore',
     'hub.footer.bio': 'Maxime — host, dev, musician, gardener.',
 
     'hero.eyebrow': 'Herve · Belgium',
@@ -488,7 +488,7 @@ export const ui = {
     'hub.manuels.title': 'Anleitungen',
     'hub.manuels.stat': 'Anleitungen',
     'hub.manuels.body': 'Druckbare Anleitungen, die ich schreibe, wenn ein Thema mehr verdient als eine Standardanleitung. Alles, womit ich mich genug beschäftige, um es ordentlich weitergeben zu wollen.',
-    'hub.visit': 'Besuchen',
+    'hub.visit': 'Erkunden',
     'hub.footer.bio': 'Maxime — Gastgeber, Entwickler, Musiker, Gärtner.',
 
     'hero.eyebrow': 'Herve · Belgien',
