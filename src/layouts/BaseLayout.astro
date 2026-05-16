@@ -43,6 +43,14 @@ const alt = [
     <link rel="alternate" hreflang={a.lang} href={a.href} />
   ))}
   <link rel="alternate" hreflang="x-default" href="/" />
+
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-ZL0LY1LPJK"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZL0LY1LPJK', { cookie_domain: '.maurisson.com', cookie_flags: 'SameSite=None;Secure' });
+  </script>
 </head>
 <body>
   {nav === 'none' ? null : nav === 'hub' ? <NavHub lang={lang} /> : <Nav lang={lang} />}
