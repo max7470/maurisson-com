@@ -58,7 +58,7 @@ export const ui = {
     'hub.sites.body': 'Vitrines créées pour des amis musiciens et artisans : David Natan (sculpteur), Delavega (folk), The GUTS (rock/metal Verviers). De vrais sites, de vrais clics.',
     'hub.manuels.title': 'Manuels',
     'hub.manuels.stat': 'guides',
-    'hub.manuels.body': 'Guides imprimables que j\'écris quand un outil mérite mieux que son manuel d\'origine. Pour l\'instant : le Yamaha CP5 (piano de scène, 40 pages illustrées) et le mini-clavier Yamaha PSS-A50 (12 pages, l\'essentiel).',
+    'hub.manuels.body': 'Guides imprimables que j\'écris quand un sujet mérite mieux qu\'un mode d\'emploi standard. Tout ce que je pratique assez pour vouloir le transmettre proprement.',
     'hub.visit': 'Visiter',
     'hub.footer.bio': 'Maxime — hôte, dev, musicien, jardinier.',
 
@@ -169,7 +169,7 @@ export const ui = {
     'hub.sites.body': 'Visitekaartjes gemaakt voor bevriende muzikanten en ambachtslui: David Natan (beeldhouwer), Delavega (folk), The GUTS (rock/metal Verviers). Echte sites, echte klikken.',
     'hub.manuels.title': 'Handleidingen',
     'hub.manuels.stat': 'gidsen',
-    'hub.manuels.body': 'Afdrukbare gidsen die ik schrijf wanneer een apparaat beter verdient dan zijn originele handleiding. Voor nu: de Yamaha CP5 (stagepiano, 40 geïllustreerde pagina\'s) en de mini-keyboard Yamaha PSS-A50 (12 pagina\'s, het essentiële).',
+    'hub.manuels.body': 'Afdrukbare gidsen die ik schrijf wanneer een onderwerp beter verdient dan een standaard handleiding. Alles waarmee ik genoeg bezig ben om het netjes door te willen geven.',
     'hub.visit': 'Bezoeken',
     'hub.footer.bio': 'Maxime — gastheer, dev, muzikant, tuinier.',
 
@@ -280,7 +280,7 @@ export const ui = {
     'hub.sites.body': 'Showcase sites built for musician and craftsman friends: David Natan (sculptor), Delavega (folk), The GUTS (rock/metal, Verviers). Real sites, real clicks.',
     'hub.manuels.title': 'Manuals',
     'hub.manuels.stat': 'guides',
-    'hub.manuels.body': 'Printable guides I write when a tool deserves better than its original manual. So far: the Yamaha CP5 (stage piano, 40 illustrated pages) and the Yamaha PSS-A50 mini-keyboard (12 pages, the essentials).',
+    'hub.manuels.body': 'Printable guides I write when a subject deserves better than a stock manual. Everything I practice enough to want to pass it on properly.',
     'hub.visit': 'Visit',
     'hub.footer.bio': 'Maxime — host, dev, musician, gardener.',
 
@@ -391,7 +391,7 @@ export const ui = {
     'hub.sites.body': 'Vitrinen für Musiker- und Handwerkerfreunde: David Natan (Bildhauer), Delavega (Folk), The GUTS (Rock/Metal, Verviers). Echte Seiten, echte Klicks.',
     'hub.manuels.title': 'Anleitungen',
     'hub.manuels.stat': 'Anleitungen',
-    'hub.manuels.body': 'Druckbare Anleitungen, die ich schreibe, wenn ein Gerät besser verdient als sein Originalhandbuch. Bisher: das Yamaha CP5 (Stagepiano, 40 illustrierte Seiten) und das Mini-Keyboard Yamaha PSS-A50 (12 Seiten, das Wesentliche).',
+    'hub.manuels.body': 'Druckbare Anleitungen, die ich schreibe, wenn ein Thema mehr verdient als eine Standardanleitung. Alles, womit ich mich genug beschäftige, um es ordentlich weitergeben zu wollen.',
     'hub.visit': 'Besuchen',
     'hub.footer.bio': 'Maxime — Gastgeber, Entwickler, Musiker, Gärtner.',
 
