@@ -1,6 +1,6 @@
 ---
 import { useTranslations, type Lang, MUSIC_HUB_URL, GREEN_HUB_URL, SITES_URL, MANUELS_URL, languages } from '../i18n/ui';
-const { lang } = Astro.props as { lang: Lang };
+const { lang, showHubs = true } = Astro.props as { lang: Lang; showHubs?: boolean };
 const t = useTranslations(lang);
 
 const prefix = lang === 'fr' ? '' : '/' + lang;
@@ -46,6 +46,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
           >{label}</a>
         ))}
       </div>
+      {showHubs && (
       <div class="cta-stack">
         <div class="cta-row">
           <a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-music" aria-label={t('nav.music')}>
@@ -85,6 +86,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
           </a>
         </div>
       </div>
+      )}
       <button class="burger" data-burger aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -101,6 +103,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
           <a href={langHref(code)} class={lang === code ? 'active' : ''}>{label}</a>
         ))}
       </li>
+      {showHubs && (<>
       <li><a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M9 18V5l12-2v13"/>
@@ -134,6 +137,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
         </svg>
         {t('nav.manuels')}
       </a></li>
+      </>)}
     </ul>
   </div>
 </nav>

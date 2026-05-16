@@ -12,9 +12,10 @@ interface Props {
   nav?: 'full' | 'hub' | 'none';
   footer?: 'full' | 'none';
   pathSuffix?: string;
+  showHubs?: boolean;
 }
 
-const { lang, title, description, nav = 'full', footer = 'full', pathSuffix = '' } = Astro.props;
+const { lang, title, description, nav = 'full', footer = 'full', pathSuffix = '', showHubs = true } = Astro.props;
 const t = useTranslations(lang);
 const pageTitle = title ?? 'Maurisson — ' + t('footer.tagline');
 const pageDescription = description ?? t('hub.tagline');
@@ -53,7 +54,7 @@ const alt = [
   </script>
 </head>
 <body>
-  {nav === 'none' ? null : nav === 'hub' ? <NavHub lang={lang} /> : <Nav lang={lang} />}
+  {nav === 'none' ? null : nav === 'hub' ? <NavHub lang={lang} /> : <Nav lang={lang} showHubs={showHubs} />}
   <main>
     <slot />
   </main>
