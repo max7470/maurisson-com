@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Legal from '../../components/Legal.astro';
+import { legal } from '../../i18n/legal';
+
+const lang = 'nl';
+const content = legal[lang];
+---
+<BaseLayout
+  lang={lang}
+  pathSuffix="legal"
+  title={content.metaTitle}
+  description={content.metaDescription}
+  nav="none"
+  footer="none"
+>
+  <Legal lang={lang} />
+</BaseLayout>

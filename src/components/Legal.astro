@@ -1,0 +1,404 @@
+---
+import {
+  type Lang,
+  languages,
+  AIRBNB_URL,
+  GITHUB_URL,
+  hubUrl,
+} from '../i18n/ui';
+import { legal } from '../i18n/legal';
+
+const { lang } = Astro.props as { lang: Lang };
+const content = legal[lang];
+const home = hubUrl(lang);
+const legalPath = (l: string) => l === 'fr' ? '/legal' : `/${l}/legal`;
+
+const country: Record<Lang, string> = {
+  fr: 'Belgique',
+  nl: 'België',
+  en: 'Belgium',
+  de: 'Belgien',
+};
+---
+
+<main class="legal">
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="legal-top container">
+    <a href={home} class="legal-brand" aria-label="Mauriss">
+      <span class="legal-brand-logo" role="img" aria-label="Mauriss"></span>
+    </a>
+    <div class="legal-top-langs" aria-label="Language">
+      {Object.entries(languages).map(([code, label]) => (
+        <a
+          href={legalPath(code)}
+          class={'top-lang' + (lang === code ? ' active' : '')}
+          aria-current={lang === code ? 'page' : undefined}
+        >{label}</a>
+      ))}
+    </div>
+  </header>
+
+  <article class="legal-content container">
+    <p class="legal-eyebrow">{content.eyebrow}</p>
+    <h1 class="legal-title display">{content.title}</h1>
+    <p class="legal-intro"><em>{content.intro}</em></p>
+
+    {content.sections.map((section) => (
+      <section class="legal-section">
+        <h2 class="legal-h2 display">{section.heading}</h2>
+        {section.body.split('\n\n').map((para) => (
+          <p>{para.split('\n').map((line, i, arr) => (
+            <>{line}{i < arr.length - 1 ? <br /> : null}</>
+          ))}</p>
+        ))}
+      </section>
+    ))}
+
+    <p class="legal-updated">{content.lastUpdated}</p>
+
+    <a href={home} class="legal-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      {content.back}
+    </a>
+  </article>
+
+  <footer class="legal-foot container">
+    <p class="foot-copy">© 2026 Maurisson · Herve, {country[lang]} · contact@maurisson.com</p>
+    <ul class="foot-links">
+      <li><a href={AIRBNB_URL} target="_blank" rel="noopener noreferrer">Airbnb</a></li>
+      <li><a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href={legalPath(lang)} aria-current="page">{content.eyebrow}</a></li>
+      <li><a href="/sitemap-index.xml" target="_blank" rel="noopener noreferrer">Sitemap</a></li>
+    </ul>
+  </footer>
+</main>
+
+<style>
+  .legal {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    padding-block: 0 clamp(2.5rem, 5vh, 4rem);
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .legal .noise {
+    z-index: -2;
+  }
+
+  /* TOP STRIP — same vibe as hub */
+  .legal-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    padding-block: clamp(1.2rem, 2vh, 1.8rem);
+    position: relative;
+  }
+  .legal-top::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: clamp(60px, 8vw, 110px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ember-400) 50%, transparent);
+    opacity: 0.6;
+  }
+  .legal-brand {
+    position: absolute;
+    top: clamp(0.4rem, 1vh, 1rem);
+    left: var(--gutter);
+    display: inline-flex;
+    align-items: flex-start;
+    line-height: 1;
+    z-index: 2;
+  }
+  .legal-brand-logo {
+    display: inline-block;
+    height: clamp(46px, 7vw, 108px);
+    aspect-ratio: 808.31 / 500.15;
+    background-color: var(--ember-400);
+    -webkit-mask-image: url(/mauriss-logo.svg);
+    mask-image: url(/mauriss-logo.svg);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    transition:
+      background-color var(--dur-fast) var(--ease),
+      transform var(--dur) var(--ease),
+      filter var(--dur) var(--ease);
+    filter: drop-shadow(0 1px 12px rgba(224, 138, 68, 0.18));
+  }
+  .legal-brand:hover .legal-brand-logo {
+    background-color: var(--ember-300);
+    transform: rotate(-3deg) scale(1.04);
+    filter: drop-shadow(0 2px 18px rgba(224, 138, 68, 0.35));
+  }
+  .legal-top-langs {
+    display: inline-flex;
+    gap: 0.2rem;
+    padding: 0.3rem;
+    background: rgba(244, 237, 227, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+  .legal-top-langs .top-lang {
+    padding: 0.35rem 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--fg-dim);
+    border-radius: 999px;
+    transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  }
+  .legal-top-langs .top-lang:hover {
+    color: var(--ember-200);
+    background: rgba(244, 237, 227, 0.05);
+  }
+  .legal-top-langs .top-lang.active {
+    color: var(--ink-950);
+    background: var(--ember-400);
+  }
+
+  /* CONTENT */
+  .legal-content {
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+    display: flex;
+    flex-direction: column;
+  }
+  .legal-eyebrow {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 0.6em;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ember-300);
+    margin: 0 0 1rem;
+  }
+  .legal-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 1.6rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .legal-title {
+    font-size: clamp(2rem, 1.4rem + 2.6vw, 3.4rem);
+    line-height: 1.05;
+    margin: 0 0 1.5rem;
+    color: var(--ink-50);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+  .legal-intro {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--ink-100);
+    margin: 0 0 2.5rem;
+    max-width: 64ch;
+    letter-spacing: -0.005em;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .legal-intro::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: clamp(56px, 8vw, 110px);
+    height: 1px;
+    background: linear-gradient(90deg, var(--ember-400), transparent);
+  }
+
+  .legal-section {
+    margin-bottom: 2.4rem;
+  }
+  .legal-h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.2rem, 1rem + 0.6vw, 1.55rem);
+    color: var(--ember-200);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin: 0 0 0.9rem;
+  }
+  .legal-section p {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1rem, 0.92rem + 0.25vw, 1.08rem);
+    line-height: 1.65;
+    color: var(--ink-100);
+    margin: 0 0 0.9rem;
+    max-width: 68ch;
+    letter-spacing: -0.005em;
+  }
+  .legal-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal-updated {
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.12em;
+    margin: 2.5rem 0 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .legal-back {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 1.2rem;
+    background: rgba(244, 237, 227, 0.06);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.86rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ember-200);
+    text-decoration: none;
+    transition:
+      background var(--dur) var(--ease),
+      color var(--dur) var(--ease),
+      border-color var(--dur) var(--ease),
+      transform var(--dur) var(--ease);
+  }
+  .legal-back:hover {
+    background: rgba(224, 138, 68, 0.14);
+    color: var(--ink-50);
+    border-color: rgba(237, 170, 106, 0.55);
+    transform: translateX(-2px);
+  }
+  .legal-back svg {
+    transition: transform var(--dur) var(--ease);
+  }
+  .legal-back:hover svg {
+    transform: translateX(-2px);
+  }
+
+  /* FOOTER */
+  .legal-foot {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+  .legal-foot::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(60px, 8vw, 110px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ember-400) 50%, transparent);
+    opacity: 0.6;
+  }
+  .foot-copy {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.1em;
+  }
+  .foot-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+  }
+  .foot-links li {
+    display: inline-flex;
+    align-items: center;
+  }
+  .foot-links li + li::before {
+    content: '·';
+    margin: 0 0.7rem;
+    color: var(--fg-dim);
+    opacity: 0.55;
+  }
+  .foot-links a {
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .foot-links a:hover {
+    color: var(--ember-200);
+  }
+  .foot-links a[aria-current='page'] {
+    color: var(--ember-300);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 560px) {
+    .legal {
+      gap: clamp(1.6rem, 3.5vw, 2.5rem);
+    }
+    .legal-top {
+      gap: 0.6rem;
+      padding-block: 0.9rem;
+    }
+    .legal-brand {
+      top: 0.6rem;
+    }
+    .legal-top-langs {
+      padding: 0.25rem;
+      gap: 0.15rem;
+    }
+    .legal-top-langs .top-lang {
+      padding: 0.3rem 0.55rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+    }
+    .legal-section {
+      margin-bottom: 2rem;
+    }
+    .foot-links li + li::before {
+      margin: 0 0.5rem;
+    }
+    .foot-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+    }
+  }
+</style>

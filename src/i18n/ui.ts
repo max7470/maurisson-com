@@ -79,6 +79,7 @@ export const ui = {
     'hub.manuels.body': 'Guides imprimables que j\'écris quand un sujet mérite mieux qu\'un mode d\'emploi standard. Tout ce que je pratique assez pour vouloir le transmettre proprement.',
     'hub.visit': 'Explorer',
     'hub.footer.bio': 'Maxime — hôte, dev, musicien, jardinier.',
+    'hub.footer.copy': '© 2026 Maurisson · Herve, Belgique · Hôte Airbnb depuis 2022',
 
     'hero.eyebrow': 'Herve · Belgique',
     'hero.title.l1': 'Une chambre',
@@ -216,6 +217,7 @@ export const ui = {
     'hub.manuels.body': 'Afdrukbare gidsen die ik schrijf wanneer een onderwerp beter verdient dan een standaard handleiding. Alles waarmee ik genoeg bezig ben om het netjes door te willen geven.',
     'hub.visit': 'Verkennen',
     'hub.footer.bio': 'Maxime — gastheer, dev, muzikant, tuinier.',
+    'hub.footer.copy': '© 2026 Maurisson · Herve, België · Airbnb-gastheer sinds 2022',
 
     'hero.eyebrow': 'Herve · België',
     'hero.title.l1': 'Eén kamer',
@@ -353,6 +355,7 @@ export const ui = {
     'hub.manuels.body': 'Printable guides I write when a subject deserves better than a stock manual. Everything I practice enough to want to pass it on properly.',
     'hub.visit': 'Explore',
     'hub.footer.bio': 'Maxime — host, dev, musician, gardener.',
+    'hub.footer.copy': '© 2026 Maurisson · Herve, Belgium · Airbnb host since 2022',
 
     'hero.eyebrow': 'Herve · Belgium',
     'hero.title.l1': 'One room',
@@ -490,6 +493,7 @@ export const ui = {
     'hub.manuels.body': 'Druckbare Anleitungen, die ich schreibe, wenn ein Thema mehr verdient als eine Standardanleitung. Alles, womit ich mich genug beschäftige, um es ordentlich weitergeben zu wollen.',
     'hub.visit': 'Erkunden',
     'hub.footer.bio': 'Maxime — Gastgeber, Entwickler, Musiker, Gärtner.',
+    'hub.footer.copy': '© 2026 Maurisson · Herve, Belgien · Airbnb-Gastgeber seit 2022',
 
     'hero.eyebrow': 'Herve · Belgien',
     'hero.title.l1': 'Ein Zimmer',
