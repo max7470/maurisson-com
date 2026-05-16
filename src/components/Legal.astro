@@ -3,7 +3,6 @@ import {
   type Lang,
   languages,
   AIRBNB_URL,
-  GITHUB_URL,
   hubUrl,
 } from '../i18n/ui';
 import { legal } from '../i18n/legal';
@@ -67,7 +66,6 @@ const country: Record<Lang, string> = {
     <p class="foot-copy">© 2026 Maurisson · Herve, {country[lang]} · contact@maurisson.com</p>
     <ul class="foot-links">
       <li><a href={AIRBNB_URL} target="_blank" rel="noopener noreferrer">Airbnb</a></li>
-      <li><a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub</a></li>
       <li><a href={legalPath(lang)} aria-current="page">{content.eyebrow}</a></li>
       <li><a href="/sitemap-index.xml" target="_blank" rel="noopener noreferrer">Sitemap</a></li>
     </ul>
