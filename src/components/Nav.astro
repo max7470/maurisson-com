@@ -49,7 +49,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
       {showHubs && (
       <div class="cta-stack">
         <div class="cta-row">
-          <a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-music" aria-label={t('nav.music')}>
+          <a href={MUSIC_HUB_URL} target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm cta-music" aria-label={t('nav.music')}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 18V5l12-2v13"/>
               <circle cx="6" cy="18" r="3"/>
@@ -57,7 +57,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
             </svg>
             <span>{t('nav.music')}</span>
           </a>
-          <a href={GREEN_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-green" aria-label={t('nav.green')}>
+          <a href={GREEN_HUB_URL} target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm cta-green" aria-label={t('nav.green')}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 22c-4-4-7-9-7-13a7 7 0 0 1 14 0c0 4-3 9-7 13z"/>
               <path d="M12 16V9"/>
@@ -68,7 +68,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
           </a>
         </div>
         <div class="cta-row">
-          <a href={SITES_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-sites" aria-label={t('nav.sites')}>
+          <a href={SITES_URL} target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm cta-sites" aria-label={t('nav.sites')}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="3" y="4" width="18" height="14" rx="2"/>
               <path d="M3 9h18"/>
@@ -76,7 +76,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
             </svg>
             <span>{t('nav.sites')}</span>
           </a>
-          <a href={MANUELS_URL} target="_blank" rel="noopener" class="btn btn--ghost btn--sm cta-manuels" aria-label={t('nav.manuels')}>
+          <a href={MANUELS_URL} target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm cta-manuels" aria-label={t('nav.manuels')}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 4.5C4 3.7 4.7 3 5.5 3H19v15H5.5C4.7 18 4 17.3 4 16.5z"/>
               <path d="M4 16.5V20h14"/>
@@ -104,7 +104,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
         ))}
       </li>
       {showHubs && (<>
-      <li><a href={MUSIC_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
+      <li><a href={MUSIC_HUB_URL} target="_blank" rel="noopener noreferrer" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M9 18V5l12-2v13"/>
           <circle cx="6" cy="18" r="3"/>
@@ -112,7 +112,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
         </svg>
         {t('nav.music')}
       </a></li>
-      <li><a href={GREEN_HUB_URL} target="_blank" rel="noopener" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
+      <li><a href={GREEN_HUB_URL} target="_blank" rel="noopener noreferrer" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12 22c-4-4-7-9-7-13a7 7 0 0 1 14 0c0 4-3 9-7 13z"/>
           <path d="M12 16V9"/>
@@ -121,7 +121,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
         </svg>
         {t('nav.green')}
       </a></li>
-      <li><a href={SITES_URL} target="_blank" rel="noopener" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
+      <li><a href={SITES_URL} target="_blank" rel="noopener noreferrer" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="3" y="4" width="18" height="14" rx="2"/>
           <path d="M3 9h18"/>
@@ -129,7 +129,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
         </svg>
         {t('nav.sites')}
       </a></li>
-      <li><a href={MANUELS_URL} target="_blank" rel="noopener" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
+      <li><a href={MANUELS_URL} target="_blank" rel="noopener noreferrer" class="btn btn--ghost" style="margin-top:0.6rem;display:inline-flex;gap:0.5rem">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M4 4.5C4 3.7 4.7 3 5.5 3H19v15H5.5C4.7 18 4 17.3 4 16.5z"/>
           <path d="M4 16.5V20h14"/>

@@ -10,10 +10,12 @@ import Gallery from '../../components/Gallery.astro';
 import Reviews from '../../components/Reviews.astro';
 import Amenities from '../../components/Amenities.astro';
 import CTA from '../../components/CTA.astro';
+import { useTranslations } from '../../i18n/ui';
 
 const lang = 'de';
+const t = useTranslations(lang);
 ---
-<BaseLayout lang={lang} pathSuffix="room" showHubs={false}>
+<BaseLayout lang={lang} pathSuffix="room" showHubs={false} title={t('meta.room.title')} description={t('meta.room.description')}>
   <Hero lang={lang} />
   <Intro lang={lang} />
   <Room lang={lang} />

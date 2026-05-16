@@ -82,7 +82,7 @@ export const reviews: Review[] = [
 
 export const stats = {
   rating: '4,91',
-  count: 53,
+  count: 62,
   categories: {
     arrivee: 5.0,
     communication: 5.0,

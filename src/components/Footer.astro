@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Lang, AIRBNB_URL, WHATSAPP, WHATSAPP_URL, languages } from '../i18n/ui';
+import { useTranslations, type Lang, AIRBNB_URL, languages } from '../i18n/ui';
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
@@ -24,8 +24,8 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
 
       <div class="foot-col">
         <h4>Contact</h4>
-        <a href={WHATSAPP_URL} target="_blank" rel="noopener">WhatsApp · {WHATSAPP}</a>
-        <a href={AIRBNB_URL} target="_blank" rel="noopener">Airbnb · airbnb.be/h/maurisson</a>
+        <a href="mailto:contact@maurisson.com">contact@maurisson.com</a>
+        <a href={AIRBNB_URL} target="_blank" rel="noopener noreferrer">Airbnb · airbnb.be/h/maurisson</a>
       </div>
 
       <div class="foot-col">

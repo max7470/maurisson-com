@@ -10,8 +10,6 @@ export type Lang = keyof typeof languages;
 export const defaultLang: Lang = 'fr';
 
 export const AIRBNB_URL = 'https://airbnb.be/h/maurisson';
-export const WHATSAPP = '+32 498 34 53 06';
-export const WHATSAPP_URL = 'https://wa.me/32498345306';
 export const MUSIC_HUB_URL = 'https://musichub.maurisson.com';
 export const GREEN_HUB_URL = 'https://greenhub.maurisson.com';
 export const SITES_URL = 'https://sites.maurisson.com';
@@ -55,7 +53,7 @@ export const ui = {
     'hub.green.body': 'Le jardin numérique de la maison. {count} plantes inventoriées, fiches de soin détaillées, identification PlantNet à la volée, conseils IA en cas de doute. Pour ne plus tuer ses plantes.',
     'hub.sites.title': 'Productions',
     'hub.sites.stat': 'productions',
-    'hub.sites.body': 'Vitrines créées pour des amis musiciens et artisans : David Natan (sculpteur), Delavega (folk), The GUTS (rock/metal Verviers). De vrais sites, de vrais clics.',
+    'hub.sites.body': 'Vitrines créées pour des amis créateurs : David Natan (sculpteur), Delavega (photographe), The GUTS (rock/metal, Verviers). De vrais sites, de vrais clics.',
     'hub.manuels.title': 'Manuels',
     'hub.manuels.stat': 'guides',
     'hub.manuels.body': 'Guides imprimables que j\'écris quand un sujet mérite mieux qu\'un mode d\'emploi standard. Tout ce que je pratique assez pour vouloir le transmettre proprement.',
@@ -70,7 +68,8 @@ export const ui = {
     'hero.cta.primary': 'Voir les dates',
     'hero.cta.secondary': 'Découvrir',
     'hero.badge': 'Coup de cœur voyageurs',
-    'hero.rating': '4,91 · 53 avis',
+    'hero.rating': '4,91 · 62 avis',
+    'hero.reviewsWord': 'avis',
 
     'intro.title': 'Pas un hôtel. Pas un Airbnb anonyme.',
     'intro.body': 'Chez Maurisson, vous louez une chambre — et vous avez les clés de toute la maison. Le salon, le piano, la cuisine, la terrasse, le jardin, le hamac sous l\'arbre. Je vis ici. Vous êtes chez moi, donc vous êtes un peu chez vous.',
@@ -117,7 +116,7 @@ export const ui = {
     'gallery.title': 'Chaque pièce a son humeur.',
 
     'reviews.eyebrow': 'Les voyageurs',
-    'reviews.title': '4,91 · 53 avis · Coup de cœur voyageurs',
+    'reviews.title': '4,91 · 62 avis · Coup de cœur voyageurs',
     'reviews.sub': 'Ce que les gens racontent, dans leurs mots, dans leurs langues.',
 
     'amenities.eyebrow': 'Les détails',
@@ -126,12 +125,17 @@ export const ui = {
     'cta.title': 'Poser ses valises ?',
     'cta.body': 'Voir les dates disponibles, les prix et réserver directement sur Airbnb.',
     'cta.button': 'Voir les disponibilités',
-    'cta.whatsapp': 'Ou écrivez-moi sur WhatsApp',
+    'cta.email': 'Ou écrivez-moi par email',
 
     'footer.tagline': 'Une chambre, une maison, en Belgique.',
     'footer.made': 'Chez Maurisson · Herve, Belgique',
 
     'lang.switch': 'Langue',
+
+    'meta.home.title': 'Maurisson — Une chambre, une maison, en Belgique',
+    'meta.home.description': 'Chambre d\'hôtes à Herve, entre Liège, Maastricht et Aix-la-Chapelle. Superhost, 4,91/5. Piano, jardin, hamac. Et Music Hub, Green Hub, Productions.',
+    'meta.room.title': 'La chambre — Chez Maurisson · Herve, Belgique',
+    'meta.room.description': 'Chambre privée au calme, rez-de-jardin, à 20 min de Spa-Francorchamps, Maastricht et Aix-la-Chapelle. Toute la maison à partager : piano, cuisine, terrasse, jardin.',
   },
   nl: {
     'nav.house': 'Het huis',
@@ -166,7 +170,7 @@ export const ui = {
     'hub.green.body': 'De digitale tuin van het huis. {count} planten geïnventariseerd, gedetailleerde verzorgingsfiches, PlantNet-identificatie ter plekke, AI-advies bij twijfel. Om geen planten meer te verliezen.',
     'hub.sites.title': 'Producties',
     'hub.sites.stat': 'producties',
-    'hub.sites.body': 'Visitekaartjes gemaakt voor bevriende muzikanten en ambachtslui: David Natan (beeldhouwer), Delavega (folk), The GUTS (rock/metal Verviers). Echte sites, echte klikken.',
+    'hub.sites.body': 'Visitekaartjes gemaakt voor bevriende makers: David Natan (beeldhouwer), Delavega (fotograaf), The GUTS (rock/metal, Verviers). Echte sites, echte klikken.',
     'hub.manuels.title': 'Handleidingen',
     'hub.manuels.stat': 'gidsen',
     'hub.manuels.body': 'Afdrukbare gidsen die ik schrijf wanneer een onderwerp beter verdient dan een standaard handleiding. Alles waarmee ik genoeg bezig ben om het netjes door te willen geven.',
@@ -181,7 +185,8 @@ export const ui = {
     'hero.cta.primary': 'Bekijk data',
     'hero.cta.secondary': 'Ontdekken',
     'hero.badge': 'Favoriet van reizigers',
-    'hero.rating': '4,91 · 53 reviews',
+    'hero.rating': '4,91 · 62 reviews',
+    'hero.reviewsWord': 'reviews',
 
     'intro.title': 'Geen hotel. Geen anonieme Airbnb.',
     'intro.body': 'Bij Maurisson huur je een kamer — en krijg je de sleutel van het hele huis. De woonkamer, de piano, de keuken, het terras, de tuin, de hangmat onder de boom. Ik woon hier. Je bent bij mij thuis — en dus ook een beetje bij jezelf.',
@@ -228,7 +233,7 @@ export const ui = {
     'gallery.title': 'Elke ruimte heeft zijn sfeer.',
 
     'reviews.eyebrow': 'De reizigers',
-    'reviews.title': '4,91 · 53 reviews · Favoriet van reizigers',
+    'reviews.title': '4,91 · 62 reviews · Favoriet van reizigers',
     'reviews.sub': 'Wat mensen zeggen, in hun eigen woorden, in hun eigen taal.',
 
     'amenities.eyebrow': 'De details',
@@ -237,12 +242,17 @@ export const ui = {
     'cta.title': 'Zin om te komen?',
     'cta.body': 'Bekijk beschikbare data, prijzen en boek rechtstreeks via Airbnb.',
     'cta.button': 'Bekijk beschikbaarheid',
-    'cta.whatsapp': 'Of stuur me een WhatsApp',
+    'cta.email': 'Of stuur me een e-mail',
 
     'footer.tagline': 'Eén kamer, één huis, in België.',
     'footer.made': 'Chez Maurisson · Herve, België',
 
     'lang.switch': 'Taal',
+
+    'meta.home.title': 'Maurisson — Eén kamer, één huis, in België',
+    'meta.home.description': 'Gastenkamer in Herve, tussen Luik, Maastricht en Aken. Superhost, 4,91/5. Piano, tuin, hangmat. Plus Music Hub, Green Hub, Producties.',
+    'meta.room.title': 'De kamer — Chez Maurisson · Herve, België',
+    'meta.room.description': 'Rustige privékamer op de benedenverdieping, op 20 min van Spa-Francorchamps, Maastricht en Aken. Het hele huis te delen: piano, keuken, terras, tuin.',
   },
   en: {
     'nav.house': 'The house',
@@ -277,7 +287,7 @@ export const ui = {
     'hub.green.body': 'The house\'s digital garden. {count} plants logged, detailed care sheets, PlantNet identification on the fly, AI tips when in doubt. So plants stop dying.',
     'hub.sites.title': 'Productions',
     'hub.sites.stat': 'sites',
-    'hub.sites.body': 'Showcase sites built for musician and craftsman friends: David Natan (sculptor), Delavega (folk), The GUTS (rock/metal, Verviers). Real sites, real clicks.',
+    'hub.sites.body': 'Showcase sites built for friends who create: David Natan (sculptor), Delavega (photographer), The GUTS (rock/metal, Verviers). Real sites, real clicks.',
     'hub.manuels.title': 'Manuals',
     'hub.manuels.stat': 'guides',
     'hub.manuels.body': 'Printable guides I write when a subject deserves better than a stock manual. Everything I practice enough to want to pass it on properly.',
@@ -292,7 +302,8 @@ export const ui = {
     'hero.cta.primary': 'Check dates',
     'hero.cta.secondary': 'Explore',
     'hero.badge': 'Guest favourite',
-    'hero.rating': '4.91 · 53 reviews',
+    'hero.rating': '4.91 · 62 reviews',
+    'hero.reviewsWord': 'reviews',
 
     'intro.title': 'Not a hotel. Not a faceless Airbnb.',
     'intro.body': 'At Maurisson, you rent a room — and you get the keys to the whole house. The living room, the piano, the kitchen, the terrace, the garden, the hammock under the tree. I live here. You\'re at my place, which means you\'re a little at home too.',
@@ -339,7 +350,7 @@ export const ui = {
     'gallery.title': 'Every room has its own mood.',
 
     'reviews.eyebrow': 'The guests',
-    'reviews.title': '4.91 · 53 reviews · Guest favourite',
+    'reviews.title': '4.91 · 62 reviews · Guest favourite',
     'reviews.sub': 'What people say, in their own words, in their own languages.',
 
     'amenities.eyebrow': 'The details',
@@ -348,12 +359,17 @@ export const ui = {
     'cta.title': 'Ready to drop your bags?',
     'cta.body': 'See available dates, prices and book directly on Airbnb.',
     'cta.button': 'Check availability',
-    'cta.whatsapp': 'Or message me on WhatsApp',
+    'cta.email': 'Or drop me an email',
 
     'footer.tagline': 'One room, one house, in Belgium.',
     'footer.made': 'Chez Maurisson · Herve, Belgium',
 
     'lang.switch': 'Language',
+
+    'meta.home.title': 'Maurisson — One room, one house, in Belgium',
+    'meta.home.description': 'Guest room in Herve, between Liège, Maastricht and Aachen. Superhost, 4.91/5. Piano, garden, hammock. Plus Music Hub, Green Hub, Productions.',
+    'meta.room.title': 'The room — Chez Maurisson · Herve, Belgium',
+    'meta.room.description': 'Quiet private room on the garden level, 20 min from Spa-Francorchamps, Maastricht and Aachen. The whole house to share: piano, kitchen, terrace, garden.',
   },
   de: {
     'nav.house': 'Das Haus',
@@ -388,7 +404,7 @@ export const ui = {
     'hub.green.body': 'Der digitale Garten des Hauses. {count} erfasste Pflanzen, ausführliche Pflegeblätter, PlantNet-Erkennung im Vorbeigehen, KI-Tipps im Zweifelsfall. Damit keine Pflanze mehr eingeht.',
     'hub.sites.title': 'Produktionen',
     'hub.sites.stat': 'Seiten',
-    'hub.sites.body': 'Vitrinen für Musiker- und Handwerkerfreunde: David Natan (Bildhauer), Delavega (Folk), The GUTS (Rock/Metal, Verviers). Echte Seiten, echte Klicks.',
+    'hub.sites.body': 'Vitrinen für kreative Freunde: David Natan (Bildhauer), Delavega (Fotograf), The GUTS (Rock/Metal, Verviers). Echte Seiten, echte Klicks.',
     'hub.manuels.title': 'Anleitungen',
     'hub.manuels.stat': 'Anleitungen',
     'hub.manuels.body': 'Druckbare Anleitungen, die ich schreibe, wenn ein Thema mehr verdient als eine Standardanleitung. Alles, womit ich mich genug beschäftige, um es ordentlich weitergeben zu wollen.',
@@ -403,7 +419,8 @@ export const ui = {
     'hero.cta.primary': 'Termine prüfen',
     'hero.cta.secondary': 'Entdecken',
     'hero.badge': 'Gästeliebling',
-    'hero.rating': '4,91 · 53 Bewertungen',
+    'hero.rating': '4,91 · 62 Bewertungen',
+    'hero.reviewsWord': 'Bewertungen',
 
     'intro.title': 'Kein Hotel. Kein gesichtsloses Airbnb.',
     'intro.body': 'Bei Maurisson mieten Sie ein Zimmer — und bekommen den Schlüssel zum ganzen Haus. Das Wohnzimmer, das Klavier, die Küche, die Terrasse, den Garten, die Hängematte unter dem Baum. Ich lebe hier. Sie sind bei mir zu Hause — also auch ein bisschen bei sich selbst.',
@@ -450,7 +467,7 @@ export const ui = {
     'gallery.title': 'Jeder Raum hat seine Stimmung.',
 
     'reviews.eyebrow': 'Die Gäste',
-    'reviews.title': '4,91 · 53 Bewertungen · Gästeliebling',
+    'reviews.title': '4,91 · 62 Bewertungen · Gästeliebling',
     'reviews.sub': 'Was Menschen sagen, in ihren eigenen Worten, in ihrer Sprache.',
 
     'amenities.eyebrow': 'Die Details',
@@ -459,12 +476,17 @@ export const ui = {
     'cta.title': 'Bereit, die Koffer abzustellen?',
     'cta.body': 'Verfügbare Termine, Preise und Buchung direkt bei Airbnb.',
     'cta.button': 'Verfügbarkeit prüfen',
-    'cta.whatsapp': 'Oder schreiben Sie mir per WhatsApp',
+    'cta.email': 'Oder schreiben Sie mir per E-Mail',
 
     'footer.tagline': 'Ein Zimmer, ein Haus, in Belgien.',
     'footer.made': 'Chez Maurisson · Herve, Belgien',
 
     'lang.switch': 'Sprache',
+
+    'meta.home.title': 'Maurisson — Ein Zimmer, ein Haus, in Belgien',
+    'meta.home.description': 'Gästezimmer in Herve, zwischen Lüttich, Maastricht und Aachen. Superhost, 4,91/5. Klavier, Garten, Hängematte. Plus Music Hub, Green Hub, Produktionen.',
+    'meta.room.title': 'Das Zimmer — Chez Maurisson · Herve, Belgien',
+    'meta.room.description': 'Ruhiges Privatzimmer auf Gartenebene, 20 Min von Spa-Francorchamps, Maastricht und Aachen. Das ganze Haus zum Teilen: Klavier, Küche, Terrasse, Garten.',
   },
 } as const;
 

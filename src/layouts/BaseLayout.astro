@@ -13,19 +13,57 @@ interface Props {
   footer?: 'full' | 'none';
   pathSuffix?: string;
   showHubs?: boolean;
+  schema?: Record<string, unknown>;
 }
 
-const { lang, title, description, nav = 'full', footer = 'full', pathSuffix = '', showHubs = true } = Astro.props;
+const { lang, title, description, nav = 'full', footer = 'full', pathSuffix = '', showHubs = true, schema } = Astro.props;
 const t = useTranslations(lang);
-const pageTitle = title ?? 'Maurisson — ' + t('footer.tagline');
-const pageDescription = description ?? t('hub.tagline');
+const pageTitle = title ?? t('meta.home.title');
+const pageDescription = description ?? t('meta.home.description');
+
+const localePath = (l: string) => l === 'fr' ? `/${pathSuffix}` : `/${l}/${pathSuffix}`;
+const absUrl = (path: string) => new URL(path, Astro.site).toString();
+
+const canonical = absUrl(localePath(lang));
+const ogImage = absUrl('/og-image.jpg');
+const ogLocaleMap: Record<Lang, string> = { fr: 'fr_BE', nl: 'nl_BE', en: 'en_US', de: 'de_DE' };
 
 const alt = [
-  { lang: 'fr', href: '/' + pathSuffix },
-  { lang: 'nl', href: '/nl/' + pathSuffix },
-  { lang: 'en', href: '/en/' + pathSuffix },
-  { lang: 'de', href: '/de/' + pathSuffix },
+  { lang: 'fr', href: absUrl(localePath('fr')) },
+  { lang: 'nl', href: absUrl(localePath('nl')) },
+  { lang: 'en', href: absUrl(localePath('en')) },
+  { lang: 'de', href: absUrl(localePath('de')) },
 ];
+
+const defaultSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BedAndBreakfast',
+  name: 'Chez Maurisson',
+  url: Astro.site?.toString(),
+  image: ogImage,
+  description: pageDescription,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Herve',
+    addressRegion: 'Liège',
+    addressCountry: 'BE',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 50.638,
+    longitude: 5.799,
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.91',
+    reviewCount: '62',
+    bestRating: '5',
+    worstRating: '1',
+  },
+  priceRange: '€€',
+  sameAs: ['https://airbnb.be/h/maurisson'],
+};
+const jsonLd = schema ?? defaultSchema;
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -33,18 +71,41 @@ const alt = [
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="generator" content={Astro.generator} />
+  <meta name="theme-color" content="#0b0907" />
+  <meta name="robots" content="index, follow" />
   <title>{pageTitle}</title>
   <meta name="description" content={pageDescription} />
+  <link rel="canonical" href={canonical} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Chez Maurisson" />
+  <meta property="og:locale" content={ogLocaleMap[lang]} />
+  <meta property="og:url" content={canonical} />
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={pageDescription} />
-  <meta property="og:image" content="/photos/01-hero-salon.avif" />
-  <meta property="og:type" content="website" />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:alt" content="Chez Maurisson — chambre d'hôtes à Herve, Belgique" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={pageDescription} />
+  <meta name="twitter:image" content={ogImage} />
+
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
   {alt.map(a => (
     <link rel="alternate" hreflang={a.lang} href={a.href} />
   ))}
-  <link rel="alternate" hreflang="x-default" href="/" />
+  <link rel="alternate" hreflang="x-default" href={absUrl(localePath('fr'))} />
 
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-ZL0LY1LPJK"></script>
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
