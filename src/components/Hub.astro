@@ -19,9 +19,13 @@ const t = useTranslations(lang);
 
 const room = roomUrl(lang);
 const langHref = (l: string) => hubUrl(l as Lang);
+const formatCount = (n: number) => n.toLocaleString(lang === 'en' ? 'en-US' : 'fr-FR');
 
-const musicBody = t('hub.music.body').replace('{count}', MUSIC_COUNT.toLocaleString(lang === 'en' ? 'en-US' : 'fr-FR'));
+const musicBody = t('hub.music.body').replace('{count}', formatCount(MUSIC_COUNT));
 const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
+
+const musicFeatures = [1, 2, 3, 4, 5, 6] as const;
+const greenFeatures = [1, 2, 3] as const;
 ---
 
 <section class="hub">
@@ -59,8 +63,100 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
   </div>
 
   <div class="hub-bento container">
+    <!-- MUSIC HUB — full width, premier de la liste, mis en avant -->
+    <a href={MUSIC_HUB_URL} target="_blank" rel="noopener noreferrer" class="bento-wide music reveal delay-1">
+      <div class="wide-text">
+        <div class="wide-head">
+          <span class="wide-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+          </span>
+          <span class="bento-eyebrow">
+            {t('hub.music.eyebrow')} · <span class="wide-eyebrow-count">{formatCount(MUSIC_COUNT)} {t('hub.music.stat')}</span>
+          </span>
+        </div>
+        <h2 class="wide-title display">{t('hub.music.title')}</h2>
+        <p class="wide-body">{musicBody}</p>
+        <span class="wide-cta">
+          {t('hub.visit')}
+          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+
+      <ul class="wide-features wide-features-music" aria-label="Features">
+        {musicFeatures.map((i) => (
+          <li class="feat-pill">
+            <span class="feat-icon" aria-hidden="true">
+              {i === 1 && (
+                /* piano keys */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="6" width="18" height="12" rx="1.5"/>
+                  <path d="M9 6v8M15 6v8"/>
+                  <rect x="6.5" y="6" width="2.2" height="6" fill="currentColor" stroke="none"/>
+                  <rect x="11.4" y="6" width="2.2" height="6" fill="currentColor" stroke="none"/>
+                  <rect x="16" y="6" width="2.2" height="6" fill="currentColor" stroke="none"/>
+                </svg>
+              )}
+              {i === 2 && (
+                /* ChordPro chord-over-lyric */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 7h2M11 7h3M17 7h2"/>
+                  <path d="M4 13h16"/>
+                  <path d="M4 17h11"/>
+                </svg>
+              )}
+              {i === 3 && (
+                /* MIDI / sheet music */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 7h18M3 11h18M3 15h18"/>
+                  <circle cx="8" cy="13" r="1.5" fill="currentColor" stroke="none"/>
+                  <path d="M9.5 13V6.5"/>
+                  <circle cx="16" cy="11" r="1.5" fill="currentColor" stroke="none"/>
+                  <path d="M17.5 11V4.5"/>
+                </svg>
+              )}
+              {i === 4 && (
+                /* Harmonica holes */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="8" width="18" height="8" rx="1.5"/>
+                  <circle cx="7" cy="12" r="1.1" fill="currentColor" stroke="none"/>
+                  <circle cx="10.5" cy="12" r="1.1" fill="currentColor" stroke="none"/>
+                  <circle cx="14" cy="12" r="1.1" fill="currentColor" stroke="none"/>
+                  <circle cx="17.5" cy="12" r="1.1" fill="currentColor" stroke="none"/>
+                </svg>
+              )}
+              {i === 5 && (
+                /* Sync arrows */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 12a8 8 0 0 1 14-5"/>
+                  <path d="M18 3v4h-4"/>
+                  <path d="M20 12a8 8 0 0 1-14 5"/>
+                  <path d="M6 21v-4h4"/>
+                </svg>
+              )}
+              {i === 6 && (
+                /* Phone offline */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="2.5" width="12" height="19" rx="2.5"/>
+                  <path d="M10 18.5h4"/>
+                  <path d="M9 10l6 4M15 10l-6 4"/>
+                </svg>
+              )}
+            </span>
+            <span class="feat-text">
+              <span class="feat-title">{t(`hub.music.feat.${i}.title` as any)}</span>
+              <span class="feat-sub">{t(`hub.music.feat.${i}.sub` as any)}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </a>
+
     <!-- AIRBNB BLOCK -->
-    <a href={room} class="bento-airbnb reveal delay-1">
+    <a href={room} class="bento-airbnb reveal delay-2">
       <div class="airbnb-text">
         <div class="airbnb-text-head">
           <div class="airbnb-place">
@@ -110,45 +206,69 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
       </div>
     </a>
 
-    <!-- 4 FEATURES GRID -->
-    <div class="bento-features">
-      <a href={MUSIC_HUB_URL} target="_blank" rel="noopener noreferrer" class="bento-card music reveal delay-2">
-        <div class="card-head">
-          <span class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 18V5l12-2v13"/>
-              <circle cx="6" cy="18" r="3"/>
-              <circle cx="18" cy="16" r="3"/>
-            </svg>
-          </span>
-          <h3 class="card-title">{t('hub.music.title')}</h3>
-          <span class="card-stat">{MUSIC_COUNT.toLocaleString(lang === 'en' ? 'en-US' : 'fr-FR')} {t('hub.music.stat')}</span>
-        </div>
-        <p>{musicBody}</p>
-        <span class="card-foot">
-          {t('hub.visit')} <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-      </a>
-
-      <a href={GREEN_HUB_URL} class="bento-card green reveal delay-2">
-        <div class="card-head">
-          <span class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <!-- GREEN HUB — full width sous Airbnb -->
+    <a href={GREEN_HUB_URL} class="bento-wide green reveal delay-2">
+      <div class="wide-text">
+        <div class="wide-head">
+          <span class="wide-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 22c-4-4-7-9-7-13a7 7 0 0 1 14 0c0 4-3 9-7 13z"/>
               <path d="M12 16V9"/>
               <path d="M12 12c-1-1-3-1-4 0"/>
               <path d="M12 12c1-1 3-1 4 0"/>
             </svg>
           </span>
-          <h3 class="card-title">{t('hub.green.title')}</h3>
-          <span class="card-stat">{GREEN_COUNT} {t('hub.green.stat')}</span>
+          <span class="bento-eyebrow">
+            {t('hub.green.eyebrow')} · <span class="wide-eyebrow-count">{GREEN_COUNT} {t('hub.green.stat')}</span>
+          </span>
         </div>
-        <p>{greenBody}</p>
-        <span class="card-foot">
-          {t('hub.visit')} <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <h2 class="wide-title display">{t('hub.green.title')}</h2>
+        <p class="wide-body">{greenBody}</p>
+        <span class="wide-cta">
+          {t('hub.visit')}
+          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </span>
-      </a>
+      </div>
 
+      <ul class="wide-features wide-features-green" aria-label="Features">
+        {greenFeatures.map((i) => (
+          <li class="feat-pill">
+            <span class="feat-icon" aria-hidden="true">
+              {i === 1 && (
+                /* camera */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="6" width="18" height="14" rx="2"/>
+                  <path d="M8 6l1.5-2.5h5L16 6"/>
+                  <circle cx="12" cy="13" r="3.5"/>
+                </svg>
+              )}
+              {i === 2 && (
+                /* document */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+                  <path d="M14 3v5h5"/>
+                  <path d="M8 13h8M8 17h6"/>
+                </svg>
+              )}
+              {i === 3 && (
+                /* sparkle / AI */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3l1.8 4.5L18 9l-4.2 1.5L12 15l-1.8-4.5L6 9l4.2-1.5z"/>
+                  <path d="M18 16l.9 2.1L21 19l-2.1.9L18 22l-.9-2.1L15 19l2.1-.9z"/>
+                </svg>
+              )}
+            </span>
+            <span class="feat-text">
+              <span class="feat-title">{t(`hub.green.feat.${i}.title` as any)}</span>
+              <span class="feat-sub">{t(`hub.green.feat.${i}.sub` as any)}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </a>
+
+    <!-- SITES + MANUELS — grille 2 cols, comme avant -->
+    <div class="bento-features">
       <a href={SITES_URL} class="bento-card sites reveal delay-3">
         <div class="card-head">
           <span class="card-icon">
@@ -220,8 +340,7 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
     z-index: -2;
   }
 
-  /* TOP STRIP (logo + lang chips)
-     Logo is absolutely positioned so a bigger logo doesn't push the strip taller. */
+  /* TOP STRIP */
   .hub-top {
     display: flex;
     align-items: center;
@@ -302,7 +421,7 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
     background: var(--ember-400);
   }
 
-  /* HEADER — title left + categories right + location centered below */
+  /* HEADER */
   .hub-header {
     text-align: center;
   }
@@ -334,7 +453,6 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
     background-clip: text;
     color: transparent;
   }
-
   .hub-categories {
     list-style: none;
     padding: 0;
@@ -358,7 +476,6 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
   .hub-categories li:nth-child(2) {
     color: var(--ember-200);
   }
-
   .hub-motto {
     display: inline-block;
     margin: 0;
@@ -394,29 +511,214 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
     left: calc(100% + 0.4rem);
     background: linear-gradient(90deg, var(--ember-300), transparent);
   }
-  .pulse {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--ember-400);
-    box-shadow: 0 0 0 5px rgba(224, 138, 68, 0.12);
-    animation: pulse 2.4s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(224, 138, 68, 0.12); }
-    50%      { box-shadow: 0 0 0 10px rgba(224, 138, 68, 0.04); }
-  }
 
-  /* BENTO — vertical stack: Airbnb on top, features in 4-col grid below */
+  /* BENTO STACK */
   .hub-bento {
     display: flex;
     flex-direction: column;
     gap: clamp(1rem, 1.6vw, 1.4rem);
   }
 
-  /* AIRBNB BLOCK — text on top, landscape image below */
+  /* ──────────────────────────────────────────────────────────────
+     BENTO WIDE — Music & Green : full-width, text à gauche + features à droite
+     ────────────────────────────────────────────────────────────── */
+  .bento-wide {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+    padding: clamp(1.6rem, 2.5vw, 2.4rem);
+    border-radius: 22px;
+    background: linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
+    border: 1px solid var(--border-strong);
+    box-shadow: var(--shadow-md);
+    color: var(--fg);
+    text-decoration: none;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .bento-wide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(75% 55% at 0% 0%, var(--wide-accent), transparent 60%);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity var(--dur) var(--ease);
+  }
+  .bento-wide:hover {
+    transform: translateY(-3px);
+    border-color: var(--wide-border-hover);
+    box-shadow:
+      0 24px 50px -16px rgba(0,0,0,0.55),
+      0 0 0 3px var(--wide-glow);
+  }
+  .bento-wide:hover::before { opacity: 1; }
+
+  .bento-wide.music {
+    --wide-accent: var(--ember-glow-dim);
+    --wide-border-hover: rgba(237, 170, 106, 0.55);
+    --wide-glow: var(--ember-glow-soft);
+    --wide-fg: var(--ember-200);
+    --wide-fg-strong: var(--ember-300);
+    --wide-bg: rgba(224, 138, 68, 0.14);
+  }
+  .bento-wide.green {
+    --wide-accent: rgba(154, 200, 138, 0.20);
+    --wide-border-hover: rgba(154, 200, 138, 0.55);
+    --wide-glow: rgba(154, 200, 138, 0.22);
+    --wide-fg: #c7e3ba;
+    --wide-fg-strong: #b8da9b;
+    --wide-bg: rgba(90, 115, 96, 0.22);
+  }
+
+  .wide-text {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    min-width: 0;
+  }
+  .wide-head {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+  .wide-icon {
+    width: 44px; height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wide-fg);
+    background: var(--wide-bg);
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+  .wide-icon svg { width: 22px; height: 22px; }
+  .wide-eyebrow-count {
+    color: var(--fg);
+    letter-spacing: 0.14em;
+  }
+  .wide-title {
+    font-size: clamp(1.8rem, 1.4rem + 1.8vw, 2.8rem);
+    line-height: 1;
+    margin: 0;
+    color: var(--ink-50);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+  .wide-body {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(0.98rem, 0.9rem + 0.3vw, 1.15rem);
+    line-height: 1.5;
+    color: var(--ink-100);
+    margin: 0;
+    max-width: 60ch;
+    letter-spacing: -0.005em;
+  }
+  .wide-cta {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.4rem;
+    padding: 0.7rem 1.2rem;
+    background: rgba(244, 237, 227, 0.06);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.86rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--wide-fg);
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .bento-wide:hover .wide-cta {
+    background: var(--wide-bg);
+    color: var(--ink-50);
+    border-color: var(--wide-border-hover);
+  }
+  .wide-cta .arrow {
+    transition: transform var(--dur) var(--ease);
+  }
+  .bento-wide:hover .wide-cta .arrow {
+    transform: translateX(3px);
+  }
+
+  /* FEATURE PILLS GRID */
+  .wide-features {
+    position: relative;
+    z-index: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+  .wide-features-music {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .wide-features-green {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .feat-pill {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 0.75rem 0.85rem;
+    background: rgba(11, 9, 7, 0.4);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+    min-width: 0;
+  }
+  .bento-wide:hover .feat-pill {
+    border-color: var(--border-strong);
+  }
+  .feat-pill:hover {
+    border-color: var(--wide-border-hover);
+    background: rgba(11, 9, 7, 0.55);
+  }
+  .feat-icon {
+    width: 30px; height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wide-fg);
+    background: var(--wide-bg);
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .feat-icon svg { width: 17px; height: 17px; }
+  .feat-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .feat-title {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    color: var(--ink-50);
+    line-height: 1.15;
+  }
+  .feat-sub {
+    font-size: 0.72rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.01em;
+    line-height: 1.3;
+  }
+
+  /* AIRBNB BLOCK (inchangé) */
   .bento-airbnb {
     display: flex;
     flex-direction: column;
@@ -481,6 +783,9 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
     text-transform: uppercase;
     color: var(--ember-300);
     margin: 0;
+  }
+  .bento-wide.green .bento-eyebrow {
+    color: var(--wide-fg-strong);
   }
   .bento-eyebrow::before {
     content: '';
@@ -613,7 +918,6 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
   .bento-airbnb:hover .bento-airbnb-cta .arrow {
     transform: translateX(4px);
   }
-
   .airbnb-media {
     position: relative;
     z-index: 1;
@@ -635,7 +939,7 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
     filter: brightness(1.0) contrast(1.04) saturate(1.08);
   }
 
-  /* FEATURES — 2 cols, landscape cards */
+  /* SITES + MANUELS — grille 2 cols */
   .bento-features {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -745,22 +1049,6 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
   .bento-card:hover .card-foot .arrow {
     transform: translateX(3px);
   }
-
-  /* per-card color identity */
-  .bento-card.music {
-    --card-accent: rgba(237, 170, 106, 0.18);
-    --card-border-hover: rgba(237, 170, 106, 0.55);
-    --card-glow: var(--ember-glow-soft);
-    --card-fg: var(--ember-200);
-    --card-bg: rgba(224, 138, 68, 0.14);
-  }
-  .bento-card.green {
-    --card-accent: rgba(154, 200, 138, 0.18);
-    --card-border-hover: rgba(154, 200, 138, 0.55);
-    --card-glow: rgba(154, 200, 138, 0.22);
-    --card-fg: #c7e3ba;
-    --card-bg: rgba(90, 115, 96, 0.20);
-  }
   .bento-card.sites {
     --card-accent: rgba(170, 180, 200, 0.16);
     --card-border-hover: rgba(170, 180, 200, 0.55);
@@ -776,7 +1064,7 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
     --card-bg: rgba(98, 80, 50, 0.24);
   }
 
-  /* FOOTER (intégré au hub) */
+  /* FOOTER */
   .hub-foot {
     text-align: center;
     display: flex;
@@ -836,6 +1124,15 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
   }
 
   /* RESPONSIVE */
+  @media (max-width: 980px) {
+    .bento-wide {
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
+    }
+    .wide-features-music {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
   @media (max-width: 920px) {
     .airbnb-media {
       aspect-ratio: 16 / 9;
@@ -854,6 +1151,14 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
       padding-top: 1.2rem;
       text-align: center;
       align-items: center;
+    }
+  }
+  @media (max-width: 720px) {
+    .wide-features-music {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .wide-features-green {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
   @media (max-width: 560px) {
@@ -891,6 +1196,17 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
     .hub-motto::before,
     .hub-motto::after {
       width: clamp(16px, 4vw, 28px);
+    }
+    .bento-wide {
+      padding: 1.3rem;
+      border-radius: 18px;
+    }
+    .wide-features-music,
+    .wide-features-green {
+      grid-template-columns: 1fr;
+    }
+    .feat-pill {
+      padding: 0.7rem 0.8rem;
     }
     .bento-features {
       grid-template-columns: 1fr;
