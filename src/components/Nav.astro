@@ -316,17 +316,15 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
   .cta-sites svg,
   .cta-manuels svg { flex-shrink: 0; opacity: 0.9; }
 
+  /* Burger retiré 2026-05-17 — sur mobile il déconnait (fond blanc illisible)
+     et les infos qu'il contenait sont déjà accessibles via les CTA Music Hub /
+     Green Hub / Sites / Manuels qui restent en icon-only. Ancrages internes
+     (Room, Maison, Région...) ne sont pas critiques sur mobile, on scrolle. */
   .burger {
-    display: none;
-    width: 40px; height: 40px;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    background: transparent;
-    border: 1px solid var(--border-strong);
-    border-radius: 999px;
-    cursor: pointer;
-    padding: 10px;
+    display: none !important;
+  }
+  .mobile-menu {
+    display: none !important;
   }
   .burger span {
     display: block;
@@ -387,9 +385,9 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
   @media (max-width: 940px) {
     .nav-links { display: none; }
     .lang-switch { display: none; }
-    .burger { display: inline-flex; }
+    /* Burger volontairement absent (cf. note plus haut). */
 
-    /* Projets : grille 2×2 icon-only à côté du burger */
+    /* Projets : grille 2×2 icon-only */
     .nav-actions { gap: 0.5rem; }
     .cta-stack { gap: 0.3rem; }
     .cta-row { gap: 0.3rem; }
@@ -408,6 +406,5 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
     .brand-logo { height: 42px; }
     .cta-stack .btn { width: 30px; height: 30px; min-width: 30px; }
     .cta-stack .btn svg { width: 14px; height: 14px; }
-    .burger { width: 36px; height: 36px; padding: 8px; }
   }
 </style>
