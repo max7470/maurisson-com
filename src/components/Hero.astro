@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Lang, AIRBNB_URL } from '../i18n/ui';
+import { useTranslations, type Lang, AIRBNB_URL, AIRBNB_REVIEWS_URL } from '../i18n/ui';
 import { stats } from '../data/reviews';
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
@@ -34,7 +34,7 @@ const t = useTranslations(lang);
     </div>
   </div>
 
-  <a href={AIRBNB_URL} target="_blank" rel="noopener noreferrer" class="hero-badge reveal delay-3" aria-label={stats.rating + ' / 5 — ' + t('hero.badge')}>
+  <a href={AIRBNB_REVIEWS_URL} target="_blank" rel="noopener noreferrer" class="hero-badge reveal delay-3" aria-label={stats.rating + ' / 5 — ' + t('hero.badge')}>
     <svg class="laurel laurel--l" viewBox="0 0 32 96" aria-hidden="true">
       <g fill="currentColor">
         <ellipse cx="20" cy="86" rx="6" ry="2.2" transform="rotate(-25 20 86)"/>

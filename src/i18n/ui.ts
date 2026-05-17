@@ -10,6 +10,7 @@ export type Lang = keyof typeof languages;
 export const defaultLang: Lang = 'fr';
 
 export const AIRBNB_URL = 'https://airbnb.be/h/maurisson';
+export const AIRBNB_REVIEWS_URL = 'https://www.airbnb.be/rooms/1197119738707249806/reviews';
 export const MUSIC_HUB_URL = 'https://musichub.maurisson.com';
 export const GREEN_HUB_URL = 'https://greenhub.maurisson.com';
 export const SITES_URL = 'https://sites.maurisson.com';
