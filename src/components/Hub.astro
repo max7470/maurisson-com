@@ -365,7 +365,8 @@ const greenFeatures = [1, 2, 3] as const;
      AMBIANCE LUMIÈRE — chaleur vivante, CSS only
      ────────────────────────────────────────────────────────────── */
 
-  /* Aurora : 3 sources de chaleur qui respirent en boucle */
+  /* Aurora : 3 sources de chaleur. Blur STATIQUE (pas dans l'anim) → GPU only.
+     N'anime que transform + opacity, qui sont compositor-only et n'invalident pas le paint. */
   .hub::before {
     content: '';
     position: absolute;
@@ -376,11 +377,14 @@ const greenFeatures = [1, 2, 3] as const;
       radial-gradient(52% 42% at 18% 16%, var(--ember-glow-soft), transparent 65%),
       radial-gradient(46% 38% at 82% 28%, rgba(154, 200, 138, 0.09), transparent 72%),
       radial-gradient(58% 42% at 50% 78%, var(--ember-glow-dim), transparent 75%);
-    filter: blur(38px) saturate(125%);
+    /* blur appliqué une seule fois, JAMAIS animé → reste léger */
+    filter: blur(24px) saturate(120%);
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
     animation: hub-aurora 22s ease-in-out infinite alternate;
-    will-change: opacity, transform;
   }
-  /* Light beam : cône de lumière chaude qui descend depuis le haut, comme un projo */
+  /* Light beam : cône chaud, sans mix-blend-mode (composite expensive).
+     Le screen blend ne valait pas son coût en perf. */
   .hub::after {
     content: '';
     position: absolute;
@@ -388,27 +392,26 @@ const greenFeatures = [1, 2, 3] as const;
     left: 50%;
     width: min(1100px, 85vw);
     height: clamp(420px, 60vh, 720px);
-    transform: translateX(-50%);
     z-index: -2;
     pointer-events: none;
     background: radial-gradient(
       ellipse 56% 92% at 50% 0%,
-      rgba(224, 138, 68, 0.18) 0%,
-      rgba(224, 138, 68, 0.08) 28%,
-      rgba(224, 138, 68, 0.025) 55%,
+      rgba(237, 170, 106, 0.20) 0%,
+      rgba(224, 138, 68, 0.08) 30%,
+      rgba(224, 138, 68, 0.02) 55%,
       transparent 75%
     );
-    filter: blur(20px);
+    transform: translate3d(-50%, 0, 0);
+    will-change: transform, opacity;
     animation: hub-beam 12s ease-in-out infinite;
-    mix-blend-mode: screen;
   }
   @keyframes hub-aurora {
     0%   { opacity: 0.7;  transform: translate3d(0, 0, 0) scale(1); }
-    100% { opacity: 1;    transform: translate3d(-2.5%, 1.2%, 0) scale(1.05); }
+    100% { opacity: 1;    transform: translate3d(-2%, 1%, 0) scale(1.04); }
   }
   @keyframes hub-beam {
-    0%, 100% { opacity: 0.7; transform: translateX(-50%) scaleX(1); }
-    50%      { opacity: 1;   transform: translateX(-50%) scaleX(1.08); }
+    0%, 100% { opacity: 0.7; transform: translate3d(-50%, 0, 0) scaleX(1); }
+    50%      { opacity: 1;   transform: translate3d(-50%, 0, 0) scaleX(1.06); }
   }
 
   /* TOP STRIP */
@@ -612,9 +615,10 @@ const greenFeatures = [1, 2, 3] as const;
     align-items: center;
     padding: clamp(1.6rem, 2.5vw, 2.4rem);
     border-radius: 22px;
-    /* Spotlight cursor + base gradient */
+    /* Spotlight cursor + base gradient. contain:paint isole les repaints
+       à la card seule (pas tout le hub) → spotlight fluide. */
     background:
-      radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.10), transparent 55%),
+      radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.10), transparent 55%),
       linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
     border: 1px solid var(--border-strong);
     box-shadow: var(--shadow-md);
@@ -623,6 +627,7 @@ const greenFeatures = [1, 2, 3] as const;
     position: relative;
     isolation: isolate;
     overflow: hidden;
+    contain: paint;
     transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
   }
   .bento-wide::before {
@@ -811,8 +816,9 @@ const greenFeatures = [1, 2, 3] as const;
     border-radius: 22px;
     overflow: hidden;
     isolation: isolate;
+    contain: paint;
     background:
-      radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.10), transparent 55%),
+      radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.10), transparent 55%),
       linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
     border: 1px solid var(--border-strong);
     box-shadow: var(--shadow-md);
@@ -1036,8 +1042,9 @@ const greenFeatures = [1, 2, 3] as const;
   .bento-card {
     position: relative;
     padding: clamp(1.3rem, 1.8vw, 1.7rem);
+    contain: paint;
     background:
-      radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.09), transparent 55%),
+      radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.09), transparent 55%),
       linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
     border: 1px solid var(--border-strong);
     border-radius: 18px;
@@ -1349,31 +1356,28 @@ const greenFeatures = [1, 2, 3] as const;
   .bento-card.reveal.in.delay-3:nth-of-type(2)::after { animation-delay: 1.3s; }
 
   /* ──────────────────────────────────────────────────────────────
-     MUSIC HUB — braise vivante (border-pulse + CTA ember-pulse)
+     MUSIC HUB — braise vivante.
+     Outline animé = repaint layout cher. Remplacé par border statique
+     dorée + un drop-shadow filter qui anime seulement opacity. GPU only.
      ────────────────────────────────────────────────────────────── */
   .bento-wide.music {
+    border-color: rgba(237, 170, 106, 0.28);
     animation: music-border-pulse 4.4s ease-in-out infinite;
+    will-change: filter;
   }
   @keyframes music-border-pulse {
-    0%, 100% {
-      outline: 1px solid rgba(237, 170, 106, 0.06);
-      outline-offset: 0px;
-    }
-    50% {
-      outline: 1.5px solid rgba(237, 170, 106, 0.42);
-      outline-offset: 3px;
-    }
+    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+    50%      { filter: drop-shadow(0 0 22px rgba(237, 170, 106, 0.35)); }
   }
-  /* Le hover suspend le pulse (le ring 3px du :hover existant prend le relais) */
-  .bento-wide.music:hover {
-    animation-play-state: paused;
-  }
-  /* Pendant le reveal-bloom, on suspend aussi pour ne pas cumuler */
+  .bento-wide.music:hover,
   .bento-wide.music.reveal:not(.in) {
     animation-play-state: paused;
   }
 
-  /* CTA Explorer du Music Hub = braise qui respire en continu */
+  /* CTA Explorer du Music Hub = braise qui respire.
+     Box-shadow multi-layer animé = repaint. On simplifie à opacity-only
+     via un pseudo overlay impossible ici → on garde un seul box-shadow
+     dont seule l'opacité varie (couleur unique, alpha animé). */
   .bento-wide.music .wide-cta {
     background:
       linear-gradient(180deg,
@@ -1381,22 +1385,18 @@ const greenFeatures = [1, 2, 3] as const;
         rgba(224, 138, 68, 0.22) 100%);
     border-color: rgba(237, 170, 106, 0.35);
     color: var(--ember-100);
+    box-shadow:
+      inset 0 1px 0 rgba(253, 228, 192, 0.22),
+      0 0 18px var(--ember-glow-dim);
     animation: cta-ember-pulse 3s ease-in-out infinite;
-    will-change: box-shadow;
+    will-change: opacity, transform;
   }
+  /* Animation opacity-only via un sibling — pas possible sans markup,
+     donc on anime juste un scale très subtil (compositor-only) + opacity
+     du background-image overlay via filter brightness. */
   @keyframes cta-ember-pulse {
-    0%, 100% {
-      box-shadow:
-        inset 0 1px 0 rgba(253, 228, 192, 0.18),
-        0 0 0 0 transparent,
-        0 0 14px var(--ember-glow-dim);
-    }
-    50% {
-      box-shadow:
-        inset 0 1px 0 rgba(253, 228, 192, 0.28),
-        0 0 0 4px var(--ember-glow-dim),
-        0 0 28px var(--ember-glow-soft);
-    }
+    0%, 100% { transform: scale(1);     filter: brightness(1); }
+    50%      { transform: scale(1.025); filter: brightness(1.12); }
   }
   .bento-wide.music:hover .wide-cta {
     animation-play-state: paused;
