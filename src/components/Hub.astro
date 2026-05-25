@@ -179,15 +179,15 @@ const greenFeatures = [1, 2, 3] as const;
       </figure>
     </a>
 
-    <!-- AIRBNB BLOCK -->
-    <a href={room} class="bento-airbnb reveal delay-2">
-      <div class="airbnb-text">
-        <div class="airbnb-text-head">
-          <div class="airbnb-place">
-            <span class="bento-eyebrow">{t('hub.airbnb.eyebrow')}</span>
-            <span class="airbnb-coords">{t('hub.airbnb.coords')}</span>
+    <!-- ROOM BLOCK -->
+    <a href={room} class="bento-room reveal delay-2">
+      <div class="room-text">
+        <div class="room-text-head">
+          <div class="room-place">
+            <span class="bento-eyebrow">{t('hub.room.eyebrow')}</span>
+            <span class="room-coords">{t('hub.room.coords')}</span>
           </div>
-          <span class="bento-airbnb-badge">
+          <span class="bento-room-badge">
             <svg class="laurel" viewBox="0 0 32 96" aria-hidden="true">
               <g fill="currentColor">
                 <ellipse cx="20" cy="86" rx="6" ry="2.2" transform="rotate(-25 20 86)"/>
@@ -218,19 +218,19 @@ const greenFeatures = [1, 2, 3] as const;
             </svg>
           </span>
         </div>
-        <h2 class="bento-airbnb-title display">{t('hub.airbnb.title')}</h2>
-        <p>{t('hub.airbnb.body')}</p>
-        <span class="bento-airbnb-cta">
-          {t('hub.airbnb.cta')}
+        <h2 class="bento-room-title display">{t('hub.room.title')}</h2>
+        <p>{t('hub.room.body')}</p>
+        <span class="bento-room-cta">
+          {t('hub.room.cta')}
           <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </span>
       </div>
-      <div class="airbnb-media">
+      <div class="room-media">
         <img src="/photos/01-hero-salon.avif" alt="" loading="eager" fetchpriority="high" />
       </div>
     </a>
 
-    <!-- GREEN HUB — full width sous Airbnb -->
+    <!-- GREEN HUB — full width sous Room -->
     <a href={GREEN_HUB_URL} class="bento-wide green reveal delay-2">
       <div class="wide-text">
         <div class="wide-head">
@@ -821,8 +821,8 @@ const greenFeatures = [1, 2, 3] as const;
     line-height: 1.3;
   }
 
-  /* AIRBNB BLOCK (inchangé) */
-  .bento-airbnb {
+  /* ROOM BLOCK */
+  .bento-room {
     display: flex;
     flex-direction: column;
     border-radius: 22px;
@@ -839,7 +839,7 @@ const greenFeatures = [1, 2, 3] as const;
     position: relative;
     transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
   }
-  .bento-airbnb::before {
+  .bento-room::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -849,16 +849,16 @@ const greenFeatures = [1, 2, 3] as const;
     z-index: 0;
     transition: opacity var(--dur) var(--ease);
   }
-  .bento-airbnb:hover {
+  .bento-room:hover {
     transform: translateY(-3px);
     border-color: rgba(237, 170, 106, 0.45);
     box-shadow:
       0 24px 50px -16px rgba(0,0,0,0.55),
       0 0 0 3px var(--ember-glow-soft);
   }
-  .bento-airbnb:hover::before { opacity: 1; }
+  .bento-room:hover::before { opacity: 1; }
 
-  .airbnb-text {
+  .room-text {
     position: relative;
     z-index: 1;
     padding: clamp(1.6rem, 2.5vw, 2.4rem);
@@ -866,14 +866,14 @@ const greenFeatures = [1, 2, 3] as const;
     flex-direction: column;
     gap: 0.7rem;
   }
-  .airbnb-text-head {
+  .room-text-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 0.4rem;
   }
-  .airbnb-place {
+  .room-place {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
@@ -901,7 +901,7 @@ const greenFeatures = [1, 2, 3] as const;
     background: currentColor;
     opacity: 0.5;
   }
-  .airbnb-coords {
+  .room-coords {
     font-family: var(--font-body);
     font-size: 0.68rem;
     font-weight: 500;
@@ -910,7 +910,7 @@ const greenFeatures = [1, 2, 3] as const;
     color: var(--fg-dim);
     padding-left: 2.2rem;
   }
-  .bento-airbnb-badge {
+  .bento-room-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.2rem;
@@ -921,7 +921,7 @@ const greenFeatures = [1, 2, 3] as const;
     color: var(--ember-200);
     flex-shrink: 0;
   }
-  .bento-airbnb-badge .laurel {
+  .bento-room-badge .laurel {
     width: 14px;
     height: 42px;
     color: var(--ember-300);
@@ -969,7 +969,7 @@ const greenFeatures = [1, 2, 3] as const;
     color: var(--fg-dim);
     letter-spacing: 0.08em;
   }
-  .bento-airbnb-title {
+  .bento-room-title {
     font-size: clamp(1.8rem, 1.3rem + 2vw, 2.8rem);
     line-height: 1;
     margin: 0;
@@ -977,7 +977,7 @@ const greenFeatures = [1, 2, 3] as const;
     font-weight: 300;
     letter-spacing: -0.02em;
   }
-  .airbnb-text p {
+  .room-text p {
     font-family: var(--font-display);
     font-weight: 300;
     font-size: clamp(0.98rem, 0.9rem + 0.3vw, 1.15rem);
@@ -987,7 +987,7 @@ const greenFeatures = [1, 2, 3] as const;
     max-width: 68ch;
     letter-spacing: -0.005em;
   }
-  .bento-airbnb-cta {
+  .bento-room-cta {
     align-self: flex-start;
     display: inline-flex;
     align-items: center;
@@ -1012,26 +1012,26 @@ const greenFeatures = [1, 2, 3] as const;
       inset 0 -1px 0 rgba(0, 0, 0, 0.3);
     transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
   }
-  .bento-airbnb:hover .bento-airbnb-cta {
+  .bento-room:hover .bento-room-cta {
     transform: translateY(-1px);
     box-shadow:
       inset 0 1px 0 rgba(253, 228, 192, 0.45),
       0 14px 30px -10px var(--ember-glow-soft);
   }
-  .bento-airbnb-cta .arrow {
+  .bento-room-cta .arrow {
     transition: transform var(--dur) var(--ease);
   }
-  .bento-airbnb:hover .bento-airbnb-cta .arrow {
+  .bento-room:hover .bento-room-cta .arrow {
     transform: translateX(4px);
   }
-  .airbnb-media {
+  .room-media {
     position: relative;
     z-index: 1;
     aspect-ratio: 21 / 9;
     overflow: hidden;
     border-top: 1px solid var(--border);
   }
-  .airbnb-media img {
+  .room-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1040,7 +1040,7 @@ const greenFeatures = [1, 2, 3] as const;
     transform: scale(1.0);
     transition: transform 1.4s var(--ease), filter var(--dur) var(--ease);
   }
-  .bento-airbnb:hover .airbnb-media img {
+  .bento-room:hover .room-media img {
     transform: scale(1.025);
     filter: brightness(1.0) contrast(1.04) saturate(1.08);
   }
@@ -1303,7 +1303,7 @@ const greenFeatures = [1, 2, 3] as const;
 
   /* Shimmer diagonal au hover : barre lumineuse qui traverse la card */
   .bento-wide::after,
-  .bento-airbnb::after,
+  .bento-room::after,
   .bento-card::after {
     content: '';
     position: absolute;
@@ -1325,7 +1325,7 @@ const greenFeatures = [1, 2, 3] as const;
     transition: opacity 0.2s var(--ease);
   }
   .bento-wide:hover::after,
-  .bento-airbnb:hover::after,
+  .bento-room:hover::after,
   .bento-card:hover::after {
     opacity: 1;
     animation: shimmer-sweep 1.2s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1342,7 +1342,7 @@ const greenFeatures = [1, 2, 3] as const;
     40%      { filter: drop-shadow(0 0 26px var(--ember-glow-soft)); }
   }
   .bento-wide.reveal.in,
-  .bento-airbnb.reveal.in,
+  .bento-room.reveal.in,
   .bento-card.reveal.in {
     animation: ember-bloom 2.4s var(--ease) 0.35s 1 both;
   }
@@ -1359,7 +1359,7 @@ const greenFeatures = [1, 2, 3] as const;
     100% { opacity: 0; background-position: 150% 0; }
   }
   .bento-wide.reveal.in::after,
-  .bento-airbnb.reveal.in::after,
+  .bento-room.reveal.in::after,
   .bento-card.reveal.in::after {
     animation: shimmer-reveal 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.7s 1;
   }
@@ -1538,7 +1538,7 @@ const greenFeatures = [1, 2, 3] as const;
     }
   }
   @media (max-width: 920px) {
-    .airbnb-media {
+    .room-media {
       aspect-ratio: 16 / 9;
     }
     .hub-header-row {
@@ -1615,33 +1615,33 @@ const greenFeatures = [1, 2, 3] as const;
     .bento-features {
       grid-template-columns: 1fr;
     }
-    .bento-airbnb {
+    .bento-room {
       border-radius: 18px;
     }
-    .airbnb-text {
+    .room-text {
       padding: 1.1rem 1.3rem 1.3rem;
       gap: 0.5rem;
     }
-    .airbnb-text-head {
+    .room-text-head {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.45rem;
       margin-bottom: 0.15rem;
     }
-    .airbnb-coords {
+    .room-coords {
       padding-left: 2rem;
       font-size: 0.62rem;
       letter-spacing: 0.14em;
     }
-    .bento-airbnb-badge {
+    .bento-room-badge {
       font-size: 0.74rem;
       padding: 0.35rem 0.75rem 0.35rem 0.55rem;
     }
-    .bento-airbnb-cta {
+    .bento-room-cta {
       padding: 0.85rem 1.3rem;
       font-size: 0.88rem;
     }
-    .airbnb-media {
+    .room-media {
       aspect-ratio: 4 / 3;
     }
     .card-stat {
@@ -1675,7 +1675,7 @@ const greenFeatures = [1, 2, 3] as const;
 
 <script>
   // ── Spotlight cursor : la souris devient une torche cuivrée sur les cards ──
-  const cards = document.querySelectorAll<HTMLElement>('.bento-wide, .bento-airbnb, .bento-card');
+  const cards = document.querySelectorAll<HTMLElement>('.bento-wide, .bento-room, .bento-card');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!prefersReducedMotion) {
