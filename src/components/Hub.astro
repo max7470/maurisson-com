@@ -361,6 +361,56 @@ const greenFeatures = [1, 2, 3] as const;
     z-index: -2;
   }
 
+  /* ──────────────────────────────────────────────────────────────
+     AMBIANCE LUMIÈRE — chaleur vivante, CSS only
+     ────────────────────────────────────────────────────────────── */
+
+  /* Aurora : 3 sources de chaleur qui respirent en boucle */
+  .hub::before {
+    content: '';
+    position: absolute;
+    inset: -8% -6% 20% -6%;
+    z-index: -3;
+    pointer-events: none;
+    background:
+      radial-gradient(52% 42% at 18% 16%, var(--ember-glow-soft), transparent 65%),
+      radial-gradient(46% 38% at 82% 28%, rgba(154, 200, 138, 0.09), transparent 72%),
+      radial-gradient(58% 42% at 50% 78%, var(--ember-glow-dim), transparent 75%);
+    filter: blur(38px) saturate(125%);
+    animation: hub-aurora 22s ease-in-out infinite alternate;
+    will-change: opacity, transform;
+  }
+  /* Light beam : cône de lumière chaude qui descend depuis le haut, comme un projo */
+  .hub::after {
+    content: '';
+    position: absolute;
+    top: -8%;
+    left: 50%;
+    width: min(1100px, 85vw);
+    height: clamp(420px, 60vh, 720px);
+    transform: translateX(-50%);
+    z-index: -2;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 56% 92% at 50% 0%,
+      rgba(224, 138, 68, 0.18) 0%,
+      rgba(224, 138, 68, 0.08) 28%,
+      rgba(224, 138, 68, 0.025) 55%,
+      transparent 75%
+    );
+    filter: blur(20px);
+    animation: hub-beam 12s ease-in-out infinite;
+    mix-blend-mode: screen;
+  }
+  @keyframes hub-aurora {
+    0%   { opacity: 0.7;  transform: translate3d(0, 0, 0) scale(1); }
+    100% { opacity: 1;    transform: translate3d(-2.5%, 1.2%, 0) scale(1.05); }
+  }
+  @keyframes hub-beam {
+    0%, 100% { opacity: 0.7; transform: translateX(-50%) scaleX(1); }
+    50%      { opacity: 1;   transform: translateX(-50%) scaleX(1.08); }
+  }
+
   /* TOP STRIP */
   .hub-top {
     display: flex;
@@ -461,10 +511,30 @@ const greenFeatures = [1, 2, 3] as const;
   .hub-title .t-em {
     font-style: italic;
     font-weight: 300;
-    background: linear-gradient(95deg, var(--ember-300) 0%, var(--ember-200) 50%, var(--ember-400) 100%);
+    background: linear-gradient(95deg,
+      var(--ember-300) 0%,
+      var(--ember-100) 25%,
+      var(--ember-200) 50%,
+      var(--ember-300) 75%,
+      var(--ember-400) 100%);
+    background-size: 220% 100%;
+    background-position: 0% 0%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    filter: drop-shadow(0 0 16px var(--ember-glow-dim));
+    animation: t-em-shimmer 14s ease-in-out infinite;
+    will-change: background-position, filter;
+  }
+  @keyframes t-em-shimmer {
+    0%, 100% {
+      background-position: 0% 0%;
+      filter: drop-shadow(0 0 12px var(--ember-glow-dim));
+    }
+    50% {
+      background-position: 100% 0%;
+      filter: drop-shadow(0 0 28px var(--ember-glow-soft));
+    }
   }
   .hub-categories {
     list-style: none;
@@ -542,7 +612,10 @@ const greenFeatures = [1, 2, 3] as const;
     align-items: center;
     padding: clamp(1.6rem, 2.5vw, 2.4rem);
     border-radius: 22px;
-    background: linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
+    /* Spotlight cursor + base gradient */
+    background:
+      radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.10), transparent 55%),
+      linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
     border: 1px solid var(--border-strong);
     box-shadow: var(--shadow-md);
     color: var(--fg);
@@ -738,7 +811,9 @@ const greenFeatures = [1, 2, 3] as const;
     border-radius: 22px;
     overflow: hidden;
     isolation: isolate;
-    background: linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
+    background:
+      radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.10), transparent 55%),
+      linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
     border: 1px solid var(--border-strong);
     box-shadow: var(--shadow-md);
     color: var(--fg);
@@ -961,7 +1036,9 @@ const greenFeatures = [1, 2, 3] as const;
   .bento-card {
     position: relative;
     padding: clamp(1.3rem, 1.8vw, 1.7rem);
-    background: linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
+    background:
+      radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.09), transparent 55%),
+      linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
     border: 1px solid var(--border-strong);
     border-radius: 18px;
     color: var(--fg);
@@ -1201,6 +1278,144 @@ const greenFeatures = [1, 2, 3] as const;
     color: var(--ember-200);
   }
 
+  /* ──────────────────────────────────────────────────────────────
+     EFFETS LUMIÈRE PARTAGÉS — shimmer sweep + bloom au reveal
+     ────────────────────────────────────────────────────────────── */
+
+  /* Shimmer diagonal au hover : barre lumineuse qui traverse la card */
+  .bento-wide::after,
+  .bento-airbnb::after,
+  .bento-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(
+      100deg,
+      transparent 35%,
+      rgba(253, 228, 192, 0.05) 47%,
+      rgba(253, 228, 192, 0.20) 50%,
+      rgba(253, 228, 192, 0.05) 53%,
+      transparent 65%
+    );
+    background-size: 250% 100%;
+    background-position: -50% 0;
+    opacity: 0;
+    transition: opacity 0.2s var(--ease);
+  }
+  .bento-wide:hover::after,
+  .bento-airbnb:hover::after,
+  .bento-card:hover::after {
+    opacity: 1;
+    animation: shimmer-sweep 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes shimmer-sweep {
+    0%   { background-position: -50% 0; }
+    100% { background-position: 150% 0; }
+  }
+
+  /* Pulse glow au moment où la card entre dans la vue (.reveal.in).
+     Filter plutôt que box-shadow pour ne pas entrer en conflit avec :hover. */
+  @keyframes ember-bloom {
+    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+    40%      { filter: drop-shadow(0 0 26px var(--ember-glow-soft)); }
+  }
+  .bento-wide.reveal.in,
+  .bento-airbnb.reveal.in,
+  .bento-card.reveal.in {
+    animation: ember-bloom 2.4s var(--ease) 0.35s 1 both;
+  }
+  /* Délais staggered : la cascade respire l'une après l'autre */
+  .bento-wide.reveal.in.delay-2 { animation-delay: 0.55s; }
+  .bento-card.reveal.in.delay-3 { animation-delay: 0.75s; }
+  .bento-card.reveal.in.delay-3:nth-of-type(2) { animation-delay: 0.95s; }
+
+  /* Shimmer sweep AUSSI au reveal (pour mobile et premier passage sans hover) */
+  @keyframes shimmer-reveal {
+    0%   { opacity: 0; background-position: -50% 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { opacity: 0; background-position: 150% 0; }
+  }
+  .bento-wide.reveal.in::after,
+  .bento-airbnb.reveal.in::after,
+  .bento-card.reveal.in::after {
+    animation: shimmer-reveal 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.7s 1;
+  }
+  .bento-wide.reveal.in.delay-2::after { animation-delay: 0.9s; }
+  .bento-card.reveal.in.delay-3::after { animation-delay: 1.1s; }
+  .bento-card.reveal.in.delay-3:nth-of-type(2)::after { animation-delay: 1.3s; }
+
+  /* ──────────────────────────────────────────────────────────────
+     MUSIC HUB — braise vivante (border-pulse + CTA ember-pulse)
+     ────────────────────────────────────────────────────────────── */
+  .bento-wide.music {
+    animation: music-border-pulse 4.4s ease-in-out infinite;
+  }
+  @keyframes music-border-pulse {
+    0%, 100% {
+      outline: 1px solid rgba(237, 170, 106, 0.06);
+      outline-offset: 0px;
+    }
+    50% {
+      outline: 1.5px solid rgba(237, 170, 106, 0.42);
+      outline-offset: 3px;
+    }
+  }
+  /* Le hover suspend le pulse (le ring 3px du :hover existant prend le relais) */
+  .bento-wide.music:hover {
+    animation-play-state: paused;
+  }
+  /* Pendant le reveal-bloom, on suspend aussi pour ne pas cumuler */
+  .bento-wide.music.reveal:not(.in) {
+    animation-play-state: paused;
+  }
+
+  /* CTA Explorer du Music Hub = braise qui respire en continu */
+  .bento-wide.music .wide-cta {
+    background:
+      linear-gradient(180deg,
+        rgba(237, 170, 106, 0.18) 0%,
+        rgba(224, 138, 68, 0.22) 100%);
+    border-color: rgba(237, 170, 106, 0.35);
+    color: var(--ember-100);
+    animation: cta-ember-pulse 3s ease-in-out infinite;
+    will-change: box-shadow;
+  }
+  @keyframes cta-ember-pulse {
+    0%, 100% {
+      box-shadow:
+        inset 0 1px 0 rgba(253, 228, 192, 0.18),
+        0 0 0 0 transparent,
+        0 0 14px var(--ember-glow-dim);
+    }
+    50% {
+      box-shadow:
+        inset 0 1px 0 rgba(253, 228, 192, 0.28),
+        0 0 0 4px var(--ember-glow-dim),
+        0 0 28px var(--ember-glow-soft);
+    }
+  }
+  .bento-wide.music:hover .wide-cta {
+    animation-play-state: paused;
+    background: var(--wide-bg);
+    color: var(--ink-50);
+    border-color: var(--wide-border-hover);
+  }
+
+  /* Respect prefers-reduced-motion : tous les loops infinis off */
+  @media (prefers-reduced-motion: reduce) {
+    .hub::before,
+    .hub::after,
+    .hub-title .t-em,
+    .bento-wide.music,
+    .bento-wide.music .wide-cta {
+      animation: none !important;
+    }
+  }
+
   /* RESPONSIVE */
   @media (max-width: 980px) {
     .bento-wide {
@@ -1346,3 +1561,32 @@ const greenFeatures = [1, 2, 3] as const;
     }
   }
 </style>
+
+<script>
+  // ── Spotlight cursor : la souris devient une torche cuivrée sur les cards ──
+  const cards = document.querySelectorAll<HTMLElement>('.bento-wide, .bento-airbnb, .bento-card');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    cards.forEach((card) => {
+      let raf = 0;
+      const onMove = (e: PointerEvent) => {
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          card.style.setProperty('--mx', `${x}px`);
+          card.style.setProperty('--my', `${y}px`);
+        });
+      };
+      const onLeave = () => {
+        cancelAnimationFrame(raf);
+        card.style.removeProperty('--mx');
+        card.style.removeProperty('--my');
+      };
+      card.addEventListener('pointermove', onMove, { passive: true });
+      card.addEventListener('pointerleave', onLeave, { passive: true });
+    });
+  }
+</script>
