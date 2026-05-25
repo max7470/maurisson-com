@@ -165,6 +165,18 @@ const greenFeatures = [1, 2, 3] as const;
           </li>
         ))}
       </ul>
+
+      <!-- Showcase : 3 screenshots qui s'enchaînent en cross-fade -->
+      <figure class="wide-showcase" aria-hidden="true">
+        <img src="/photos/music-hub/studio-midi.webp" alt="" loading="lazy" decoding="async" />
+        <img src="/photos/music-hub/guitar-hub.webp" alt="" loading="lazy" decoding="async" />
+        <img src="/photos/music-hub/song-page.webp" alt="" loading="lazy" decoding="async" />
+        <span class="showcase-dots" aria-hidden="true">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </span>
+      </figure>
     </a>
 
     <!-- AIRBNB BLOCK -->
@@ -1372,6 +1384,105 @@ const greenFeatures = [1, 2, 3] as const;
   .bento-wide.music:hover,
   .bento-wide.music.reveal:not(.in) {
     animation-play-state: paused;
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     SHOWCASE Music Hub — 3 screenshots cross-fade pleine largeur
+     ────────────────────────────────────────────────────────────── */
+  .wide-showcase {
+    position: relative;
+    z-index: 1;
+    grid-column: 1 / -1;
+    margin: 0.6rem 0 0;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border-strong);
+    background: var(--ink-900);
+    box-shadow:
+      var(--shadow-md),
+      inset 0 1px 0 rgba(253, 228, 192, 0.05);
+    isolation: isolate;
+    contain: paint;
+  }
+  /* Halo cuivré subtil tout autour du cadre (effet "écran allumé") */
+  .wide-showcase::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg,
+      rgba(237, 170, 106, 0.35) 0%,
+      rgba(237, 170, 106, 0.0) 30%,
+      rgba(237, 170, 106, 0.0) 70%,
+      rgba(237, 170, 106, 0.25) 100%);
+    -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .wide-showcase img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0;
+    animation: showcase-fade 10.5s ease-in-out infinite;
+    will-change: opacity;
+  }
+  .wide-showcase img:nth-child(1) { animation-delay: 0s; }
+  .wide-showcase img:nth-child(2) { animation-delay: 3.5s; }
+  .wide-showcase img:nth-child(3) { animation-delay: 7s; }
+  @keyframes showcase-fade {
+    0%              { opacity: 0; }
+    4.76%, 28.57%   { opacity: 1; }
+    33.33%, 100%    { opacity: 0; }
+  }
+
+  /* Dots indicateurs en bas du showcase */
+  .showcase-dots {
+    position: absolute;
+    bottom: 0.7rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    gap: 0.45rem;
+    padding: 0.35rem 0.65rem;
+    background: rgba(11, 9, 7, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 999px;
+    z-index: 2;
+  }
+  .showcase-dots .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(244, 237, 227, 0.25);
+    animation: showcase-dot 10.5s ease-in-out infinite;
+  }
+  .showcase-dots .dot:nth-child(1) { animation-delay: 0s; }
+  .showcase-dots .dot:nth-child(2) { animation-delay: 3.5s; }
+  .showcase-dots .dot:nth-child(3) { animation-delay: 7s; }
+  @keyframes showcase-dot {
+    0%              { background: rgba(244, 237, 227, 0.25); transform: scale(1); }
+    4.76%, 28.57%   { background: var(--ember-300); transform: scale(1.25); }
+    33.33%, 100%    { background: rgba(244, 237, 227, 0.25); transform: scale(1); }
+  }
+
+  /* Sur mobile : la card passe en 1 col, le showcase passe en aspect 4/3 */
+  @media (max-width: 980px) {
+    .wide-showcase { aspect-ratio: 16 / 10; }
+  }
+  @media (max-width: 560px) {
+    .wide-showcase { aspect-ratio: 4 / 3; margin-top: 0.4rem; }
+    .showcase-dots { bottom: 0.5rem; padding: 0.25rem 0.5rem; }
+    .showcase-dots .dot { width: 5px; height: 5px; }
   }
 
   /* CTA Explorer du Music Hub = braise qui respire.
