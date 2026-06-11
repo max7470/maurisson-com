@@ -125,13 +125,19 @@ body {
   font-weight: 300;
   letter-spacing: -0.005em;
   overflow-x: hidden;
+}
 
-  /* textured backdrop */
+/* Fond fixe sur couche GPU séparée — évite le repaint au scroll */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background-image:
     radial-gradient(1200px 600px at 20% -10%, rgba(224, 138, 68, 0.08), transparent 60%),
     radial-gradient(800px 500px at 85% 110%, rgba(90, 115, 96, 0.06), transparent 60%),
     linear-gradient(180deg, #0b0907 0%, #120f0c 100%);
-  background-attachment: fixed;
 }
 
 ::selection {

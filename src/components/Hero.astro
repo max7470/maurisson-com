@@ -94,11 +94,12 @@ const t = useTranslations(lang);
     object-fit: cover;
     object-position: center 55%;
     filter: brightness(0.75) contrast(1.05) saturate(1.05);
+    will-change: transform;
     animation: slow-zoom 18s ease-in-out infinite alternate;
   }
   @keyframes slow-zoom {
-    from { transform: scale(1.02); }
-    to   { transform: scale(1.12); }
+    from { transform: scale(1.00); }
+    to   { transform: scale(1.06); }
   }
   .hero-overlay {
     position: absolute;

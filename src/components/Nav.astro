@@ -147,7 +147,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
     inset: 0 0 auto 0;
     z-index: 50;
     padding: 1.2rem var(--gutter);
-    transition: all var(--dur) var(--ease);
+    transition: padding var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease), backdrop-filter var(--dur) var(--ease);
     background: rgba(11, 9, 7, 0.5);
     backdrop-filter: blur(12px) saturate(130%);
     border-bottom: 1px solid rgba(244, 237, 227, 0.05);
