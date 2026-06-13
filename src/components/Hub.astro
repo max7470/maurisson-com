@@ -6,6 +6,7 @@ import {
   AIRBNB_URL,
   MUSIC_HUB_URL,
   GREEN_HUB_URL,
+  IDEES_URL,
   SITES_URL,
   MANUELS_URL,
   MUSIC_COUNT,
@@ -29,6 +30,7 @@ const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
 
 const musicFeatures = [1, 2, 3, 4, 5, 6] as const;
 const greenFeatures = [1, 2, 3] as const;
+const ideesFeatures = [1, 2, 3] as const;
 ---
 
 <section class="hub">
@@ -285,6 +287,64 @@ const greenFeatures = [1, 2, 3] as const;
             <span class="feat-text">
               <span class="feat-title">{t(`hub.green.feat.${i}.title` as any)}</span>
               <span class="feat-sub">{t(`hub.green.feat.${i}.sub` as any)}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </a>
+
+    <!-- IDÉES — full width sous Green Hub -->
+    <a href={IDEES_URL} class="bento-wide idees reveal delay-2">
+      <div class="wide-text">
+        <div class="wide-head">
+          <span class="wide-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18h6"/>
+              <path d="M10 21h4"/>
+              <path d="M12 3a6 6 0 0 1 4 10.5c-.7.6-1 1.2-1 2V16H9v-.5c0-.8-.3-1.4-1-2A6 6 0 0 1 12 3z"/>
+            </svg>
+          </span>
+          <span class="bento-eyebrow">{t('hub.idees.eyebrow')}</span>
+        </div>
+        <h2 class="wide-title display">{t('hub.idees.title')}</h2>
+        <p class="wide-body">{t('hub.idees.body')}</p>
+        <span class="wide-cta">
+          {t('hub.visit')}
+          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+
+      <ul class="wide-features wide-features-idees" aria-label="Features">
+        {ideesFeatures.map((i) => (
+          <li class="feat-pill">
+            <span class="feat-icon" aria-hidden="true">
+              {i === 1 && (
+                /* microphone */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="3" width="6" height="11" rx="3"/>
+                  <path d="M6 11a6 6 0 0 0 12 0"/>
+                  <path d="M12 17v4M9 21h6"/>
+                </svg>
+              )}
+              {i === 2 && (
+                /* sparkle / AI triage */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3l1.8 4.5L18 9l-4.2 1.5L12 15l-1.8-4.5L6 9l4.2-1.5z"/>
+                  <path d="M18 16l.9 2.1L21 19l-2.1.9L18 22l-.9-2.1L15 19l2.1-.9z"/>
+                </svg>
+              )}
+              {i === 3 && (
+                /* columns / by project */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="5" height="16" rx="1"/>
+                  <rect x="9.5" y="4" width="5" height="11" rx="1"/>
+                  <rect x="16" y="4" width="5" height="14" rx="1"/>
+                </svg>
+              )}
+            </span>
+            <span class="feat-text">
+              <span class="feat-title">{t(`hub.idees.feat.${i}.title` as any)}</span>
+              <span class="feat-sub">{t(`hub.idees.feat.${i}.sub` as any)}</span>
             </span>
           </li>
         ))}
@@ -677,6 +737,14 @@ const greenFeatures = [1, 2, 3] as const;
     --wide-fg-strong: #b8da9b;
     --wide-bg: rgba(90, 115, 96, 0.22);
   }
+  .bento-wide.idees {
+    --wide-accent: rgba(168, 148, 224, 0.20);
+    --wide-border-hover: rgba(176, 156, 230, 0.55);
+    --wide-glow: rgba(176, 156, 230, 0.22);
+    --wide-fg: #cfc4ec;
+    --wide-fg-strong: #bda9e6;
+    --wide-bg: rgba(98, 84, 134, 0.24);
+  }
 
   .wide-text {
     position: relative;
@@ -768,7 +836,8 @@ const greenFeatures = [1, 2, 3] as const;
   .wide-features-music {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .wide-features-green {
+  .wide-features-green,
+  .wide-features-idees {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .feat-pill {
@@ -890,7 +959,8 @@ const greenFeatures = [1, 2, 3] as const;
     color: var(--ember-300);
     margin: 0;
   }
-  .bento-wide.green .bento-eyebrow {
+  .bento-wide.green .bento-eyebrow,
+  .bento-wide.idees .bento-eyebrow {
     color: var(--wide-fg-strong);
   }
   .bento-eyebrow::before {
@@ -1561,7 +1631,8 @@ const greenFeatures = [1, 2, 3] as const;
     .wide-features-music {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .wide-features-green {
+    .wide-features-green,
+    .wide-features-idees {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
@@ -1606,7 +1677,8 @@ const greenFeatures = [1, 2, 3] as const;
       border-radius: 18px;
     }
     .wide-features-music,
-    .wide-features-green {
+    .wide-features-green,
+    .wide-features-idees {
       grid-template-columns: 1fr;
     }
     .feat-pill {
