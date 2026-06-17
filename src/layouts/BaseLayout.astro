@@ -64,6 +64,56 @@ const defaultSchema = {
   sameAs: ['https://airbnb.be/h/maurisson'],
 };
 const jsonLd = schema ?? defaultSchema;
+
+// Graphe de marque « Maurisson » — entité canonique référencée par @id depuis les apps
+// (idées, Green Hub, Music Hub). Permet à Google et aux IA de comprendre que Maurisson
+// publie un univers d'OUTILS WEB GRATUITS. Émis sur toutes les pages.
+const MAURISSON_APPS = [
+  { name: 'Music Hub', url: 'https://musichub.maurisson.com', cat: 'MusicApplication', desc: "Carnet d'accords avec piano, Spotify et studio MIDI." },
+  { name: 'Green Hub', url: 'https://greenhub.maurisson.com', cat: 'LifestyleApplication', desc: 'Carnet de jardin : fiches de soin et calendrier par plante.' },
+  { name: 'Idées', url: 'https://idees.maurisson.com', cat: 'ProductivityApplication', desc: 'Capture tes idées à la voix, un agent les range pour toi.' },
+];
+const brandGraph = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': 'https://maurisson.com/#org',
+    name: 'Maurisson',
+    url: 'https://maurisson.com',
+    logo: 'https://maurisson.com/apple-touch-icon.png',
+    description: "Maurisson publie des outils web gratuits — Music Hub, Green Hub, Idées — et tient la chambre d'hôtes Chez Maurisson à Herve (Belgique).",
+    sameAs: ['https://github.com/max7470', 'https://airbnb.be/h/maurisson'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://maurisson.com/#website',
+    name: 'Maurisson',
+    url: 'https://maurisson.com',
+    publisher: { '@id': 'https://maurisson.com/#org' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Outils gratuits Maurisson',
+    itemListElement: MAURISSON_APPS.map((a, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': ['WebApplication', 'SoftwareApplication'],
+        '@id': a.url + '/#app',
+        name: a.name,
+        url: a.url,
+        applicationCategory: a.cat,
+        operatingSystem: 'Web',
+        description: a.desc,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
+        publisher: { '@id': 'https://maurisson.com/#org' },
+        isPartOf: { '@id': 'https://maurisson.com/#website' },
+      },
+    })),
+  },
+];
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -104,6 +154,9 @@ const jsonLd = schema ?? defaultSchema;
   <link rel="alternate" hreflang="x-default" href={absUrl(localePath('fr'))} />
 
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  {brandGraph.map((node) => (
+    <script type="application/ld+json" set:html={JSON.stringify(node)} />
+  ))}
 
   <link rel="preconnect" href="https://www.googletagmanager.com" />
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-56YBF3Q9FN"></script>
