@@ -19,7 +19,7 @@ export const MANUELS_URL = 'https://manuels.maurisson.com';
 export const GITHUB_URL = 'https://github.com/max7470';
 
 export const MUSIC_COUNT = 2334;
-export const GREEN_COUNT = 38;
+export const GREEN_COUNT = 47;
 
 export const ui = {
   fr: {
