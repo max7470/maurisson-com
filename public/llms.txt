@@ -1,0 +1,21 @@
+# Maurisson
+
+> L'univers web personnel de Maxime Kleinkenberg, alias Maurisson : des outils gratuits, des projets et une chambre d'hôtes à Herve, en Belgique.
+
+## Portail
+
+- https://maurisson.com/ — point d'entrée de l'univers Maurisson
+- https://maurisson.com/room — Chez Maurisson, chambre d'hôtes à Herve
+
+## Outils et contenus publics
+
+- https://musichub.maurisson.com/ — carnet d'accords interactif, piano, Spotify et studio MIDI
+- https://greenhub.maurisson.com/ — fiches de soin et calendrier pour les plantes
+- https://idees.maurisson.com/ — capture et organisation d'idées
+- https://manuels.maurisson.com/ — manuels et guides pratiques
+- https://sites.maurisson.com/ — sites et expériences web
+- https://jesus.maurisson.com/ — projet éditorial
+
+## Accès
+
+Les applications privées et tableaux de bord ne font pas partie de la documentation publique.
