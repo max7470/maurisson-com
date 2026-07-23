@@ -35,13 +35,27 @@ const alt = [
   { lang: 'de', href: absUrl(localePath('de')) },
 ];
 
-const defaultSchema = {
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: pageTitle,
+  description: pageDescription,
+  isPartOf: { '@id': 'https://maurisson.com/#website' },
+  about: { '@id': 'https://maurisson.com/#maxime' },
+  inLanguage: lang,
+};
+
+const lodgingSchema = {
   '@context': 'https://schema.org',
   '@type': 'BedAndBreakfast',
+  '@id': 'https://maurisson.com/room#lodging',
   name: 'Chez Maurisson',
-  url: Astro.site?.toString(),
+  url: 'https://maurisson.com/room',
   image: ogImage,
   description: pageDescription,
+  provider: { '@id': 'https://maurisson.com/#maxime' },
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Herve',
@@ -63,7 +77,10 @@ const defaultSchema = {
   priceRange: '€€',
   sameAs: ['https://airbnb.be/h/maurisson'],
 };
-const jsonLd = schema ?? defaultSchema;
+const pageSchemas = [
+  webPageSchema,
+  ...(schema ? [schema] : pathSuffix === 'room' ? [lodgingSchema] : []),
+];
 
 // Graphe de marque « Maurisson » — entité canonique référencée par @id depuis les apps
 // (idées, Green Hub, Music Hub). Permet à Google et aux IA de comprendre que Maurisson
@@ -76,13 +93,14 @@ const MAURISSON_APPS = [
 const brandGraph = [
   {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': 'https://maurisson.com/#org',
-    name: 'Maurisson',
+    '@type': 'Person',
+    '@id': 'https://maurisson.com/#maxime',
+    name: 'Maxime Kleinkenberg',
+    alternateName: 'Maurisson',
     url: 'https://maurisson.com',
-    logo: 'https://maurisson.com/apple-touch-icon.png',
+    image: 'https://maurisson.com/apple-touch-icon.png',
     description: "Maurisson publie des outils web gratuits — Music Hub, Green Hub, Idées — et tient la chambre d'hôtes Chez Maurisson à Herve (Belgique).",
-    sameAs: ['https://github.com/max7470', 'https://airbnb.be/h/maurisson'],
+    sameAs: ['https://github.com/max7470'],
   },
   {
     '@context': 'https://schema.org',
@@ -90,7 +108,7 @@ const brandGraph = [
     '@id': 'https://maurisson.com/#website',
     name: 'Maurisson',
     url: 'https://maurisson.com',
-    publisher: { '@id': 'https://maurisson.com/#org' },
+    publisher: { '@id': 'https://maurisson.com/#maxime' },
   },
   {
     '@context': 'https://schema.org',
@@ -108,7 +126,7 @@ const brandGraph = [
         operatingSystem: 'Web',
         description: a.desc,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
-        publisher: { '@id': 'https://maurisson.com/#org' },
+        publisher: { '@id': 'https://maurisson.com/#maxime' },
         isPartOf: { '@id': 'https://maurisson.com/#website' },
       },
     })),
@@ -128,7 +146,7 @@ const brandGraph = [
   <link rel="canonical" href={canonical} />
 
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Chez Maurisson" />
+  <meta property="og:site_name" content="Maurisson" />
   <meta property="og:locale" content={ogLocaleMap[lang]} />
   <meta property="og:url" content={canonical} />
   <meta property="og:title" content={pageTitle} />
@@ -137,7 +155,7 @@ const brandGraph = [
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:alt" content="Chez Maurisson — chambre d'hôtes à Herve, Belgique" />
+  <meta property="og:image:alt" content={pageTitle} />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={pageTitle} />
@@ -153,7 +171,9 @@ const brandGraph = [
   ))}
   <link rel="alternate" hreflang="x-default" href={absUrl(localePath('fr'))} />
 
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  {pageSchemas.map((node) => (
+    <script type="application/ld+json" set:html={JSON.stringify(node)} />
+  ))}
   {brandGraph.map((node) => (
     <script type="application/ld+json" set:html={JSON.stringify(node)} />
   ))}
