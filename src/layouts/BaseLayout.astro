@@ -185,6 +185,30 @@ const brandGraph = [
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-56YBF3Q9FN', { cookie_domain: '.maurisson.com', cookie_flags: 'SameSite=None;Secure' });
+    document.addEventListener('click', function (event) {
+      var target = event.target;
+      var link = target && target.closest ? target.closest('a[href]') : null;
+      if (!link) return;
+
+      try {
+        var destination = new URL(link.href, location.href);
+        var isMaurissonHub = destination.hostname.endsWith('.maurisson.com')
+          && destination.hostname !== location.hostname;
+        var isAirbnb = destination.hostname === 'airbnb.com'
+          || destination.hostname.endsWith('.airbnb.com')
+          || destination.hostname === 'airbnb.be'
+          || destination.hostname.endsWith('.airbnb.be');
+        if (!isMaurissonHub && !isAirbnb) return;
+
+        gtag('event', 'select_content', {
+          content_type: 'hub_destination',
+          item_id: destination.hostname,
+          link_url: destination.href,
+        });
+      } catch (error) {
+        // Analytics must never block navigation.
+      }
+    });
   </script>
 </head>
 <body>
