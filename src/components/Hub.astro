@@ -1428,6 +1428,23 @@ const bristolFeatures = [1, 2, 3] as const;
   }
 
   /* ──────────────────────────────────────────────────────────────
+     HORS DE L'ÉCRAN, ON NE PEINT PLUS.
+     Les animations sans fin (halo du Music Hub, fondu des showcases,
+     leurs points, le shimmer du titre) sont gelées dès que leur bloc
+     quitte la vue, et repartent quand il revient. Ciblage nominatif :
+     les animations jouées UNE fois (ember-bloom) ne doivent surtout pas
+     être figées à mi-course. La classe est posée par l'observateur en
+     bas de fichier.
+     ────────────────────────────────────────────────────────────── */
+  .bento-wide.music.hors-vue,
+  .bento-wide.music.hors-vue .wide-cta,
+  .wide-showcase.hors-vue img,
+  .wide-showcase.hors-vue .showcase-dots .dot,
+  .hub-title .t-em.hors-vue {
+    animation-play-state: paused;
+  }
+
+  /* ──────────────────────────────────────────────────────────────
      EFFETS LUMIÈRE PARTAGÉS — shimmer sweep + bloom au reveal
      ────────────────────────────────────────────────────────────── */
 
@@ -1812,6 +1829,24 @@ const bristolFeatures = [1, 2, 3] as const;
   // ── Spotlight cursor : la souris devient une torche cuivrée sur les cards ──
   const cards = document.querySelectorAll<HTMLElement>('.bento-wide, .bento-room, .bento-card');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Hors de l'écran, on gèle les animations sans fin ──────────────────────
+  // Une marge de 300 px les relance juste avant que le bloc n'entre dans la vue,
+  // pour qu'on ne surprenne jamais une animation en train de démarrer.
+  const anims = document.querySelectorAll<HTMLElement>(
+    '.wide-showcase, .bento-wide.music, .hub-title .t-em',
+  );
+  if (anims.length && 'IntersectionObserver' in window) {
+    const veille = new IntersectionObserver(
+      (entrees) => {
+        for (const entree of entrees) {
+          entree.target.classList.toggle('hors-vue', !entree.isIntersecting);
+        }
+      },
+      { rootMargin: '300px 0px' },
+    );
+    anims.forEach((el) => veille.observe(el));
+  }
 
   if (!prefersReducedMotion) {
     cards.forEach((card) => {
