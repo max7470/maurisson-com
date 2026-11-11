@@ -43,7 +43,6 @@ const cuisineFeatures = [1, 2, 3] as const;
 ---
 
 <section class="hub">
-  <div class="noise" aria-hidden="true"></div>
 
   <header class="hub-top container">
     <a href={hubUrl(lang)} class="hub-brand" aria-label="Mauriss">
@@ -70,7 +69,7 @@ const cuisineFeatures = [1, 2, 3] as const;
     </div>
   </header>
 
-  <div class="hub-header container reveal">
+  <div class="hub-header container">
     <div class="hub-header-row">
       <h1 class="hub-title display">
         <span class="t-line">{t('hub.title.l1')} <em class="t-em">{t('hub.title.em')}</em></span>
@@ -87,7 +86,7 @@ const cuisineFeatures = [1, 2, 3] as const;
 
   <div class="hub-bento container">
     <!-- MUSIC HUB — full width, premier de la liste, mis en avant -->
-    <a href={MUSIC_HUB_URL} target="_blank" rel="noopener noreferrer" class="bento-wide music reveal delay-1">
+    <a href={MUSIC_HUB_URL} target="_blank" rel="noopener noreferrer" class="bento-wide music">
       <div class="wide-text">
         <div class="wide-head">
           <span class="wide-icon" aria-hidden="true">
@@ -188,7 +187,7 @@ const cuisineFeatures = [1, 2, 3] as const;
          qu'un robot qui suit un lien ne cree rien. Le script en bas soumet le formulaire ;
          sans JS ou en nouvel onglet, le lien tombe sur /connexion et son bouton « Je visite ». -->
     <form id="cuisine-visite" method="post" action={`${CUISINE_URL}/explorer`} hidden></form>
-    <a href={`${CUISINE_URL}/connexion`} class="bento-wide cuisine reveal delay-2" data-cuisine-visite>
+    <a href={`${CUISINE_URL}/connexion`} class="bento-wide cuisine" data-cuisine-visite>
       <div class="wide-text">
         <div class="wide-head">
           <span class="wide-icon" aria-hidden="true">
@@ -254,7 +253,7 @@ const cuisineFeatures = [1, 2, 3] as const;
     </a>
 
     <!-- GREEN HUB — full width sous Cuisine -->
-    <a href={GREEN_HUB_URL} class="bento-wide green reveal delay-2">
+    <a href={GREEN_HUB_URL} class="bento-wide green">
       <div class="wide-text">
         <div class="wide-head">
           <span class="wide-icon" aria-hidden="true">
@@ -321,7 +320,7 @@ const cuisineFeatures = [1, 2, 3] as const;
 
     <!-- BRISTOL, IDEES, PRODUCTIONS, MANUELS — rangee de petites cartes (11/11/2026) -->
     <div class="bento-features">
-      <a href={BRISTOL_URL} class="bento-card bristol reveal delay-3">
+      <a href={BRISTOL_URL} class="bento-card bristol">
         <div class="card-head">
           <span class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -338,7 +337,7 @@ const cuisineFeatures = [1, 2, 3] as const;
         </span>
       </a>
 
-      <a href={IDEES_URL} class="bento-card idees reveal delay-3">
+      <a href={IDEES_URL} class="bento-card idees">
         <div class="card-head">
           <span class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -355,7 +354,7 @@ const cuisineFeatures = [1, 2, 3] as const;
         </span>
       </a>
 
-      <a href={SITES_URL} class="bento-card sites reveal delay-3">
+      <a href={SITES_URL} class="bento-card sites">
         <div class="card-head">
           <span class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -373,7 +372,7 @@ const cuisineFeatures = [1, 2, 3] as const;
         </span>
       </a>
 
-      <a href={MANUELS_URL} class="bento-card manuels reveal delay-3">
+      <a href={MANUELS_URL} class="bento-card manuels">
         <div class="card-head">
           <span class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -393,7 +392,7 @@ const cuisineFeatures = [1, 2, 3] as const;
     </div>
 
     <!-- ROOM BLOCK — chambre d'hote, tout en bas du hub -->
-    <a href={room} class="bento-room reveal delay-4">
+    <a href={room} class="bento-room">
       <div class="room-text">
         <div class="room-text-head">
           <div class="room-place">
@@ -441,7 +440,7 @@ const cuisineFeatures = [1, 2, 3] as const;
     </a>
   </div>
 
-  <div class="hub-foot container reveal">
+  <div class="hub-foot container">
     <p class="foot-bio"><em>{t('hub.footer.bio')}</em></p>
     <p class="foot-contact">
       <a href="mailto:contact@maurisson.com">contact@maurisson.com</a>
@@ -480,9 +479,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     isolation: isolate;
     overflow: hidden;
   }
-  .hub .noise {
-    z-index: -2;
-  }
 
   /* ──────────────────────────────────────────────────────────────
      AMBIANCE LUMIÈRE — chaleur vivante, CSS only
@@ -490,40 +486,8 @@ const cuisineFeatures = [1, 2, 3] as const;
 
   /* Aurora : 3 sources de chaleur. Blur STATIQUE (pas dans l'anim) → GPU only.
      N'anime que transform + opacity, qui sont compositor-only et n'invalident pas le paint. */
-  .hub::before {
-    content: '';
-    position: absolute;
-    inset: -8% -6% 20% -6%;
-    z-index: -3;
-    pointer-events: none;
-    background:
-      radial-gradient(52% 42% at 18% 16%, var(--ember-glow-soft), transparent 65%),
-      radial-gradient(46% 38% at 82% 28%, rgba(154, 200, 138, 0.09), transparent 72%),
-      radial-gradient(58% 42% at 50% 78%, var(--ember-glow-dim), transparent 75%);
-    /* blur appliqué une seule fois, JAMAIS animé → reste léger */
-    filter: blur(24px) saturate(120%);
-    transform: translate3d(0, 0, 0);
-  }
   /* Light beam : cône chaud, sans mix-blend-mode (composite expensive).
      Le screen blend ne valait pas son coût en perf. */
-  .hub::after {
-    content: '';
-    position: absolute;
-    top: -8%;
-    left: 50%;
-    width: min(1100px, 85vw);
-    height: clamp(420px, 60vh, 720px);
-    z-index: -2;
-    pointer-events: none;
-    background: radial-gradient(
-      ellipse 56% 92% at 50% 0%,
-      rgba(237, 170, 106, 0.20) 0%,
-      rgba(224, 138, 68, 0.08) 30%,
-      rgba(224, 138, 68, 0.02) 55%,
-      transparent 75%
-    );
-    transform: translate3d(-50%, 0, 0);
-  }
   /* TOP STRIP */
   .hub-top {
     display: flex;
@@ -559,16 +523,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     height: clamp(51px, 7.7vw, 119px);
     width: auto;
     color: var(--ember-400);
-    transition:
-      color var(--dur-fast) var(--ease),
-      transform var(--dur) var(--ease),
-      filter var(--dur) var(--ease);
-    filter: drop-shadow(0 1px 4px rgba(224, 138, 68, 0.18));
-  }
-  .hub-brand:hover .hub-brand-logo {
-    color: var(--ember-300);
-    transform: rotate(-3deg) scale(1.04);
-    filter: drop-shadow(0 2px 8px rgba(224, 138, 68, 0.32));
   }
   .hub-top-langs {
     display: inline-flex;
@@ -586,7 +540,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     letter-spacing: 0.18em;
     color: var(--fg-dim);
     border-radius: 999px;
-    transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
   }
   .top-lang:hover {
     color: var(--ember-200);
@@ -624,18 +577,7 @@ const cuisineFeatures = [1, 2, 3] as const;
   .hub-title .t-em {
     font-style: italic;
     font-weight: 300;
-    background: linear-gradient(95deg,
-      var(--ember-300) 0%,
-      var(--ember-100) 25%,
-      var(--ember-200) 50%,
-      var(--ember-300) 75%,
-      var(--ember-400) 100%);
-    background-size: 220% 100%;
-    background-position: 0% 0%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 0 16px var(--ember-glow-dim));
+    color: var(--ember-300);
   }
   .hub-categories {
     list-style: none;
@@ -713,11 +655,7 @@ const cuisineFeatures = [1, 2, 3] as const;
     align-items: center;
     padding: clamp(1.6rem, 2.5vw, 2.4rem);
     border-radius: 22px;
-    /* Spotlight cursor + base gradient. contain:paint isole les repaints
-       à la card seule (pas tout le hub) → spotlight fluide. */
-    background:
-      radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.10), transparent 55%),
-      linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
+    background: linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
     border: 1px solid var(--border-strong);
     box-shadow: var(--shadow-md);
     color: var(--fg);
@@ -726,7 +664,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     isolation: isolate;
     overflow: hidden;
     contain: paint;
-    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
   }
   .bento-wide::before {
     content: '';
@@ -736,16 +673,10 @@ const cuisineFeatures = [1, 2, 3] as const;
     opacity: 0.7;
     pointer-events: none;
     z-index: 0;
-    transition: opacity var(--dur) var(--ease);
   }
   .bento-wide:hover {
-    transform: translateY(-3px);
     border-color: var(--wide-border-hover);
-    box-shadow:
-      0 24px 50px -16px rgba(0,0,0,0.55),
-      0 0 0 3px var(--wide-glow);
   }
-  .bento-wide:hover::before { opacity: 1; }
 
   .bento-wide.music {
     --wide-accent: var(--ember-glow-dim);
@@ -834,18 +765,11 @@ const cuisineFeatures = [1, 2, 3] as const;
     font-weight: 500;
     letter-spacing: 0.04em;
     color: var(--wide-fg);
-    transition: background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
   .bento-wide:hover .wide-cta {
     background: var(--wide-bg);
     color: var(--ink-50);
     border-color: var(--wide-border-hover);
-  }
-  .wide-cta .arrow {
-    transition: transform var(--dur) var(--ease);
-  }
-  .bento-wide:hover .wide-cta .arrow {
-    transform: translateX(3px);
   }
 
   /* FEATURE PILLS GRID */
@@ -874,7 +798,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     background: rgba(11, 9, 7, 0.4);
     border: 1px solid var(--border);
     border-radius: 12px;
-    transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
     min-width: 0;
   }
   .bento-wide:hover .feat-pill {
@@ -924,15 +847,12 @@ const cuisineFeatures = [1, 2, 3] as const;
     overflow: hidden;
     isolation: isolate;
     contain: paint;
-    background:
-      radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.10), transparent 55%),
-      linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
+    background: linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
     border: 1px solid var(--border-strong);
     box-shadow: var(--shadow-md);
     color: var(--fg);
     text-decoration: none;
     position: relative;
-    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
   }
   .bento-room::before {
     content: '';
@@ -942,16 +862,10 @@ const cuisineFeatures = [1, 2, 3] as const;
     opacity: 0.7;
     pointer-events: none;
     z-index: 0;
-    transition: opacity var(--dur) var(--ease);
   }
   .bento-room:hover {
-    transform: translateY(-3px);
     border-color: rgba(237, 170, 106, 0.45);
-    box-shadow:
-      0 24px 50px -16px rgba(0,0,0,0.55),
-      0 0 0 3px var(--ember-glow-soft);
   }
-  .bento-room:hover::before { opacity: 1; }
 
   .room-text {
     position: relative;
@@ -1105,19 +1019,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     box-shadow:
       inset 0 1px 0 rgba(253, 228, 192, 0.35),
       inset 0 -1px 0 rgba(0, 0, 0, 0.3);
-    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-  }
-  .bento-room:hover .bento-room-cta {
-    transform: translateY(-1px);
-    box-shadow:
-      inset 0 1px 0 rgba(253, 228, 192, 0.45),
-      0 14px 30px -10px var(--ember-glow-soft);
-  }
-  .bento-room-cta .arrow {
-    transition: transform var(--dur) var(--ease);
-  }
-  .bento-room:hover .bento-room-cta .arrow {
-    transform: translateX(4px);
   }
   /* BRISTOL, IDEES, PRODUCTIONS, MANUELS — 4 colonnes, 2 sous 980 px, 1 sous 560 px */
   .bento-features {
@@ -1129,9 +1030,7 @@ const cuisineFeatures = [1, 2, 3] as const;
     position: relative;
     padding: clamp(1.3rem, 1.8vw, 1.7rem);
     contain: paint;
-    background:
-      radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(253, 228, 192, 0.09), transparent 55%),
-      linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
+    background: linear-gradient(180deg, var(--ink-800) 0%, var(--ink-900) 100%);
     border: 1px solid var(--border-strong);
     border-radius: 18px;
     color: var(--fg);
@@ -1139,10 +1038,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
-    transition:
-      transform var(--dur) var(--ease),
-      border-color var(--dur) var(--ease),
-      box-shadow var(--dur) var(--ease);
     overflow: hidden;
     isolation: isolate;
   }
@@ -1153,18 +1048,10 @@ const cuisineFeatures = [1, 2, 3] as const;
     background: radial-gradient(110% 70% at 0% 0%, var(--card-accent, var(--ember-glow-dim)), transparent 55%);
     opacity: 0.55;
     pointer-events: none;
-    transition: opacity var(--dur) var(--ease);
     z-index: -1;
   }
   .bento-card:hover {
-    transform: translateY(-2px);
     border-color: var(--card-border-hover, var(--ember-400));
-    box-shadow:
-      0 14px 32px -10px rgba(0,0,0,0.5),
-      0 0 0 3px var(--card-glow, var(--ember-glow-soft));
-  }
-  .bento-card:hover::before {
-    opacity: 1;
   }
   .card-head {
     display: flex;
@@ -1221,16 +1108,9 @@ const cuisineFeatures = [1, 2, 3] as const;
     letter-spacing: 0.05em;
     color: var(--fg-dim);
     margin-top: auto;
-    transition: color var(--dur-fast) var(--ease);
-  }
-  .card-foot .arrow {
-    transition: transform var(--dur) var(--ease);
   }
   .bento-card:hover .card-foot {
     color: var(--card-fg, var(--ember-200));
-  }
-  .bento-card:hover .card-foot .arrow {
-    transform: translateX(3px);
   }
   .bento-card.sites {
     --card-accent: rgba(170, 180, 200, 0.16);
@@ -1293,7 +1173,6 @@ const cuisineFeatures = [1, 2, 3] as const;
   .foot-contact a {
     color: var(--ember-300);
     border-bottom: 1px solid transparent;
-    transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
   }
   .foot-contact a:hover {
     color: var(--ember-200);
@@ -1315,7 +1194,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     letter-spacing: 0.18em;
     color: var(--fg-dim);
     border-radius: 999px;
-    transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
   }
   .foot-lang:hover {
     color: var(--ember-200);
@@ -1385,69 +1263,22 @@ const cuisineFeatures = [1, 2, 3] as const;
     text-transform: uppercase;
     color: var(--fg-dim);
     text-decoration: none;
-    transition: color var(--dur-fast) var(--ease);
   }
   .foot-links a:hover {
     color: var(--ember-200);
   }
 
   /* ──────────────────────────────────────────────────────────────
-     EFFETS LUMIÈRE PARTAGÉS — shimmer sweep + bloom au reveal
-     ────────────────────────────────────────────────────────────── */
-
-  /* Shimmer diagonal au hover : barre lumineuse qui traverse la card */
-  .bento-wide::after,
-  .bento-room::after,
-  .bento-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    border-radius: inherit;
-    background: linear-gradient(
-      100deg,
-      transparent 35%,
-      rgba(253, 228, 192, 0.05) 47%,
-      rgba(253, 228, 192, 0.20) 50%,
-      rgba(253, 228, 192, 0.05) 53%,
-      transparent 65%
-    );
-    background-size: 250% 100%;
-    background-position: -50% 0;
-    opacity: 0;
-    transition: opacity 0.2s var(--ease);
-  }
-  .bento-wide:hover::after,
-  .bento-room:hover::after,
-  .bento-card:hover::after {
-    opacity: 1;
-    animation: shimmer-sweep 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  @keyframes shimmer-sweep {
-    0%   { background-position: -50% 0; }
-    100% { background-position: 150% 0; }
-  }
-
-  /* Le shimmer joue au survol seulement. Celui qui traversait le bloc une fois,
-     a son entree dans la vue, a ete retire le 10/09/2026 a la demande de Maxime. */
-
-  /* ──────────────────────────────────────────────────────────────
-     MUSIC HUB — braise vivante.
-     Outline animé = repaint layout cher. Remplacé par border statique
-     dorée + un drop-shadow filter qui anime seulement opacity. GPU only.
+     MUSIC HUB — bordure doree fixe.
      ────────────────────────────────────────────────────────────── */
   .bento-wide.music {
     border-color: rgba(237, 170, 106, 0.28);
   }
 
   /* ──────────────────────────────────────────────────────────────
-     SHOWCASE Music Hub — 3 screenshots cross-fade pleine largeur
+     SHOWCASE — une capture fixe par grande fiche
      ────────────────────────────────────────────────────────────── */
   .wide-showcase {
-    --halo-a: rgba(237, 170, 106, 0.35);
-    --halo-b: rgba(237, 170, 106, 0.25);
-    --halo-fade: rgba(237, 170, 106, 0);
     position: relative;
     z-index: 1;
     grid-column: 1 / -1;
@@ -1465,23 +1296,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     contain: paint;
   }
   /* Halo cuivré subtil tout autour du cadre (effet "écran allumé") */
-  .wide-showcase::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg,
-      var(--halo-a) 0%,
-      var(--halo-fade) 30%,
-      var(--halo-fade) 70%,
-      var(--halo-b) 100%);
-    -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: 3;
-  }
   .wide-showcase img {
     position: absolute;
     inset: 0;
@@ -1489,16 +1303,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     height: 100%;
     object-fit: cover;
     object-position: center top;
-  }
-  .bento-wide.green .wide-showcase {
-    --halo-a: rgba(154, 200, 138, 0.38);
-    --halo-b: rgba(154, 200, 138, 0.26);
-    --halo-fade: rgba(154, 200, 138, 0);
-  }
-  .bento-wide.cuisine .wide-showcase {
-    --halo-a: rgba(240, 128, 100, 0.36);
-    --halo-b: rgba(240, 128, 100, 0.24);
-    --halo-fade: rgba(240, 128, 100, 0);
   }
 
   /* Sur mobile : la card passe en 1 col, le showcase passe en aspect 4/3 */
@@ -1518,8 +1322,7 @@ const cuisineFeatures = [1, 2, 3] as const;
     border-color: rgba(237, 170, 106, 0.35);
     color: var(--ember-100);
     box-shadow:
-      inset 0 1px 0 rgba(253, 228, 192, 0.22),
-      0 0 18px var(--ember-glow-dim);
+      inset 0 1px 0 rgba(253, 228, 192, 0.22);
   }
   .bento-wide.music:hover .wide-cta {
     background: var(--wide-bg);
@@ -1673,10 +1476,6 @@ const cuisineFeatures = [1, 2, 3] as const;
 </style>
 
 <script>
-  // ── Spotlight cursor : la souris devient une torche cuivrée sur les cards ──
-  const cards = document.querySelectorAll<HTMLElement>('.bento-wide, .bento-room, .bento-card');
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   // ── Cuisine : un clic simple entre dans la cuisine de visite (POST /explorer).
   // Ctrl/Cmd/Maj/clic milieu gardent le lien normal vers /connexion.
   const visite = document.getElementById('cuisine-visite') as HTMLFormElement | null;
@@ -1685,27 +1484,4 @@ const cuisineFeatures = [1, 2, 3] as const;
     e.preventDefault();
     visite.submit();
   });
-
-  if (!prefersReducedMotion) {
-    cards.forEach((card) => {
-      let raf = 0;
-      const onMove = (e: PointerEvent) => {
-        const r = card.getBoundingClientRect();
-        const x = e.clientX - r.left;
-        const y = e.clientY - r.top;
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          card.style.setProperty('--mx', `${x}px`);
-          card.style.setProperty('--my', `${y}px`);
-        });
-      };
-      const onLeave = () => {
-        cancelAnimationFrame(raf);
-        card.style.removeProperty('--mx');
-        card.style.removeProperty('--my');
-      };
-      card.addEventListener('pointermove', onMove, { passive: true });
-      card.addEventListener('pointerleave', onLeave, { passive: true });
-    });
-  }
 </script>
