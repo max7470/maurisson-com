@@ -7,6 +7,8 @@ import {
   MUSIC_HUB_URL,
   GREEN_HUB_URL,
   BRISTOL_URL,
+  CUISINE_URL,
+  fetchCuisineCount,
   IDEES_URL,
   SITES_URL,
   MANUELS_URL,
@@ -33,10 +35,11 @@ const musicCount = await fetchMusicCount();
 const musicBody = t('hub.music.body').replace('{count}', formatCount(musicCount));
 const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
 
-const musicFeatures = [1, 2, 3, 4, 5, 6] as const;
+const cuisineCount = await fetchCuisineCount();
+
+const musicFeatures = [1, 2, 3, 4] as const;
 const greenFeatures = [1, 2, 3] as const;
-const ideesFeatures = [1, 2, 3] as const;
-const bristolFeatures = [1, 2, 3] as const;
+const cuisineFeatures = [1, 2, 3] as const;
 ---
 
 <section class="hub">
@@ -174,20 +177,83 @@ const bristolFeatures = [1, 2, 3] as const;
         ))}
       </ul>
 
-      <!-- Showcase : 3 screenshots qui s'enchaînent en cross-fade -->
-      <figure class="wide-showcase" aria-hidden="true">
+      <!-- Showcase : une capture fixe (le fondu entre trois captures est retire le 11/11/2026 : la page ramait) -->
+      <figure class="wide-showcase wide-showcase--still" aria-hidden="true">
         <img src="/photos/music-hub/studio-midi.webp" alt="" loading="lazy" decoding="async" />
-        <img src="/photos/music-hub/guitar-hub.webp" alt="" loading="lazy" decoding="async" />
-        <img src="/photos/music-hub/song-page.webp" alt="" loading="lazy" decoding="async" />
-        <span class="showcase-dots" aria-hidden="true">
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </span>
       </figure>
     </a>
 
-    <!-- GREEN HUB — full width sous Music -->
+    <!-- CUISINE — juste apres Music. Le clic ouvre la cuisine de visite (copie jetable
+         de celle d'Alex, 24 h) : /explorer n'accepte qu'un POST, voulu cote Cuisine pour
+         qu'un robot qui suit un lien ne cree rien. Le script en bas soumet le formulaire ;
+         sans JS ou en nouvel onglet, le lien tombe sur /connexion et son bouton « Je visite ». -->
+    <form id="cuisine-visite" method="post" action={`${CUISINE_URL}/explorer`} hidden></form>
+    <a href={`${CUISINE_URL}/connexion`} class="bento-wide cuisine reveal delay-2" data-cuisine-visite>
+      <div class="wide-text">
+        <div class="wide-head">
+          <span class="wide-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 11h16a8 8 0 0 1-16 0z"/>
+              <path d="M2.5 11h19"/>
+              <path d="M9 7c0-1.2 1-1.6 1-2.8M13 7c0-1.2 1-1.6 1-2.8"/>
+            </svg>
+          </span>
+          <span class="bento-eyebrow">
+            {t('hub.cuisine.eyebrow')} · <span class="wide-eyebrow-count">{formatCount(cuisineCount)} {t('hub.cuisine.stat')}</span>
+          </span>
+        </div>
+        <h2 class="wide-title display">{t('hub.cuisine.title')}</h2>
+        <p class="wide-body">{t('hub.cuisine.body')}</p>
+        <span class="wide-cta">
+          {t('hub.cuisine.cta')}
+          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+
+      <ul class="wide-features wide-features-cuisine" aria-label="Features">
+        {cuisineFeatures.map((i) => (
+          <li class="feat-pill">
+            <span class="feat-icon" aria-hidden="true">
+              {i === 1 && (
+                /* calendrier de la semaine */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="5" width="18" height="16" rx="2"/>
+                  <path d="M3 10h18M8 3v4M16 3v4"/>
+                  <path d="M7 14h2M11 14h2M15 14h2M7 17.5h2"/>
+                </svg>
+              )}
+              {i === 2 && (
+                /* panier */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9h18l-1.8 10a2 2 0 0 1-2 1.6H6.8a2 2 0 0 1-2-1.6z"/>
+                  <path d="M8 9l3-5M16 9l-3-5"/>
+                  <path d="M9 13v4M15 13v4"/>
+                </svg>
+              )}
+              {i === 3 && (
+                /* frigo */
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="2.5" width="14" height="19" rx="2"/>
+                  <path d="M5 10h14"/>
+                  <path d="M8.5 6v1.5M8.5 13v3"/>
+                </svg>
+              )}
+            </span>
+            <span class="feat-text">
+              <span class="feat-title">{t(`hub.cuisine.feat.${i}.title` as any)}</span>
+              <span class="feat-sub">{t(`hub.cuisine.feat.${i}.sub` as any)}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Showcase : l'ecran Choisir de la cuisine de visite, tel quel (11/11/2026) -->
+      <figure class="wide-showcase wide-showcase--still" aria-hidden="true">
+        <img src="/photos/cuisine/choisir-la-semaine.webp" alt="" width="2000" height="1125" loading="lazy" decoding="async" />
+      </figure>
+    </a>
+
+    <!-- GREEN HUB — full width sous Cuisine -->
     <a href={GREEN_HUB_URL} class="bento-wide green reveal delay-2">
       <div class="wide-text">
         <div class="wide-head">
@@ -253,129 +319,42 @@ const bristolFeatures = [1, 2, 3] as const;
       </figure>
     </a>
 
-    <!-- BRISTOL — full width sous Green Hub -->
-    <a href={BRISTOL_URL} class="bento-wide bristol reveal delay-2">
-      <div class="wide-text">
-        <div class="wide-head">
-          <span class="wide-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- BRISTOL, IDEES, PRODUCTIONS, MANUELS — rangee de petites cartes (11/11/2026) -->
+    <div class="bento-features">
+      <a href={BRISTOL_URL} class="bento-card bristol reveal delay-3">
+        <div class="card-head">
+          <span class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2.5" y="6" width="19" height="13" rx="2"/>
               <path d="M5.5 3.5h13"/>
               <path d="M6.5 10.5h8M6.5 14h5"/>
             </svg>
           </span>
-          <span class="bento-eyebrow">{t('hub.bristol.eyebrow')}</span>
+          <h3 class="card-title">{t('hub.bristol.title')}</h3>
         </div>
-        <h2 class="wide-title display">{t('hub.bristol.title')}</h2>
-        <p class="wide-body">{t('hub.bristol.body')}</p>
-        <span class="wide-cta">
-          {t('hub.visit')}
-          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <p>{t('hub.bristol.short')}</p>
+        <span class="card-foot">
+          {t('hub.visit')} <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </span>
-      </div>
+      </a>
 
-      <ul class="wide-features wide-features-bristol" aria-label="Features">
-        {bristolFeatures.map((i) => (
-          <li class="feat-pill">
-            <span class="feat-icon" aria-hidden="true">
-              {i === 1 && (
-                /* loupe */
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="11" cy="11" r="6.5"/>
-                  <path d="M16 16l4.5 4.5"/>
-                  <path d="M8.5 10h5M8.5 12.5h3"/>
-                </svg>
-              )}
-              {i === 2 && (
-                /* fiche en paysage */
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2.5" y="6.5" width="19" height="11" rx="1.5"/>
-                  <path d="M6 10h8M6 13h6"/>
-                </svg>
-              )}
-              {i === 3 && (
-                /* disque local */
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="18" height="7" rx="2"/>
-                  <rect x="3" y="13" width="18" height="7" rx="2"/>
-                  <path d="M7 7.5h.01M7 16.5h.01"/>
-                </svg>
-              )}
-            </span>
-            <span class="feat-text">
-              <span class="feat-title">{t(`hub.bristol.feat.${i}.title` as any)}</span>
-              <span class="feat-sub">{t(`hub.bristol.feat.${i}.sub` as any)}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <!-- Showcase : une fiche ouverte dans Bristol, telle quelle -->
-      <figure class="wide-showcase wide-showcase--still" aria-hidden="true">
-        <img src="/photos/bristol/lecteur-de-fiches.webp" alt="" width="2000" height="1125" loading="lazy" decoding="async" />
-      </figure>
-    </a>
-
-    <!-- IDÉES — full width sous Green Hub -->
-    <a href={IDEES_URL} class="bento-wide idees reveal delay-2">
-      <div class="wide-text">
-        <div class="wide-head">
-          <span class="wide-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <a href={IDEES_URL} class="bento-card idees reveal delay-3">
+        <div class="card-head">
+          <span class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 18h6"/>
               <path d="M10 21h4"/>
               <path d="M12 3a6 6 0 0 1 4 10.5c-.7.6-1 1.2-1 2V16H9v-.5c0-.8-.3-1.4-1-2A6 6 0 0 1 12 3z"/>
             </svg>
           </span>
-          <span class="bento-eyebrow">{t('hub.idees.eyebrow')}</span>
+          <h3 class="card-title">{t('hub.idees.title')}</h3>
         </div>
-        <h2 class="wide-title display">{t('hub.idees.title')}</h2>
-        <p class="wide-body">{t('hub.idees.body')}</p>
-        <span class="wide-cta">
-          {t('hub.visit')}
-          <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <p>{t('hub.idees.short')}</p>
+        <span class="card-foot">
+          {t('hub.visit')} <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </span>
-      </div>
+      </a>
 
-      <ul class="wide-features wide-features-idees" aria-label="Features">
-        {ideesFeatures.map((i) => (
-          <li class="feat-pill">
-            <span class="feat-icon" aria-hidden="true">
-              {i === 1 && (
-                /* microphone */
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="3" width="6" height="11" rx="3"/>
-                  <path d="M6 11a6 6 0 0 0 12 0"/>
-                  <path d="M12 17v4M9 21h6"/>
-                </svg>
-              )}
-              {i === 2 && (
-                /* sparkle / AI triage */
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 3l1.8 4.5L18 9l-4.2 1.5L12 15l-1.8-4.5L6 9l4.2-1.5z"/>
-                  <path d="M18 16l.9 2.1L21 19l-2.1.9L18 22l-.9-2.1L15 19l2.1-.9z"/>
-                </svg>
-              )}
-              {i === 3 && (
-                /* columns / by project */
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="5" height="16" rx="1"/>
-                  <rect x="9.5" y="4" width="5" height="11" rx="1"/>
-                  <rect x="16" y="4" width="5" height="14" rx="1"/>
-                </svg>
-              )}
-            </span>
-            <span class="feat-text">
-              <span class="feat-title">{t(`hub.idees.feat.${i}.title` as any)}</span>
-              <span class="feat-sub">{t(`hub.idees.feat.${i}.sub` as any)}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
-    </a>
-
-    <!-- SITES + MANUELS — grille 2 cols, comme avant -->
-    <div class="bento-features">
       <a href={SITES_URL} class="bento-card sites reveal delay-3">
         <div class="card-head">
           <span class="card-icon">
@@ -524,8 +503,6 @@ const bristolFeatures = [1, 2, 3] as const;
     /* blur appliqué une seule fois, JAMAIS animé → reste léger */
     filter: blur(24px) saturate(120%);
     transform: translate3d(0, 0, 0);
-    will-change: transform, opacity;
-    animation: hub-aurora 22s ease-in-out infinite alternate;
   }
   /* Light beam : cône chaud, sans mix-blend-mode (composite expensive).
      Le screen blend ne valait pas son coût en perf. */
@@ -546,18 +523,7 @@ const bristolFeatures = [1, 2, 3] as const;
       transparent 75%
     );
     transform: translate3d(-50%, 0, 0);
-    will-change: transform, opacity;
-    animation: hub-beam 12s ease-in-out infinite;
   }
-  @keyframes hub-aurora {
-    0%   { opacity: 0.7;  transform: translate3d(0, 0, 0) scale(1); }
-    100% { opacity: 1;    transform: translate3d(-2%, 1%, 0) scale(1.04); }
-  }
-  @keyframes hub-beam {
-    0%, 100% { opacity: 0.7; transform: translate3d(-50%, 0, 0) scaleX(1); }
-    50%      { opacity: 1;   transform: translate3d(-50%, 0, 0) scaleX(1.06); }
-  }
-
   /* TOP STRIP */
   .hub-top {
     display: flex;
@@ -670,18 +636,6 @@ const bristolFeatures = [1, 2, 3] as const;
     background-clip: text;
     color: transparent;
     filter: drop-shadow(0 0 16px var(--ember-glow-dim));
-    animation: t-em-shimmer 14s ease-in-out infinite;
-    will-change: background-position, filter;
-  }
-  @keyframes t-em-shimmer {
-    0%, 100% {
-      background-position: 0% 0%;
-      filter: drop-shadow(0 0 12px var(--ember-glow-dim));
-    }
-    50% {
-      background-position: 100% 0%;
-      filter: drop-shadow(0 0 28px var(--ember-glow-soft));
-    }
   }
   .hub-categories {
     list-style: none;
@@ -809,21 +763,13 @@ const bristolFeatures = [1, 2, 3] as const;
     --wide-fg-strong: #b8da9b;
     --wide-bg: rgba(90, 115, 96, 0.22);
   }
-  .bento-wide.bristol {
-    --wide-accent: rgba(224, 212, 180, 0.18);
-    --wide-border-hover: rgba(224, 212, 180, 0.52);
-    --wide-glow: rgba(224, 212, 180, 0.20);
-    --wide-fg: #e4dac2;
-    --wide-fg-strong: #d8c9a4;
-    --wide-bg: rgba(120, 108, 84, 0.24);
-  }
-  .bento-wide.idees {
-    --wide-accent: rgba(168, 148, 224, 0.20);
-    --wide-border-hover: rgba(176, 156, 230, 0.55);
-    --wide-glow: rgba(176, 156, 230, 0.22);
-    --wide-fg: #cfc4ec;
-    --wide-fg-strong: #bda9e6;
-    --wide-bg: rgba(98, 84, 134, 0.24);
+  .bento-wide.cuisine {
+    --wide-accent: rgba(236, 112, 84, 0.20);
+    --wide-border-hover: rgba(240, 128, 100, 0.55);
+    --wide-glow: rgba(240, 128, 100, 0.22);
+    --wide-fg: #f6c2b2;
+    --wide-fg-strong: #f29a80;
+    --wide-bg: rgba(150, 64, 44, 0.22);
   }
 
   .wide-text {
@@ -917,8 +863,7 @@ const bristolFeatures = [1, 2, 3] as const;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .wide-features-green,
-  .wide-features-bristol,
-  .wide-features-idees {
+  .wide-features-cuisine {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .feat-pill {
@@ -1041,7 +986,7 @@ const bristolFeatures = [1, 2, 3] as const;
     margin: 0;
   }
   .bento-wide.green .bento-eyebrow,
-  .bento-wide.idees .bento-eyebrow {
+  .bento-wide.cuisine .bento-eyebrow {
     color: var(--wide-fg-strong);
   }
   .bento-eyebrow::before {
@@ -1149,7 +1094,6 @@ const bristolFeatures = [1, 2, 3] as const;
       rgba(237, 170, 106, 0.5) 0%,
       rgba(224, 138, 68, 0.6) 50%,
       rgba(197, 106, 42, 0.65) 100%);
-    backdrop-filter: blur(14px) saturate(115%);
     border: 1px solid rgba(253, 228, 192, 0.30);
     border-radius: 999px;
     font-family: var(--font-body);
@@ -1175,10 +1119,10 @@ const bristolFeatures = [1, 2, 3] as const;
   .bento-room:hover .bento-room-cta .arrow {
     transform: translateX(4px);
   }
-  /* SITES + MANUELS — grille 2 cols */
+  /* BRISTOL, IDEES, PRODUCTIONS, MANUELS — 4 colonnes, 2 sous 980 px, 1 sous 560 px */
   .bento-features {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: clamp(1rem, 1.6vw, 1.4rem);
   }
   .bento-card {
@@ -1294,6 +1238,26 @@ const bristolFeatures = [1, 2, 3] as const;
     --card-glow: rgba(170, 180, 200, 0.22);
     --card-fg: #c8d1de;
     --card-bg: rgba(78, 88, 110, 0.22);
+  }
+  /* A quatre colonnes, le compteur ne tient pas a cote du titre : il revient a deux colonnes. */
+  @media (min-width: 981px) {
+    .bento-features .card-stat { display: none; }
+  }
+  /* Sur telephone la capture est recadree en 4/3 : on garde le coin du titre de l'appli. */
+  .bento-wide.cuisine .wide-showcase img { object-position: left top; }
+  .bento-card.bristol {
+    --card-accent: rgba(224, 212, 180, 0.16);
+    --card-border-hover: rgba(224, 212, 180, 0.52);
+    --card-glow: rgba(224, 212, 180, 0.20);
+    --card-fg: #e4dac2;
+    --card-bg: rgba(120, 108, 84, 0.24);
+  }
+  .bento-card.idees {
+    --card-accent: rgba(168, 148, 224, 0.18);
+    --card-border-hover: rgba(176, 156, 230, 0.55);
+    --card-glow: rgba(176, 156, 230, 0.22);
+    --card-fg: #cfc4ec;
+    --card-bg: rgba(98, 84, 134, 0.24);
   }
   .bento-card.manuels {
     --card-accent: rgba(212, 188, 142, 0.18);
@@ -1428,23 +1392,6 @@ const bristolFeatures = [1, 2, 3] as const;
   }
 
   /* ──────────────────────────────────────────────────────────────
-     HORS DE L'ÉCRAN, ON NE PEINT PLUS.
-     Les animations sans fin (halo du Music Hub, fondu des showcases,
-     leurs points, le shimmer du titre) sont gelées dès que leur bloc
-     quitte la vue, et repartent quand il revient. Ciblage nominatif :
-     les animations jouées UNE fois (ember-bloom) ne doivent surtout pas
-     être figées à mi-course. La classe est posée par l'observateur en
-     bas de fichier.
-     ────────────────────────────────────────────────────────────── */
-  .bento-wide.music.hors-vue,
-  .bento-wide.music.hors-vue .wide-cta,
-  .wide-showcase.hors-vue img,
-  .wide-showcase.hors-vue .showcase-dots .dot,
-  .hub-title .t-em.hors-vue {
-    animation-play-state: paused;
-  }
-
-  /* ──────────────────────────────────────────────────────────────
      EFFETS LUMIÈRE PARTAGÉS — shimmer sweep + bloom au reveal
      ────────────────────────────────────────────────────────────── */
 
@@ -1482,23 +1429,6 @@ const bristolFeatures = [1, 2, 3] as const;
     100% { background-position: 150% 0; }
   }
 
-  /* Pulse glow au moment où la card entre dans la vue (.reveal.in).
-     Filter plutôt que box-shadow pour ne pas entrer en conflit avec :hover. */
-  @keyframes ember-bloom {
-    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
-    40%      { filter: drop-shadow(0 0 26px var(--ember-glow-soft)); }
-  }
-  .bento-wide.reveal.in,
-  .bento-room.reveal.in,
-  .bento-card.reveal.in {
-    animation: ember-bloom 2.4s var(--ease) 0.35s 1 both;
-  }
-  /* Délais staggered : la cascade respire l'une après l'autre */
-  .bento-wide.reveal.in.delay-2 { animation-delay: 0.55s; }
-  .bento-card.reveal.in.delay-3 { animation-delay: 0.75s; }
-  .bento-card.reveal.in.delay-3:nth-of-type(2) { animation-delay: 0.95s; }
-  .bento-room.reveal.in.delay-4 { animation-delay: 1.15s; }
-
   /* Le shimmer joue au survol seulement. Celui qui traversait le bloc une fois,
      a son entree dans la vue, a ete retire le 10/09/2026 a la demande de Maxime. */
 
@@ -1509,16 +1439,6 @@ const bristolFeatures = [1, 2, 3] as const;
      ────────────────────────────────────────────────────────────── */
   .bento-wide.music {
     border-color: rgba(237, 170, 106, 0.28);
-    animation: music-border-pulse 4.4s ease-in-out infinite;
-    will-change: filter;
-  }
-  @keyframes music-border-pulse {
-    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
-    50%      { filter: drop-shadow(0 0 22px rgba(237, 170, 106, 0.35)); }
-  }
-  .bento-wide.music:hover,
-  .bento-wide.music.reveal:not(.in) {
-    animation-play-state: paused;
   }
 
   /* ──────────────────────────────────────────────────────────────
@@ -1569,65 +1489,16 @@ const bristolFeatures = [1, 2, 3] as const;
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    opacity: 0;
-    animation: showcase-fade 10.5s ease-in-out infinite;
-    will-change: opacity;
-  }
-  .wide-showcase img:nth-child(1) { animation-delay: 0s; }
-  .wide-showcase img:nth-child(2) { animation-delay: 3.5s; }
-  .wide-showcase img:nth-child(3) { animation-delay: 7s; }
-  /* Variante statique (Green Hub) : une seule capture, aucune animation */
-  .wide-showcase--still img {
-    opacity: 1;
-    animation: none;
-    will-change: auto;
   }
   .bento-wide.green .wide-showcase {
     --halo-a: rgba(154, 200, 138, 0.38);
     --halo-b: rgba(154, 200, 138, 0.26);
     --halo-fade: rgba(154, 200, 138, 0);
   }
-  .bento-wide.bristol .wide-showcase {
-    --halo-a: rgba(224, 212, 180, 0.34);
-    --halo-b: rgba(224, 212, 180, 0.22);
-    --halo-fade: rgba(224, 212, 180, 0);
-  }
-
-  @keyframes showcase-fade {
-    0%              { opacity: 0; }
-    4.76%, 28.57%   { opacity: 1; }
-    33.33%, 100%    { opacity: 0; }
-  }
-
-  /* Dots indicateurs en bas du showcase */
-  .showcase-dots {
-    position: absolute;
-    bottom: 0.7rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: inline-flex;
-    gap: 0.45rem;
-    padding: 0.35rem 0.65rem;
-    background: rgba(11, 9, 7, 0.55);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 999px;
-    z-index: 2;
-  }
-  .showcase-dots .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: rgba(244, 237, 227, 0.25);
-    animation: showcase-dot 10.5s ease-in-out infinite;
-  }
-  .showcase-dots .dot:nth-child(1) { animation-delay: 0s; }
-  .showcase-dots .dot:nth-child(2) { animation-delay: 3.5s; }
-  .showcase-dots .dot:nth-child(3) { animation-delay: 7s; }
-  @keyframes showcase-dot {
-    0%              { background: rgba(244, 237, 227, 0.25); transform: scale(1); }
-    4.76%, 28.57%   { background: var(--ember-300); transform: scale(1.25); }
-    33.33%, 100%    { background: rgba(244, 237, 227, 0.25); transform: scale(1); }
+  .bento-wide.cuisine .wide-showcase {
+    --halo-a: rgba(240, 128, 100, 0.36);
+    --halo-b: rgba(240, 128, 100, 0.24);
+    --halo-fade: rgba(240, 128, 100, 0);
   }
 
   /* Sur mobile : la card passe en 1 col, le showcase passe en aspect 4/3 */
@@ -1636,14 +1507,9 @@ const bristolFeatures = [1, 2, 3] as const;
   }
   @media (max-width: 560px) {
     .wide-showcase { aspect-ratio: 4 / 3; margin-top: 0.4rem; }
-    .showcase-dots { bottom: 0.5rem; padding: 0.25rem 0.5rem; }
-    .showcase-dots .dot { width: 5px; height: 5px; }
   }
 
-  /* CTA Explorer du Music Hub = braise qui respire.
-     Box-shadow multi-layer animé = repaint. On simplifie à opacity-only
-     via un pseudo overlay impossible ici → on garde un seul box-shadow
-     dont seule l'opacité varie (couleur unique, alpha animé). */
+  /* CTA Explorer du Music Hub : braise fixe (la pulsation est retiree le 11/11/2026). */
   .bento-wide.music .wide-cta {
     background:
       linear-gradient(180deg,
@@ -1654,32 +1520,11 @@ const bristolFeatures = [1, 2, 3] as const;
     box-shadow:
       inset 0 1px 0 rgba(253, 228, 192, 0.22),
       0 0 18px var(--ember-glow-dim);
-    animation: cta-ember-pulse 3s ease-in-out infinite;
-    will-change: opacity, transform;
-  }
-  /* Animation opacity-only via un sibling — pas possible sans markup,
-     donc on anime juste un scale très subtil (compositor-only) + opacity
-     du background-image overlay via filter brightness. */
-  @keyframes cta-ember-pulse {
-    0%, 100% { transform: scale(1);     filter: brightness(1); }
-    50%      { transform: scale(1.025); filter: brightness(1.12); }
   }
   .bento-wide.music:hover .wide-cta {
-    animation-play-state: paused;
     background: var(--wide-bg);
     color: var(--ink-50);
     border-color: var(--wide-border-hover);
-  }
-
-  /* Respect prefers-reduced-motion : tous les loops infinis off */
-  @media (prefers-reduced-motion: reduce) {
-    .hub::before,
-    .hub::after,
-    .hub-title .t-em,
-    .bento-wide.music,
-    .bento-wide.music .wide-cta {
-      animation: none !important;
-    }
   }
 
   /* RESPONSIVE */
@@ -1689,7 +1534,10 @@ const bristolFeatures = [1, 2, 3] as const;
       gap: 1.4rem;
     }
     .wide-features-music {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .bento-features {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   @media (max-width: 920px) {
@@ -1714,8 +1562,7 @@ const bristolFeatures = [1, 2, 3] as const;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .wide-features-green,
-    .wide-features-bristol,
-    .wide-features-idees {
+    .wide-features-cuisine {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
@@ -1761,7 +1608,7 @@ const bristolFeatures = [1, 2, 3] as const;
     }
     .wide-features-music,
     .wide-features-green,
-    .wide-features-idees {
+    .wide-features-cuisine {
       grid-template-columns: 1fr;
     }
     .feat-pill {
@@ -1830,23 +1677,14 @@ const bristolFeatures = [1, 2, 3] as const;
   const cards = document.querySelectorAll<HTMLElement>('.bento-wide, .bento-room, .bento-card');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ── Hors de l'écran, on gèle les animations sans fin ──────────────────────
-  // Une marge de 300 px les relance juste avant que le bloc n'entre dans la vue,
-  // pour qu'on ne surprenne jamais une animation en train de démarrer.
-  const anims = document.querySelectorAll<HTMLElement>(
-    '.wide-showcase, .bento-wide.music, .hub-title .t-em',
-  );
-  if (anims.length && 'IntersectionObserver' in window) {
-    const veille = new IntersectionObserver(
-      (entrees) => {
-        for (const entree of entrees) {
-          entree.target.classList.toggle('hors-vue', !entree.isIntersecting);
-        }
-      },
-      { rootMargin: '300px 0px' },
-    );
-    anims.forEach((el) => veille.observe(el));
-  }
+  // ── Cuisine : un clic simple entre dans la cuisine de visite (POST /explorer).
+  // Ctrl/Cmd/Maj/clic milieu gardent le lien normal vers /connexion.
+  const visite = document.getElementById('cuisine-visite') as HTMLFormElement | null;
+  document.querySelector<HTMLAnchorElement>('[data-cuisine-visite]')?.addEventListener('click', (e) => {
+    if (!visite || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    visite.submit();
+  });
 
   if (!prefersReducedMotion) {
     cards.forEach((card) => {

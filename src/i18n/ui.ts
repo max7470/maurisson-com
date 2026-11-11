@@ -14,6 +14,7 @@ export const AIRBNB_REVIEWS_URL = 'https://www.airbnb.be/rooms/11971197387072498
 export const MUSIC_HUB_URL = 'https://musichub.maurisson.com';
 export const GREEN_HUB_URL = 'https://greenhub.maurisson.com';
 export const BRISTOL_URL = 'https://bristol.maurisson.com';
+export const CUISINE_URL = 'https://cuisine.maurisson.com';
 export const IDEES_URL = 'https://idees.maurisson.com';
 export const SITES_URL = 'https://sites.maurisson.com';
 export const MANUELS_URL = 'https://manuels.maurisson.com';
@@ -48,6 +49,21 @@ export async function fetchMusicCount(): Promise<number> {
   }
 }
 export const GREEN_COUNT = 47;
+
+/** Le compteur de recettes de Cuisine, lu au build sur /api/sante (libre, sans session).
+ *  Meme logique que fetchMusicCount : si Cuisine ne repond pas, on retombe sur
+ *  CUISINE_COUNT et le site se construit quand meme. */
+export const CUISINE_COUNT = 8593;
+export async function fetchCuisineCount(): Promise<number> {
+  try {
+    const r = await fetch(`${CUISINE_URL}/api/sante`, { signal: AbortSignal.timeout(6000) });
+    if (!r.ok) return CUISINE_COUNT;
+    const data = (await r.json()) as { cartes?: number };
+    return typeof data.cartes === 'number' && data.cartes > 0 ? data.cartes : CUISINE_COUNT;
+  } catch {
+    return CUISINE_COUNT;
+  }
+}
 
 export const ui = {
   fr: {
@@ -126,7 +142,20 @@ export const ui = {
     'hub.manuels.stat': 'guides',
     'hub.manuels.body': 'Guides imprimables que j\'écris quand un sujet mérite mieux qu\'un mode d\'emploi standard. Tout ce que je pratique assez pour vouloir le transmettre proprement.',
     'hub.visit': 'Explorer',
-    'hub.footer.bio': 'Maurisson — hôte, dev, musicien, jardinier.',
+    'hub.cuisine.title': 'Cuisine',
+    'hub.cuisine.eyebrow': 'La cuisine de la maison',
+    'hub.cuisine.stat': 'recettes',
+    'hub.cuisine.body': 'Cinq soupers pour la semaine, choisis d\'un coup. L\'appli en tire une seule liste de courses, retire ce qui est déjà au frigo et met en avant les plats qui finissent les restes. Chaque recette se suit pas à pas, pour deux comme pour douze. Vous entrez dans une cuisine de démonstration : touchez à tout, rien n\'est enregistré.',
+    'hub.cuisine.feat.1.title': 'Menus de la semaine',
+    'hub.cuisine.feat.1.sub': 'Cinq soupers en un choix',
+    'hub.cuisine.feat.2.title': 'Une seule liste',
+    'hub.cuisine.feat.2.sub': 'Le frigo déjà déduit',
+    'hub.cuisine.feat.3.title': 'Le frigo',
+    'hub.cuisine.feat.3.sub': 'Ce qu\'on cuisine avec',
+    'hub.cuisine.cta': 'Entrer dans la cuisine',
+    'hub.bristol.short': 'Vos notes Word sur une fiche cartonnée A6, avec une recherche dans tout leur texte. Rien ne quitte votre disque.',
+    'hub.idees.short': 'Une idée dictée ou tapée, rangée toute seule par projet. La bonne idée ne se perd plus.',
+    'hub.footer.bio': 'Maurisson — hôte, dev, musicien, cuisinier, jardinier.',
     'hub.footer.copy': '© 2026 Maurisson · Herve, Belgique · Hôte Airbnb',
 
     'hero.eyebrow': 'Herve · Belgique',
@@ -283,7 +312,20 @@ export const ui = {
     'hub.manuels.stat': 'gidsen',
     'hub.manuels.body': 'Afdrukbare gidsen die ik schrijf wanneer een onderwerp beter verdient dan een standaard handleiding. Alles waarmee ik genoeg bezig ben om het netjes door te willen geven.',
     'hub.visit': 'Verkennen',
-    'hub.footer.bio': 'Maurisson — gastheer, dev, muzikant, tuinier.',
+    'hub.cuisine.title': 'Keuken',
+    'hub.cuisine.eyebrow': 'De keuken van het huis',
+    'hub.cuisine.stat': 'recepten',
+    'hub.cuisine.body': 'Vijf avondmaaltijden voor de week, in één keer gekozen. De app maakt er één boodschappenlijst van, haalt eraf wat al in de koelkast ligt en zet de gerechten die restjes opmaken vooraan. U volgt elk recept stap voor stap, voor twee of voor twaalf. U komt binnen in een demokeuken, in het Frans: probeer gerust alles, er wordt niets bewaard.',
+    'hub.cuisine.feat.1.title': 'Weekmenu',
+    'hub.cuisine.feat.1.sub': 'Vijf avondmaaltijden in één keer',
+    'hub.cuisine.feat.2.title': 'Eén lijst',
+    'hub.cuisine.feat.2.sub': 'Koelkast al afgetrokken',
+    'hub.cuisine.feat.3.title': 'De koelkast',
+    'hub.cuisine.feat.3.sub': 'Wat u ermee kookt',
+    'hub.cuisine.cta': 'Naar de keuken',
+    'hub.bristol.short': 'Uw Word-notities op een kartonnen A6-fiche, doorzoekbaar in de volledige tekst. Niets verlaat uw schijf.',
+    'hub.idees.short': 'Een idee ingesproken of getypt, vanzelf per project gerangschikt. Het goede idee raakt niet meer kwijt.',
+    'hub.footer.bio': 'Maurisson — gastheer, dev, muzikant, kok, tuinier.',
     'hub.footer.copy': '© 2026 Maurisson · Herve, België · Airbnb-gastheer',
 
     'hero.eyebrow': 'Herve · België',
@@ -440,7 +482,20 @@ export const ui = {
     'hub.manuels.stat': 'guides',
     'hub.manuels.body': 'Printable guides I write when a subject deserves better than a stock manual. Everything I practice enough to want to pass it on properly.',
     'hub.visit': 'Explore',
-    'hub.footer.bio': 'Maurisson — host, dev, musician, gardener.',
+    'hub.cuisine.title': 'Kitchen',
+    'hub.cuisine.eyebrow': 'The house kitchen',
+    'hub.cuisine.stat': 'recipes',
+    'hub.cuisine.body': 'Five dinners for the week, picked in one go. The app turns them into a single shopping list, takes off what is already in the fridge and puts the dishes that use up leftovers first. Every recipe runs step by step, for two or for twelve. You walk into a demo kitchen, in French: try everything, nothing is saved.',
+    'hub.cuisine.feat.1.title': 'Weekly menu',
+    'hub.cuisine.feat.1.sub': 'Five dinners in one pick',
+    'hub.cuisine.feat.2.title': 'One list',
+    'hub.cuisine.feat.2.sub': 'Fridge already deducted',
+    'hub.cuisine.feat.3.title': 'The fridge',
+    'hub.cuisine.feat.3.sub': 'What you can cook with it',
+    'hub.cuisine.cta': 'Step into the kitchen',
+    'hub.bristol.short': 'Your Word notes on an A6 index card, searchable through their full text. Nothing leaves your drive.',
+    'hub.idees.short': 'An idea spoken or typed, filed by project on its own. The good one never gets lost.',
+    'hub.footer.bio': 'Maurisson — host, dev, musician, cook, gardener.',
     'hub.footer.copy': '© 2026 Maurisson · Herve, Belgium · Airbnb host',
 
     'hero.eyebrow': 'Herve · Belgium',
@@ -597,7 +652,20 @@ export const ui = {
     'hub.manuels.stat': 'Anleitungen',
     'hub.manuels.body': 'Druckbare Anleitungen, die ich schreibe, wenn ein Thema mehr verdient als eine Standardanleitung. Alles, womit ich mich genug beschäftige, um es ordentlich weitergeben zu wollen.',
     'hub.visit': 'Erkunden',
-    'hub.footer.bio': 'Maurisson — Gastgeber, Entwickler, Musiker, Gärtner.',
+    'hub.cuisine.title': 'Küche',
+    'hub.cuisine.eyebrow': 'Die Küche des Hauses',
+    'hub.cuisine.stat': 'Rezepte',
+    'hub.cuisine.body': 'Fünf Abendessen für die Woche, auf einmal ausgewählt. Die App macht daraus eine einzige Einkaufsliste, zieht ab, was schon im Kühlschrank ist, und stellt die Gerichte nach vorn, die Reste aufbrauchen. Jedes Rezept geht Schritt für Schritt, für zwei wie für zwölf. Sie betreten eine Demo-Küche auf Französisch: Probieren Sie alles aus, nichts wird gespeichert.',
+    'hub.cuisine.feat.1.title': 'Wochenmenü',
+    'hub.cuisine.feat.1.sub': 'Fünf Abendessen auf einmal',
+    'hub.cuisine.feat.2.title': 'Eine Liste',
+    'hub.cuisine.feat.2.sub': 'Kühlschrank schon abgezogen',
+    'hub.cuisine.feat.3.title': 'Der Kühlschrank',
+    'hub.cuisine.feat.3.sub': 'Was man damit kocht',
+    'hub.cuisine.cta': 'Zur Küche',
+    'hub.bristol.short': 'Ihre Word-Notizen auf einer A6-Karteikarte, im ganzen Text durchsuchbar. Nichts verlässt Ihre Festplatte.',
+    'hub.idees.short': 'Eine Idee, gesprochen oder getippt, ordnet sich selbst nach Projekt. Die gute Idee geht nicht mehr verloren.',
+    'hub.footer.bio': 'Maurisson — Gastgeber, Entwickler, Musiker, Koch, Gärtner.',
     'hub.footer.copy': '© 2026 Maurisson · Herve, Belgien · Airbnb-Gastgeber',
 
     'hero.eyebrow': 'Herve · Belgien',
