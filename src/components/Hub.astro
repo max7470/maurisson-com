@@ -176,10 +176,12 @@ const cuisineFeatures = [1, 2, 3] as const;
         ))}
       </ul>
 
-      <!-- Showcase : une capture fixe (le fondu entre trois captures est retire le 11/11/2026 : la page ramait) -->
-      <figure class="wide-showcase wide-showcase--still" aria-hidden="true">
-        <img src="/photos/music-hub/studio-midi.webp" alt="" loading="lazy" decoding="async" />
-      </figure>
+      <!-- Trois vignettes Music Hub (11/11/2026, Max : « 2 ou 3 par app, en plus petit ») -->
+      <div class="wide-shots" aria-hidden="true">
+        <img src="/photos/vitrines/music-1.webp" alt="" width="960" height="600" loading="lazy" decoding="async" />
+        <img src="/photos/vitrines/music-2.webp" alt="" width="960" height="600" loading="lazy" decoding="async" />
+        <img src="/photos/vitrines/music-3.webp" alt="" width="960" height="600" loading="lazy" decoding="async" />
+      </div>
     </a>
 
     <!-- CUISINE — juste apres Music. Le clic ouvre la cuisine de visite (copie jetable
@@ -246,10 +248,12 @@ const cuisineFeatures = [1, 2, 3] as const;
         ))}
       </ul>
 
-      <!-- Showcase : l'ecran Choisir de la cuisine de visite, tel quel (11/11/2026) -->
-      <figure class="wide-showcase wide-showcase--still" aria-hidden="true">
-        <img src="/photos/cuisine/choisir-la-semaine.webp" alt="" width="2000" height="1125" loading="lazy" decoding="async" />
-      </figure>
+      <!-- Trois vignettes Cuisine (11/11/2026, Max : « 2 ou 3 par app, en plus petit ») -->
+      <div class="wide-shots" aria-hidden="true">
+        <img src="/photos/vitrines/cuisine-1.webp" alt="" width="960" height="600" loading="lazy" decoding="async" />
+        <img src="/photos/vitrines/cuisine-2.webp" alt="" width="960" height="600" loading="lazy" decoding="async" />
+        <img src="/photos/vitrines/cuisine-3.webp" alt="" width="960" height="600" loading="lazy" decoding="async" />
+      </div>
     </a>
 
     <!-- GREEN HUB — full width sous Cuisine -->
@@ -312,10 +316,12 @@ const cuisineFeatures = [1, 2, 3] as const;
         ))}
       </ul>
 
-      <!-- Showcase : la home du Green Hub, telle quelle -->
-      <figure class="wide-showcase wide-showcase--still" aria-hidden="true">
-        <img src="/photos/green-hub/jardin-vivant.webp" alt="" width="2000" height="1125" loading="lazy" decoding="async" />
-      </figure>
+      <!-- Trois vignettes Green Hub (11/11/2026, Max : « 2 ou 3 par app, en plus petit ») -->
+      <div class="wide-shots" aria-hidden="true">
+        <img src="/photos/vitrines/green-1.webp" alt="" width="960" height="600" loading="lazy" decoding="async" />
+        <img src="/photos/vitrines/green-2.webp" alt="" width="960" height="600" loading="lazy" decoding="async" />
+        <img src="/photos/vitrines/green-3.webp" alt="" width="960" height="600" loading="lazy" decoding="async" />
+      </div>
     </a>
 
     <!-- BRISTOL, IDEES, PRODUCTIONS, MANUELS — rangee de petites cartes (11/11/2026) -->
@@ -1124,7 +1130,6 @@ const cuisineFeatures = [1, 2, 3] as const;
     .bento-features .card-stat { display: none; }
   }
   /* Sur telephone la capture est recadree en 4/3 : on garde le coin du titre de l'appli. */
-  .bento-wide.cuisine .wide-showcase img { object-position: left top; }
   .bento-card.bristol {
     --card-accent: rgba(224, 212, 180, 0.16);
     --card-border-hover: rgba(224, 212, 180, 0.52);
@@ -1276,41 +1281,43 @@ const cuisineFeatures = [1, 2, 3] as const;
   }
 
   /* ──────────────────────────────────────────────────────────────
-     SHOWCASE — une capture fixe par grande fiche
+     VIGNETTES — trois captures par grande fiche, cote a cote
+     (sur telephone : une rangee qui defile au doigt)
      ────────────────────────────────────────────────────────────── */
-  .wide-showcase {
+  .wide-shots {
     position: relative;
     z-index: 1;
     grid-column: 1 / -1;
-    margin: 0.6rem 0 0;
+    margin: 0.4rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+  .wide-shots img {
+    display: block;
     width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 14px;
-    overflow: hidden;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: left top;
+    border-radius: 10px;
     border: 1px solid var(--border-strong);
     background: var(--ink-900);
-    box-shadow:
-      var(--shadow-md),
-      inset 0 1px 0 rgba(253, 228, 192, 0.05);
-    isolation: isolate;
-    contain: paint;
-  }
-  /* Halo cuivré subtil tout autour du cadre (effet "écran allumé") */
-  .wide-showcase img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-  }
-
-  /* Sur mobile : la card passe en 1 col, le showcase passe en aspect 4/3 */
-  @media (max-width: 980px) {
-    .wide-showcase { aspect-ratio: 16 / 10; }
   }
   @media (max-width: 560px) {
-    .wide-showcase { aspect-ratio: 4 / 3; margin-top: 0.4rem; }
+    .wide-shots {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 78%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin-inline: -1.3rem;
+      padding-inline: 1.3rem;
+      scroll-padding-inline: 1.3rem;
+    }
+    .wide-shots::-webkit-scrollbar { display: none; }
+    .wide-shots img { scroll-snap-align: start; }
   }
 
   /* CTA Explorer du Music Hub : braise fixe (la pulsation est retiree le 11/11/2026). */
